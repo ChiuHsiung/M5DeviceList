@@ -10,6 +10,7 @@
 
 #import "TPCircle.h"
 #import "TPAttributedStringGenerator.h"
+#import "TPDeviceInfoView.h"
 
 #define WIDTH_SCALE (0.4f)
 
@@ -46,6 +47,11 @@
     [self.circle addSubview:self.numOfDevicesLabel];
     [self.circle addSubview:self.deciveLogoImgView];
     [self.circle addSubview:self.deviceLabel];
+    
+    TPDeviceInfoView *deviceInfoView = [[TPDeviceInfoView alloc] initWithFrame:CGRectMake(0, 50, 50, 50)];
+    deviceInfoView.circleColor = [UIColor grayColor];
+    deviceInfoView.lineWidth = 1;
+    [self.view addSubview:deviceInfoView];
     
     [self layoutCircle];
     

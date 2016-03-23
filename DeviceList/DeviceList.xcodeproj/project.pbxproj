@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3C25B6B61CA1658B00375924 /* TPLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C25B6B51CA1658B00375924 /* TPLine.m */; };
+		3C278DA81CA242ED009C5B1D /* TPLineBandView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C278DA71CA242ED009C5B1D /* TPLineBandView.m */; };
+		3C278DAE1CA2AE34009C5B1D /* TPDeviceInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C278DAD1CA2AE34009C5B1D /* TPDeviceInfoView.m */; };
 		3CC878191CA0E88E0054F6EE /* DeviceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC878181CA0E88E0054F6EE /* DeviceListViewController.m */; };
 		3CC8781F1CA0EA2F0054F6EE /* TPCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC8781E1CA0EA2F0054F6EE /* TPCircle.m */; };
 		3CC878211CA0F47B0054F6EE /* Design.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC878201CA0F47B0054F6EE /* Design.xib */; };
@@ -18,8 +19,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3C25B6B41CA1658B00375924 /* TPLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPLine.h; path = View/TPLine.h; sourceTree = "<group>"; };
-		3C25B6B51CA1658B00375924 /* TPLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPLine.m; path = View/TPLine.m; sourceTree = "<group>"; };
+		3C278DA61CA242ED009C5B1D /* TPLineBandView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPLineBandView.h; path = View/TPLineBandView.h; sourceTree = "<group>"; };
+		3C278DA71CA242ED009C5B1D /* TPLineBandView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPLineBandView.m; path = View/TPLineBandView.m; sourceTree = "<group>"; };
+		3C278DAC1CA2AE34009C5B1D /* TPDeviceInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPDeviceInfoView.h; path = View/TPDeviceInfoView.h; sourceTree = "<group>"; };
+		3C278DAD1CA2AE34009C5B1D /* TPDeviceInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPDeviceInfoView.m; path = View/TPDeviceInfoView.m; sourceTree = "<group>"; };
 		3CC878171CA0E88E0054F6EE /* DeviceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceListViewController.h; path = ViewController/DeviceListViewController.h; sourceTree = "<group>"; };
 		3CC878181CA0E88E0054F6EE /* DeviceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceListViewController.m; path = ViewController/DeviceListViewController.m; sourceTree = "<group>"; };
 		3CC8781D1CA0EA2F0054F6EE /* TPCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPCircle.h; path = View/TPCircle.h; sourceTree = "<group>"; };
@@ -92,8 +95,10 @@
 				3CC878231CA125350054F6EE /* TPAttributedStringGenerator.m */,
 				3CC8781D1CA0EA2F0054F6EE /* TPCircle.h */,
 				3CC8781E1CA0EA2F0054F6EE /* TPCircle.m */,
-				3C25B6B41CA1658B00375924 /* TPLine.h */,
-				3C25B6B51CA1658B00375924 /* TPLine.m */,
+				3C278DA61CA242ED009C5B1D /* TPLineBandView.h */,
+				3C278DA71CA242ED009C5B1D /* TPLineBandView.m */,
+				3C278DAC1CA2AE34009C5B1D /* TPDeviceInfoView.h */,
+				3C278DAD1CA2AE34009C5B1D /* TPDeviceInfoView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -176,12 +181,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C278DAE1CA2AE34009C5B1D /* TPDeviceInfoView.m in Sources */,
 				3CC878241CA125350054F6EE /* TPAttributedStringGenerator.m in Sources */,
 				3CEBBED41CA0E3B300B2F751 /* AppDelegate.m in Sources */,
 				3CEBBED11CA0E3B300B2F751 /* main.m in Sources */,
 				3CC878191CA0E88E0054F6EE /* DeviceListViewController.m in Sources */,
+				3C278DA81CA242ED009C5B1D /* TPLineBandView.m in Sources */,
 				3CC8781F1CA0EA2F0054F6EE /* TPCircle.m in Sources */,
-				3C25B6B61CA1658B00375924 /* TPLine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
