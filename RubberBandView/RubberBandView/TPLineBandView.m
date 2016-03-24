@@ -8,6 +8,8 @@
 
 #import "TPLineBandView.h"
 
+#import "TPDeviceInfoView.h"
+
 #import <QuartzCore/QuartzCore.h>
 
 static CFTimeInterval defaultDuration = 0.3;
@@ -44,6 +46,14 @@ static float acceleration(float time,float space) {
     [self _init];
 }
 
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame]) {
+        [self _init];
+    }
+    return self;
+}
+
 - (id)initWithFrame:(CGRect)frame layerProperty:(LineBandProperty)property {
     if (self = [super initWithFrame:frame]) {
         [self _init];
@@ -59,6 +69,12 @@ static float acceleration(float time,float space) {
     _link = [CADisplayLink displayLinkWithTarget:self selector:@selector(timeUpdate:)];
     _link.paused = YES;
     [_link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    
+    _deviceInfoView = [[TPDeviceInfoView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width / 2, self.bounds.size.width / 2) withCircleColor:[UIColor grayColor] andLineWidth:3];
+    NSLog(@"%f", self.center.x);
+    _deviceInfoView.center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 4 * 3);
+    [self addSubview:_deviceInfoView];
+    
 }
 
 #pragma mark - attributes
@@ -77,6 +93,7 @@ static float acceleration(float time,float space) {
 - (void)setLineWidth:(CGFloat)lineWidth
 {
     _lineWidth = lineWidth;
+    self.deviceInfoView.lineWidth = lineWidth;
     if (_drawLayer) _drawLayer.lineWidth = lineWidth;
     [self resetDefault];
 }
@@ -86,7 +103,11 @@ static float acceleration(float time,float space) {
     self.pointMoved = POINTMOVED_TYPE_NONE;
     UIBezierPath *path = [self pullPathWithOffsetX:0 andOffsetY:0 toOut:YES];//当0，0时 andIsUpPointMoved的参数不重要
     [self redrawWithPath:path.CGPath];
+    
+    self.deviceInfoView.center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 4 * 3);
 }
+
+
 
 #pragma mark - action
 
@@ -181,135 +202,163 @@ static float acceleration(float time,float space) {
     }
     
     
-//    //回弹处理
-//    
-//    CGPathRef path;
-//    
-//    float partTime1 = _duration/2;
-//    float partTime2 = (_duration - partTime1)/2;
-//    float partTime3 = (_duration - partTime1 - partTime2);
-//    
-//    float partSpace1 = 0 , partSpace2 = 0 , partSpace3 = 0;
-//    
-//    float offSetX = 0;
-//    float offSetY = 0;
-//    if (self.pointMoved == POINTMOVED_TYPE_UP)
-//    {
-//        offSetX = (_beginProperty.upPoint.x - _property.upPoint.x);
-//        offSetY = (_beginProperty.upPoint.y - _property.upPoint.y);
-//    }
-//    
-//    else if (self.pointMoved == POINTMOVED_TYPE_DOWN)
-//    {
-//        offSetX = (_beginProperty.downPoint.x - _property.downPoint.x);
-//        offSetY = (_beginProperty.downPoint.y - _property.downPoint.y);
-//    }
-//    
-//    float x = offSetX/[self lineLenth:_property];//内缩倍数
-//    if (x>1) x = 1;
-//    float inset = x * ([self lineLenth:_property]/2);//对比正常内缩距离,系数 * 正常宽度的一半
-//    
-//    partSpace1 = [self lineLenth:_beginProperty] - [self lineLenth:_property] + inset;//总回弹距离
-//    partSpace2 = inset + x*([self lineLenth:_property]/3);//第二次弹出距离
-//    partSpace3 = x*([self lineLenth:_property]/3);//回到正常的距离
-//    
-//    float partSpacey1 = 0 , partSpacey2 = 0 , partSpacey3 = 0;
-//    
-//    float y = offSetY/[self lineLenth:_property];//内缩倍数
-//    if (y>1) y = 1;
-//    float insetY = y * ([self lineLenth:_property]/2);//对比正常内缩距离,系数 * 正常宽度的一半
-//    
-//    partSpacey1 = [self lineLenth:_beginProperty] - [self lineLenth:_property] + inset;//总回弹距离
-//    partSpacey2 = inset + y*([self lineLenth:_property]/3);//第二次弹出距离
-//    partSpacey3 = y*([self lineLenth:_property]/3);//回到正常的距离
-//    
-//    if (fabs(offSetX) >= fabs(offSetY))
-//    {
-//        
-//        if(runtime<=partTime1)//拉倒极限后反弹
-//        {
-//            float time = runtime;
-//            float a = acceleration(partTime1,partSpace1);
-//            float space = a*time*time/2;
-//            
-//            float b = acceleration(partTime1,partSpacey1);
-//            float spacey = b*time*time/2;
-//            
-//            //        path = [self pullPathWithOffsetX:offSetX - space andOffsetY:offSetY - spacey toOut:NO].CGPath;
-//            path = [self pullPathWithOffsetX:offSetX - space andOffsetY:0 toOut:NO].CGPath;
-//        }
-//        else if(runtime <= partTime1+partTime2)
-//        {
-//            float time = runtime-partTime1;
-//            float a = acceleration(partTime2,partSpace2);
-//            float space = a*time*time/2;
-//            
-//            float b = acceleration(partTime2,partSpacey2);
-//            float spacey = b*time*time/2;
-//            
-//            //        path = [self pullPathWithOffsetX:- inset + space andOffsetY:- inset + spacey toOut:NO].CGPath;
-//            path = [self pullPathWithOffsetX:- inset + space andOffsetY:0 toOut:NO].CGPath;
-//        }else
-//        {
-//            float time = runtime-partTime1-partTime2;
-//            float a = acceleration(partTime3,partSpace3);
-//            float space = a*time*time/2;
-//            
-//            float b = acceleration(partTime3,partSpacey3);
-//            float spacey = b*time*time/2;
-//            
-//            //        path = [self pullPathWithOffsetX:partSpace3 - space andOffsetY:partSpacey3 - spacey toOut:NO].CGPath;
-//            path = [self pullPathWithOffsetX:partSpace3 - space andOffsetY:0 toOut:NO].CGPath;
-//        }
-//        
-//    }
-//    
-//    else
-//    {
-//        
-//        if(runtime<=partTime1)//拉倒极限后反弹
-//        {
-//            float time = runtime;
-//            float a = acceleration(partTime1,partSpace1);
-//            float space = a*time*time/2;
-//            
-//            float b = acceleration(partTime1,partSpacey1);
-//            float spacey = b*time*time/2;
-//            
-//            //        path = [self pullPathWithOffsetX:offSetX - space andOffsetY:offSetY - spacey toOut:NO].CGPath;
-//            path = [self pullPathWithOffsetX:0 andOffsetY:offSetY - spacey toOut:NO].CGPath;
-//        }
-//        else if(runtime <= partTime1+partTime2)
-//        {
-//            float time = runtime-partTime1;
-//            float a = acceleration(partTime2,partSpace2);
-//            float space = a*time*time/2;
-//            
-//            float b = acceleration(partTime2,partSpacey2);
-//            float spacey = b*time*time/2;
-//            
-//            //        path = [self pullPathWithOffsetX:- inset + space andOffsetY:- inset + spacey toOut:NO].CGPath;
-//            path = [self pullPathWithOffsetX:0 andOffsetY:- inset + spacey toOut:NO].CGPath;
-//        }else
-//        {
-//            float time = runtime-partTime1-partTime2;
-//            float a = acceleration(partTime3,partSpace3);
-//            float space = a*time*time/2;
-//            
-//            float b = acceleration(partTime3,partSpacey3);
-//            float spacey = b*time*time/2;
-//            
-//            //        path = [self pullPathWithOffsetX:partSpace3 - space andOffsetY:partSpacey3 - spacey toOut:NO].CGPath;
-//            path = [self pullPathWithOffsetX:0 andOffsetY:partSpacey3 - spacey toOut:NO].CGPath;
-//        }
-//        
-//        
-//    }
-//    
-//    
-//    
-//    
-//    [self redrawWithPath:path];
+    //回弹处理
+    
+    CGPathRef path;
+    
+    float partTime1 = _duration/2;
+    float partTime2 = (_duration - partTime1)/2;
+    float partTime3 = (_duration - partTime1 - partTime2);
+    
+    float partSpace1 = 0 , partSpace2 = 0 , partSpace3 = 0;
+    
+    float offSetX = 0;
+    float offSetY = 0;
+    if (self.pointMoved == POINTMOVED_TYPE_UP)
+    {
+        offSetX = (_beginProperty.upPoint.x - _property.upPoint.x);
+        offSetY = (_beginProperty.upPoint.y - _property.upPoint.y);
+    }
+    
+    else if (self.pointMoved == POINTMOVED_TYPE_DOWN)
+    {
+        offSetX = (_beginProperty.downPoint.x - _property.downPoint.x);
+        offSetY = (_beginProperty.downPoint.y - _property.downPoint.y);
+    }
+    
+    float x = offSetX/[self lineLenth:_property];//内缩倍数
+    if (x>1) x = 1;
+    float inset = x * ([self lineLenth:_property]/2);//对比正常内缩距离,系数 * 正常宽度的一半
+    
+    partSpace1 = [self lineLenth:_beginProperty] - [self lineLenth:_property] + inset;//总回弹距离
+    partSpace2 = inset + x*([self lineLenth:_property]/3);//第二次弹出距离
+    partSpace3 = x*([self lineLenth:_property]/3);//回到正常的距离
+    
+    float partSpacey1 = 0 , partSpacey2 = 0 , partSpacey3 = 0;
+    
+    float y = offSetY/[self lineLenth:_property];//内缩倍数
+    if (y>1) y = 1;
+    float insetY = y * ([self lineLenth:_property]/2);//对比正常内缩距离,系数 * 正常宽度的一半
+    
+    partSpacey1 = [self lineLenth:_beginProperty] - [self lineLenth:_property] + inset;//总回弹距离
+    partSpacey2 = inset + y*([self lineLenth:_property]/3);//第二次弹出距离
+    partSpacey3 = y*([self lineLenth:_property]/3);//回到正常的距离
+    
+    
+    CGFloat deviceInfoViewCenterOffsetX = 0, deviceInfoViewCenterOffsetY = 0;
+    if (fabs(offSetX) >= fabs(offSetY))
+    {
+        
+        if(runtime<=partTime1)//拉倒极限后反弹
+        {
+            float time = runtime;
+            float a = acceleration(partTime1,partSpace1);
+            float space = a*time*time/2;
+            
+            float b = acceleration(partTime1,partSpacey1);
+            float spacey = b*time*time/2;
+            
+            //        path = [self pullPathWithOffsetX:offSetX - space andOffsetY:offSetY - spacey toOut:NO].CGPath;
+            path = [self pullPathWithOffsetX:offSetX - space andOffsetY:0 toOut:NO].CGPath;
+            if (self.pointMoved == POINTMOVED_TYPE_DOWN)
+            {
+                deviceInfoViewCenterOffsetX = offSetX - space;
+            }
+        }
+        else if(runtime <= partTime1+partTime2)
+        {
+            float time = runtime-partTime1;
+            float a = acceleration(partTime2,partSpace2);
+            float space = a*time*time/2;
+            
+            float b = acceleration(partTime2,partSpacey2);
+            float spacey = b*time*time/2;
+            
+            //        path = [self pullPathWithOffsetX:- inset + space andOffsetY:- insetY + spacey toOut:NO].CGPath;
+            path = [self pullPathWithOffsetX:- inset + space andOffsetY:0 toOut:NO].CGPath;
+            if (self.pointMoved == POINTMOVED_TYPE_DOWN)
+            {
+                deviceInfoViewCenterOffsetX = - inset + space;
+            }
+        }else
+        {
+            float time = runtime-partTime1-partTime2;
+            float a = acceleration(partTime3,partSpace3);
+            float space = a*time*time/2;
+            
+            float b = acceleration(partTime3,partSpacey3);
+            float spacey = b*time*time/2;
+            
+            //        path = [self pullPathWithOffsetX:partSpace3 - space andOffsetY:partSpacey3 - spacey toOut:NO].CGPath;
+            path = [self pullPathWithOffsetX:partSpace3 - space andOffsetY:0 toOut:NO].CGPath;
+            if (self.pointMoved == POINTMOVED_TYPE_DOWN)
+            {
+                deviceInfoViewCenterOffsetX = partSpace3 - space;
+            }
+        }
+        
+    }
+    
+    else
+    {
+        
+        if(runtime<=partTime1)//拉倒极限后反弹
+        {
+            float time = runtime;
+            float a = acceleration(partTime1,partSpace1);
+            float space = a*time*time/2;
+            
+            float b = acceleration(partTime1,partSpacey1);
+            float spacey = b*time*time/2;
+            
+            //        path = [self pullPathWithOffsetX:offSetX - space andOffsetY:offSetY - spacey toOut:NO].CGPath;
+            path = [self pullPathWithOffsetX:0 andOffsetY:offSetY - spacey toOut:NO].CGPath;
+            if (self.pointMoved == POINTMOVED_TYPE_DOWN)
+            {
+                deviceInfoViewCenterOffsetY = offSetY - spacey;
+            }
+        }
+        else if(runtime <= partTime1+partTime2)
+        {
+            float time = runtime-partTime1;
+            float a = acceleration(partTime2,partSpace2);
+            float space = a*time*time/2;
+            
+            float b = acceleration(partTime2,partSpacey2);
+            float spacey = b*time*time/2;
+            
+            //        path = [self pullPathWithOffsetX:- inset + space andOffsetY:- insetY + spacey toOut:NO].CGPath;
+            path = [self pullPathWithOffsetX:0 andOffsetY:- inset + spacey toOut:NO].CGPath;
+            if (self.pointMoved == POINTMOVED_TYPE_DOWN)
+            {
+                deviceInfoViewCenterOffsetY = - insetY + spacey;
+            }
+        }else
+        {
+            float time = runtime-partTime1-partTime2;
+            float a = acceleration(partTime3,partSpace3);
+            float space = a*time*time/2;
+            
+            float b = acceleration(partTime3,partSpacey3);
+            float spacey = b*time*time/2;
+            
+            //        path = [self pullPathWithOffsetX:partSpace3 - space andOffsetY:partSpacey3 - spacey toOut:NO].CGPath;
+            path = [self pullPathWithOffsetX:0 andOffsetY:partSpacey3 - spacey toOut:NO].CGPath;
+            if (self.pointMoved == POINTMOVED_TYPE_DOWN)
+            {
+                deviceInfoViewCenterOffsetY = partSpacey3 - spacey;
+            }
+        }
+        
+        
+    }
+    
+    
+    
+    
+    [self redrawWithPath:path];
+    
+    self.deviceInfoView.center = CGPointMake(self.bounds.size.width / 2 + deviceInfoViewCenterOffsetX, self.bounds.size.height / 4 * 3 + deviceInfoViewCenterOffsetY);
 }
 
 - (void)animationStop {
@@ -327,7 +376,7 @@ static float acceleration(float time,float space) {
     
     [self resetDefault];
     
-    [self transitionWithType:kCATransitionFade withSubType:kCATransitionFromRight forView:self];
+//    [self transitionWithType:kCATransitionFade withSubType:kCATransitionFromRight forView:self];
     
 }
 

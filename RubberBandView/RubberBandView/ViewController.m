@@ -10,6 +10,7 @@
 #import "RubberBandView.h"
 #import "TPLineBandView.h"
 #import "UIColor+MLPFlatColors.h"
+#import "TPDeviceInfoView.h"
 
 @interface ViewController ()
 {
@@ -23,10 +24,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _rubberBandView.property = MakeLBProperty(0, 0, 0, 120, 40);
+    CGFloat maxOffset = _rubberBandView.bounds.size.width / 4;
+    _rubberBandView.property = MakeLBProperty(_rubberBandView.bounds.size.width / 2, 0, _rubberBandView.bounds.size.width / 2, _rubberBandView.bounds.size.height / 2, maxOffset);
     _rubberBandView.strokeColor = [UIColor flatRedColor];
     _rubberBandView.lineWidth = 3;
     _rubberBandView.duration = 0.2;
+    
 }
 
 - (IBAction)beginAnimation:(UIButton *)sender {
@@ -41,13 +44,18 @@
     CGPoint touchPoint = [recoginzer locationInView:self.view];
     if (recoginzer.state == UIGestureRecognizerStateBegan) {
         _beginPoint = touchPoint;
-        _rubberBandView.pointMoved = POINTMOVED_TYPE_UP;
+        _rubberBandView.pointMoved = POINTMOVED_TYPE_DOWN;
     }else if (recoginzer.state == UIGestureRecognizerStateChanged)
     {
         CGFloat offSetX = touchPoint.x - _beginPoint.x;
         CGFloat offSetY = touchPoint.y - _beginPoint.y;
         
-        [_rubberBandView pullWithOffSetX:offSetX andOffsetY:offSetY];
+        [_rubberBandView pullWithOffSetX:offSetX andOffsetY:0];
+        if (_rubberBandView.pointMoved == POINTMOVED_TYPE_DOWN)
+        {
+            _rubberBandView.deviceInfoView.center = CGPointMake(_rubberBandView.bounds.size.width / 2 + offSetX, _rubberBandView.bounds.size.height / 4 * 3);
+        }
+        
     }else {
         
         [_rubberBandView recoverStateAnimation];

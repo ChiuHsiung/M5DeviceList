@@ -18,13 +18,15 @@
 		07B181991962697B009F9A11 /* UIColor+MLPFlatColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B181981962697B009F9A11 /* UIColor+MLPFlatColors.m */; };
 		07B1819B19628457009F9A11 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07B1819A19628457009F9A11 /* QuartzCore.framework */; };
 		3C278DAB1CA266FE009C5B1D /* TPLineBandView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C278DAA1CA266FE009C5B1D /* TPLineBandView.m */; };
+		3C3E3DF31CA3718400E7FB95 /* TPCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3E3DF21CA3718400E7FB95 /* TPCircle.m */; };
+		3C3E3DF61CA3747F00E7FB95 /* TPDeviceInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3E3DF51CA3747F00E7FB95 /* TPDeviceInfoView.m */; };
+		3C3E3DF81CA37DAA00E7FB95 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C3E3DF71CA37DAA00E7FB95 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		074C090619650C57002A647E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		07997ACA1964169600937405 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		07997ACB1964169600937405 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		07997AD01964169600937405 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		07997AD11964169600937405 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		07997AD21964169600937405 /* RubberBandView-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "RubberBandView-Info.plist"; sourceTree = "<group>"; };
 		07997AD31964169600937405 /* RubberBandView-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RubberBandView-Prefix.pch"; sourceTree = "<group>"; };
@@ -42,6 +44,11 @@
 		07B1819A19628457009F9A11 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3C278DA91CA266FE009C5B1D /* TPLineBandView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPLineBandView.h; sourceTree = "<group>"; };
 		3C278DAA1CA266FE009C5B1D /* TPLineBandView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPLineBandView.m; sourceTree = "<group>"; };
+		3C3E3DF11CA3718400E7FB95 /* TPCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircle.h; sourceTree = "<group>"; };
+		3C3E3DF21CA3718400E7FB95 /* TPCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPCircle.m; sourceTree = "<group>"; };
+		3C3E3DF41CA3747F00E7FB95 /* TPDeviceInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPDeviceInfoView.h; sourceTree = "<group>"; };
+		3C3E3DF51CA3747F00E7FB95 /* TPDeviceInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPDeviceInfoView.m; sourceTree = "<group>"; };
+		3C3E3DF71CA37DAA00E7FB95 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +73,10 @@
 				07997ACB1964169600937405 /* AppDelegate.m */,
 				07997AD41964169600937405 /* RubberBandView.h */,
 				07997AD51964169600937405 /* RubberBandView.m */,
+				3C3E3DF11CA3718400E7FB95 /* TPCircle.h */,
+				3C3E3DF21CA3718400E7FB95 /* TPCircle.m */,
+				3C3E3DF41CA3747F00E7FB95 /* TPDeviceInfoView.h */,
+				3C3E3DF51CA3747F00E7FB95 /* TPDeviceInfoView.m */,
 				3C278DA91CA266FE009C5B1D /* TPLineBandView.h */,
 				3C278DAA1CA266FE009C5B1D /* TPLineBandView.m */,
 				07997AD61964169600937405 /* ViewController.h */,
@@ -82,7 +93,7 @@
 				07997AD31964169600937405 /* RubberBandView-Prefix.pch */,
 				07997AD21964169600937405 /* RubberBandView-Info.plist */,
 				07997AD11964169600937405 /* main.m */,
-				07997AD01964169600937405 /* Images.xcassets */,
+				3C3E3DF71CA37DAA00E7FB95 /* Images.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -184,6 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				074C090719650C57002A647E /* Main.storyboard in Resources */,
+				3C3E3DF81CA37DAA00E7FB95 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,9 +206,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C3E3DF61CA3747F00E7FB95 /* TPDeviceInfoView.m in Sources */,
 				07997AD81964169600937405 /* AppDelegate.m in Sources */,
 				3C278DAB1CA266FE009C5B1D /* TPLineBandView.m in Sources */,
 				07997ADE1964169600937405 /* RubberBandView.m in Sources */,
+				3C3E3DF31CA3718400E7FB95 /* TPCircle.m in Sources */,
 				07997ADC1964169600937405 /* main.m in Sources */,
 				07B181991962697B009F9A11 /* UIColor+MLPFlatColors.m in Sources */,
 				07997ADF1964169600937405 /* ViewController.m in Sources */,

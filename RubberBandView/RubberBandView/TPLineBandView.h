@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class TPDeviceInfoView;
+
 struct  _LineBandProperty{
     
     CGPoint upPoint;
@@ -55,6 +57,8 @@ typedef NS_ENUM(int, POINTMOVED_TYPE)
 @property (nonatomic,assign)            LineBandProperty property;
 @property (nonatomic,assign)            POINTMOVED_TYPE pointMoved;//-1, 0, 1分别表示没动，上点动，以及下点动
 
+@property (nonatomic,strong)            TPDeviceInfoView *deviceInfoView;
+@property (nonatomic,strong)            TPLineBandView *nextLineBandView;
 
 - (id)initWithFrame:(CGRect)frame layerProperty:(LineBandProperty)property;
 - (void)pullWithOffSetX:(CGFloat)offSetX andOffsetY:(CGFloat)offsetY;
