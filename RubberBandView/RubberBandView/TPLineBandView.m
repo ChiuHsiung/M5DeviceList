@@ -27,6 +27,8 @@ static float acceleration(float time,float space) {
     LineBandProperty _currentProperty;
     LineBandProperty _beginProperty;
     
+    
+    CGPoint _touchBeginPoint;
 }
 
 @property (nonatomic,strong)CAShapeLayer *drawLayer;
@@ -43,37 +45,43 @@ static float acceleration(float time,float space) {
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self _init];
+    [self _initLayer];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        [self _init];
+        [self _initLayer];
     }
     return self;
 }
 
 - (id)initWithFrame:(CGRect)frame layerProperty:(LineBandProperty)property {
     if (self = [super initWithFrame:frame]) {
-        [self _init];
+        [self _initLayer];
         self.property = property;
+        [self _initDeviceInfoView];
     }
     return self;
 }
 
-- (void)_init {
+
+- (void)_initLayer
+{
     self.drawLayer = [CAShapeLayer layer];
     [self.layer addSublayer:_drawLayer];
     
     _link = [CADisplayLink displayLinkWithTarget:self selector:@selector(timeUpdate:)];
     _link.paused = YES;
     [_link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
-    
-    _deviceInfoView = [[TPDeviceInfoView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width / 2, self.bounds.size.width / 2) withCircleColor:[UIColor grayColor] andLineWidth:3];
-    NSLog(@"%f", self.center.x);
-    _deviceInfoView.center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 4 * 3);
+}
+
+- (void)_initDeviceInfoView {
+    _deviceInfoView = [[TPDeviceInfoView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width - 2 * _property.maxOffSet, self.bounds.size.height - (_property.downPoint.y -  _property.upPoint.y)) withCircleColor:[UIColor grayColor] andLineWidth:3];
+    _deviceInfoView.center = [self adjustDeviceInfoViewCenterWithOffsetX:0 andOffsetY:0];
+    _deviceInfoView.backgroundColor = [UIColor yellowColor];
     [self addSubview:_deviceInfoView];
+    [self addPanGestureRecognizerToDeviceInfoView];
     
 }
 
@@ -104,7 +112,7 @@ static float acceleration(float time,float space) {
     UIBezierPath *path = [self pullPathWithOffsetX:0 andOffsetY:0 toOut:YES];//当0，0时 andIsUpPointMoved的参数不重要
     [self redrawWithPath:path.CGPath];
     
-    self.deviceInfoView.center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 4 * 3);
+    self.deviceInfoView.center = [self adjustDeviceInfoViewCenterWithOffsetX:0 andOffsetY:0];
 }
 
 
@@ -358,7 +366,7 @@ static float acceleration(float time,float space) {
     
     [self redrawWithPath:path];
     
-    self.deviceInfoView.center = CGPointMake(self.bounds.size.width / 2 + deviceInfoViewCenterOffsetX, self.bounds.size.height / 4 * 3 + deviceInfoViewCenterOffsetY);
+    self.deviceInfoView.center = [self adjustDeviceInfoViewCenterWithOffsetX:deviceInfoViewCenterOffsetX andOffsetY:deviceInfoViewCenterOffsetY];
 }
 
 - (void)animationStop {
@@ -394,7 +402,54 @@ static float acceleration(float time,float space) {
     [self render];
 }
 
+#pragma mark - Gesture Recognizers
+
+- (void)addPanGestureRecognizerToDeviceInfoView
+{
+    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    [_deviceInfoView addGestureRecognizer:panGesture];
+}
+
+- (void)handlePan:(UIPanGestureRecognizer *)recoginzer
+{
+    CGPoint touchPoint = [recoginzer locationInView:self];
+    
+    if (recoginzer.state == UIGestureRecognizerStateBegan) {
+        _touchBeginPoint = touchPoint;
+        self.pointMoved = POINTMOVED_TYPE_DOWN;
+    }else if (recoginzer.state == UIGestureRecognizerStateChanged)
+    {
+        CGFloat offSetX = touchPoint.x - _touchBeginPoint.x;
+        CGFloat offSetY = touchPoint.y - _touchBeginPoint.y;
+        
+        [self pullWithOffSetX:offSetX andOffsetY:0];
+        if (self.nextLineBandView)
+        {
+            self.nextLineBandView.pointMoved = POINTMOVED_TYPE_UP;
+            [self.nextLineBandView pullWithOffSetX:offSetX andOffsetY:0];
+        }
+        
+        if (self.pointMoved == POINTMOVED_TYPE_DOWN)
+        {
+            self.deviceInfoView.center = [self adjustDeviceInfoViewCenterWithOffsetX:offSetX andOffsetY:0];
+        }
+        
+    }else {
+        
+        [self recoverStateAnimation];
+        if (self.nextLineBandView)
+        {
+            [self.nextLineBandView recoverStateAnimation];
+        }
+    }
+}
+
 #pragma mark - utlity
+
+- (CGPoint)adjustDeviceInfoViewCenterWithOffsetX:(CGFloat)offsetX andOffsetY:(CGFloat)offsetY
+{
+    return  CGPointMake(self.deviceInfoView.bounds.size.width / 2 + self.property.maxOffSet + offsetX, self.deviceInfoView.bounds.size.height / 2 + (self.property.downPoint.y - self.property.upPoint.y) + offsetY);
+}
 
 - (float)lineLenth:(LineBandProperty)lbProperty
 {
