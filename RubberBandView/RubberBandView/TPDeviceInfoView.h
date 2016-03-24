@@ -19,6 +19,6 @@
 @property (nonatomic, assign) BOOL isParentalCtrl;
 @property (nonatomic, strong) NSString *parentalCtrlTime;
 
-- (instancetype)initWithFrame:(CGRect)frame withCircleColor:(UIColor *)circleColor andLineWidth:(CGFloat)lineWidth;
+- (instancetype)initWithFrame:(CGRect)frame withCircleColor:(UIColor *)circleColor andLineWidth:(CGFloat)lineWidth andDeviceName:(NSString *)deviceName;
 
 @end

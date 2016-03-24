@@ -56,11 +56,16 @@ static float acceleration(float time,float space) {
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame layerProperty:(LineBandProperty)property {
+- (id)initWithFrame:(CGRect)frame layerProperty:(LineBandProperty)property andStrokeColor:(UIColor *)strokeColor andLineWidth:(CGFloat)lineWidth andDeviceName:(NSString *)deviceName andDelegate:(id)someOne{
     if (self = [super initWithFrame:frame]) {
         [self _initLayer];
         self.property = property;
+        self.strokeColor = strokeColor;
+        self.lineWidth = lineWidth;
+        self.deviceName = deviceName;
         [self _initDeviceInfoView];
+        
+        self.delegate = someOne;
     }
     return self;
 }
@@ -77,9 +82,9 @@ static float acceleration(float time,float space) {
 }
 
 - (void)_initDeviceInfoView {
-    _deviceInfoView = [[TPDeviceInfoView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width - 2 * _property.maxOffSet, self.bounds.size.height - (_property.downPoint.y -  _property.upPoint.y)) withCircleColor:[UIColor grayColor] andLineWidth:3];
+    _deviceInfoView = [[TPDeviceInfoView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width - 2 * _property.maxOffSet, self.bounds.size.height - (_property.downPoint.y -  _property.upPoint.y)) withCircleColor:self.strokeColor andLineWidth:self.lineWidth andDeviceName:self.deviceName];
     _deviceInfoView.center = [self adjustDeviceInfoViewCenterWithOffsetX:0 andOffsetY:0];
-    _deviceInfoView.backgroundColor = [UIColor yellowColor];
+//    _deviceInfoView.backgroundColor = [UIColor yellowColor];
     [self addSubview:_deviceInfoView];
     [self addPanGestureRecognizerToDeviceInfoView];
     
@@ -104,6 +109,15 @@ static float acceleration(float time,float space) {
     self.deviceInfoView.lineWidth = lineWidth;
     if (_drawLayer) _drawLayer.lineWidth = lineWidth;
     [self resetDefault];
+}
+
+- (void)setDeviceName:(NSString *)deviceName
+{
+    _deviceName = deviceName;
+    if (self.deviceInfoView)
+    {
+        self.deviceInfoView.deviceName = deviceName;
+    }
 }
 
 - (void)resetDefault {
@@ -384,6 +398,11 @@ static float acceleration(float time,float space) {
     
     [self resetDefault];
     
+    if ([self.delegate respondsToSelector:@selector(addPanGestrueToAllTPLineBandView)])
+    {
+        [self.delegate addPanGestrueToAllTPLineBandView];
+    }
+    
 //    [self transitionWithType:kCATransitionFade withSubType:kCATransitionFromRight forView:self];
     
 }
@@ -406,8 +425,17 @@ static float acceleration(float time,float space) {
 
 - (void)addPanGestureRecognizerToDeviceInfoView
 {
+    [self removePanGestureRecognizerFromDeviceInfoView];
+    
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
     [_deviceInfoView addGestureRecognizer:panGesture];
+}
+
+- (void)removePanGestureRecognizerFromDeviceInfoView
+{
+    for (UIPanGestureRecognizer *recognizer in [_deviceInfoView gestureRecognizers]) {
+        [_deviceInfoView removeGestureRecognizer:recognizer];
+    }
 }
 
 - (void)handlePan:(UIPanGestureRecognizer *)recoginzer
@@ -417,6 +445,16 @@ static float acceleration(float time,float space) {
     if (recoginzer.state == UIGestureRecognizerStateBegan) {
         _touchBeginPoint = touchPoint;
         self.pointMoved = POINTMOVED_TYPE_DOWN;
+        if (self.nextLineBandView)
+        {
+            self.nextLineBandView.pointMoved = POINTMOVED_TYPE_UP;
+//            [self.nextLineBandView removePanGestureRecognizerFromDeviceInfoView];
+        }
+        if ([self.delegate respondsToSelector:@selector(removePanGestrueFromAllOtherTPLineBandView:)])
+        {
+            [self.delegate removePanGestrueFromAllOtherTPLineBandView:self];
+        }
+        
     }else if (recoginzer.state == UIGestureRecognizerStateChanged)
     {
         CGFloat offSetX = touchPoint.x - _touchBeginPoint.x;
@@ -425,7 +463,6 @@ static float acceleration(float time,float space) {
         [self pullWithOffSetX:offSetX andOffsetY:0];
         if (self.nextLineBandView)
         {
-            self.nextLineBandView.pointMoved = POINTMOVED_TYPE_UP;
             [self.nextLineBandView pullWithOffSetX:offSetX andOffsetY:0];
         }
         
@@ -440,7 +477,9 @@ static float acceleration(float time,float space) {
         if (self.nextLineBandView)
         {
             [self.nextLineBandView recoverStateAnimation];
+//            [self.nextLineBandView addPanGestureRecognizerToDeviceInfoView];
         }
+        
     }
 }
 

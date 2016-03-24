@@ -21,6 +21,7 @@
 		3C3E3DF31CA3718400E7FB95 /* TPCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3E3DF21CA3718400E7FB95 /* TPCircle.m */; };
 		3C3E3DF61CA3747F00E7FB95 /* TPDeviceInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3E3DF51CA3747F00E7FB95 /* TPDeviceInfoView.m */; };
 		3C3E3DF81CA37DAA00E7FB95 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C3E3DF71CA37DAA00E7FB95 /* Images.xcassets */; };
+		3C3E3DFB1CA3DB3B00E7FB95 /* TPAttributedStringGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3E3DFA1CA3DB3B00E7FB95 /* TPAttributedStringGenerator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,8 @@
 		3C3E3DF41CA3747F00E7FB95 /* TPDeviceInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPDeviceInfoView.h; sourceTree = "<group>"; };
 		3C3E3DF51CA3747F00E7FB95 /* TPDeviceInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPDeviceInfoView.m; sourceTree = "<group>"; };
 		3C3E3DF71CA37DAA00E7FB95 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		3C3E3DF91CA3DB3B00E7FB95 /* TPAttributedStringGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPAttributedStringGenerator.h; sourceTree = "<group>"; };
+		3C3E3DFA1CA3DB3B00E7FB95 /* TPAttributedStringGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPAttributedStringGenerator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +76,8 @@
 				07997ACB1964169600937405 /* AppDelegate.m */,
 				07997AD41964169600937405 /* RubberBandView.h */,
 				07997AD51964169600937405 /* RubberBandView.m */,
+				3C3E3DF91CA3DB3B00E7FB95 /* TPAttributedStringGenerator.h */,
+				3C3E3DFA1CA3DB3B00E7FB95 /* TPAttributedStringGenerator.m */,
 				3C3E3DF11CA3718400E7FB95 /* TPCircle.h */,
 				3C3E3DF21CA3718400E7FB95 /* TPCircle.m */,
 				3C3E3DF41CA3747F00E7FB95 /* TPDeviceInfoView.h */,
@@ -211,6 +216,7 @@
 				3C278DAB1CA266FE009C5B1D /* TPLineBandView.m in Sources */,
 				07997ADE1964169600937405 /* RubberBandView.m in Sources */,
 				3C3E3DF31CA3718400E7FB95 /* TPCircle.m in Sources */,
+				3C3E3DFB1CA3DB3B00E7FB95 /* TPAttributedStringGenerator.m in Sources */,
 				07997ADC1964169600937405 /* main.m in Sources */,
 				07B181991962697B009F9A11 /* UIColor+MLPFlatColors.m in Sources */,
 				07997ADF1964169600937405 /* ViewController.m in Sources */,

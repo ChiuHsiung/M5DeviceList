@@ -8,24 +8,30 @@
 
 #import "TPDeviceInfoView.h"
 
+#import "TPAttributedStringGenerator.h"
+
 #import "TPCircle.h"
 
 @interface TPDeviceInfoView()
 
 @property (strong, nonatomic) TPCircle *circle;
 @property (strong, nonatomic) UIImageView *deviceTypeImgView;
+@property (strong, nonatomic) UILabel *deviceNameLabel;
 
 @end
 
 @implementation TPDeviceInfoView
 
-- (instancetype)initWithFrame:(CGRect)frame withCircleColor:(UIColor *)circleColor andLineWidth:(CGFloat)lineWidth
+@synthesize deviceName = _deviceName;
+
+- (instancetype)initWithFrame:(CGRect)frame withCircleColor:(UIColor *)circleColor andLineWidth:(CGFloat)lineWidth andDeviceName:(NSString *)deviceName
 {
     self = [super initWithFrame:frame];
     if (self)
     {
         self.circleColor = circleColor;
         self.lineWidth = lineWidth;
+        self.deviceName = deviceName;
         [self setupViews];
     }
     return self;
@@ -49,6 +55,32 @@
     return _deviceName;
 }
 
+- (void)setDeviceName:(NSString *)deviceName
+{
+    _deviceName = deviceName;
+    
+    if (_deviceNameLabel)
+    {
+        _deviceNameLabel.attributedText = [self setDeviceNameLabelText];
+    }
+}
+
+- (NSAttributedString *)setDeviceNameLabelText
+{
+    CGFloat maxWidth = self.deviceNameLabel.bounds.size.width;
+    
+    TPAttributedStringGenerator* attrGen = [[TPAttributedStringGenerator alloc] init];
+    attrGen.text = [NSString stringWithFormat:@"%@", self.deviceName];
+    attrGen.font = [UIFont fontWithName:@"HelveticaNeue" size:10];
+    attrGen.textColor = [UIColor grayColor];
+    attrGen.textAlignment = NSTextAlignmentLeft;
+    attrGen.constraintSize = CGSizeMake(maxWidth, MAXFLOAT);
+    attrGen.lineBreakMode = NSLineBreakByTruncatingTail;
+    [attrGen generate];
+    
+    return attrGen.attributedString;
+}
+
 - (void)setupViews
 {
     [self setBackgroundColor:[UIColor clearColor]];
@@ -66,6 +98,18 @@
     self.deviceTypeImgView.bounds = CGRectMake(0, 0, height * widthHeightScale, height);
     self.deviceTypeImgView.center = CGPointMake(self.circle.center.x, self.circle.center.y);
     [self addSubview:self.deviceTypeImgView];
+    
+    //设备名Label
+    self.deviceNameLabel = [[UILabel alloc] init];
+    self.deviceNameLabel.attributedText = [self setDeviceNameLabelText];
+    [self.deviceNameLabel sizeToFit];
+    self.deviceNameLabel.numberOfLines = 1;
+    NSLog(@"%f", self.bounds.size.width);
+    self.deviceNameLabel.frame = CGRectMake(self.circle.bounds.size.width,
+                                            self.deviceTypeImgView.frame.origin.y,
+                                            ((self.deviceNameLabel.bounds.size.width + self.circle.bounds.size.width) > self.bounds.size.width ? (self.bounds.size.width - self.circle.bounds.size.width):self.deviceNameLabel.bounds.size.width),
+                                            self.deviceNameLabel.bounds.size.height);
+    [self addSubview:self.deviceNameLabel];
     
 }
 

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+#import "TPLineBandView.h"
+
+@interface ViewController : UIViewController <TPLineBandViewDelegate>
 
 @end

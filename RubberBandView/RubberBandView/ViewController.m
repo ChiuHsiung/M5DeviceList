@@ -7,9 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "RubberBandView.h"
-#import "TPLineBandView.h"
-#import "UIColor+MLPFlatColors.h"
 #import "TPDeviceInfoView.h"
 
 @interface ViewController ()
@@ -18,6 +15,7 @@
 }
 
 @property (nonatomic,strong) TPLineBandView *rubberBandView;
+@property (nonatomic,strong) TPLineBandView *lbViewTest;
 @end
 
 @implementation ViewController
@@ -27,24 +25,41 @@
     CGFloat maxOffset = self.view.bounds.size.width / 2 / 4;
     
     LineBandProperty property = MakeLBProperty(self.view.bounds.size.width / 2 / 2, 0, self.view.bounds.size.width / 2 / 2, self.view.bounds.size.width / 2 / 2, maxOffset);
-    _rubberBandView = [[TPLineBandView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width / 2, self.view.bounds.size.width / 2) layerProperty:property];
+    _rubberBandView = [[TPLineBandView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width * 3 / 4, self.view.bounds.size.width / 2) layerProperty:property andStrokeColor:[UIColor grayColor] andLineWidth:2.0f andDeviceName:@"KK's IPhone" andDelegate:self];
     _rubberBandView.center = CGPointMake(self.view.center.x, self.view.center.y);
-    _rubberBandView.strokeColor = [UIColor flatRedColor];
-    _rubberBandView.lineWidth = 3;
     _rubberBandView.duration = 0.2;
-    _rubberBandView.backgroundColor = [UIColor blueColor];
+//    _rubberBandView.backgroundColor = [UIColor blueColor];
     
-    TPLineBandView *lbViewTest = [[TPLineBandView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width / 2, self.view.bounds.size.width / 2) layerProperty:property];
-    lbViewTest.center = CGPointMake(self.view.center.x, self.view.center.y + self.view.bounds.size.width / 2);
-    lbViewTest.strokeColor = [UIColor flatRedColor];
-    lbViewTest.lineWidth = 3;
-    lbViewTest.duration = 0.2;
-    lbViewTest.backgroundColor = [UIColor blueColor];
+    _lbViewTest = [[TPLineBandView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width * 3 / 4, self.view.bounds.size.width / 2) layerProperty:property andStrokeColor:[UIColor grayColor] andLineWidth:2.0f andDeviceName:@"Jake's Mac" andDelegate:self];
+    _lbViewTest.center = CGPointMake(self.view.center.x, self.view.center.y + self.view.bounds.size.width / 2);
+    _lbViewTest.duration = 0.2;
+//    _lbViewTest.backgroundColor = [UIColor blueColor];
     
-    _rubberBandView.nextLineBandView = lbViewTest;
+    _rubberBandView.nextLineBandView = _lbViewTest;
     
     [self.view addSubview:_rubberBandView];
-    [self.view addSubview:lbViewTest];
+    [self.view addSubview:_lbViewTest];
+    
+}
+
+#pragma mark - Delegate
+- (void)addPanGestrueToAllTPLineBandView
+{
+    [self.rubberBandView addPanGestureRecognizerToDeviceInfoView];
+    [self.lbViewTest addPanGestureRecognizerToDeviceInfoView];
+}
+
+- (void)removePanGestrueFromAllOtherTPLineBandView:(id)sender
+{
+    if (sender == self.rubberBandView)
+    {
+        [self.lbViewTest removePanGestureRecognizerFromDeviceInfoView];
+    }
+    
+    if (sender == self.lbViewTest)
+    {
+        [self.rubberBandView removePanGestureRecognizerFromDeviceInfoView];
+    }
     
 }
 
