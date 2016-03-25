@@ -95,10 +95,10 @@
 				3CC878231CA125350054F6EE /* TPAttributedStringGenerator.m */,
 				3CC8781D1CA0EA2F0054F6EE /* TPCircle.h */,
 				3CC8781E1CA0EA2F0054F6EE /* TPCircle.m */,
-				3C278DA61CA242ED009C5B1D /* TPLineBandView.h */,
-				3C278DA71CA242ED009C5B1D /* TPLineBandView.m */,
 				3C278DAC1CA2AE34009C5B1D /* TPDeviceInfoView.h */,
 				3C278DAD1CA2AE34009C5B1D /* TPDeviceInfoView.m */,
+				3C278DA61CA242ED009C5B1D /* TPLineBandView.h */,
+				3C278DA71CA242ED009C5B1D /* TPLineBandView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";

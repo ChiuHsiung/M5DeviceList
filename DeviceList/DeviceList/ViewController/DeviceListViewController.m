@@ -24,6 +24,10 @@
 
 @property (nonatomic, assign) CGFloat numOfDevicesLabelHeight;//记录numOfDevicesLabel的高度
 
+
+@property (nonatomic,strong) TPLineBandView *rubberBandView;
+@property (nonatomic,strong) TPLineBandView *lbViewTest;
+
 @end
 
 @implementation DeviceListViewController
@@ -48,11 +52,6 @@
     [self.circle addSubview:self.deciveLogoImgView];
     [self.circle addSubview:self.deviceLabel];
     
-    TPDeviceInfoView *deviceInfoView = [[TPDeviceInfoView alloc] initWithFrame:CGRectMake(0, 50, 50, 50)];
-    deviceInfoView.circleColor = [UIColor grayColor];
-    deviceInfoView.lineWidth = 1;
-    [self.view addSubview:deviceInfoView];
-    
     [self layoutCircle];
     
     [UIView animateWithDuration:2.0 animations:^{
@@ -63,6 +62,29 @@
     } completion:^(BOOL finished) {
         
     }];
+    
+#pragma mark - 测试模拟数据
+    CGFloat maxOffset = self.view.bounds.size.width / 2 / 4;
+    
+    _rubberBandView = [[TPLineBandView alloc] initWithFrame:CGRectMake(0, self.circle.frame.origin.y + self.circle.bounds.size.height, self.view.bounds.size.width, maxOffset * 2)andStrokeColor:[UIColor grayColor] andLineWidth:2.0f andMaxOffset:maxOffset andDelegate:self];
+    _rubberBandView.duration = 0.2;
+    _rubberBandView.deviceType = @"phone";
+    _rubberBandView.deviceName = @"KK's iPhone";
+    _rubberBandView.parentalCtrlTime = @"12:00 ~ 13:00";
+    //    _rubberBandView.backgroundColor = [UIColor blueColor];
+    
+    _lbViewTest = [[TPLineBandView alloc] initWithFrame:CGRectMake(0, _rubberBandView.frame.origin.y + _rubberBandView.bounds.size.height, self.view.bounds.size.width, maxOffset * 2)andStrokeColor:[UIColor grayColor] andLineWidth:2.0f andMaxOffset:maxOffset andDelegate:self];
+    _lbViewTest.duration = 0.2;
+    _lbViewTest.deviceType = @"laptop";
+    _lbViewTest.deviceName = @"Jake's Mac";
+//    _lbViewTest.parentalCtrlTime = @"12:45 ~ 14:45";
+    //    _lbViewTest.backgroundColor = [UIColor blueColor];
+    
+    _rubberBandView.nextLineBandView = _lbViewTest;
+    
+    [self.view addSubview:_rubberBandView];
+    [self.view addSubview:_lbViewTest];
+    
 }
 
 - (TPCircle *)circle
@@ -254,5 +276,26 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - Delegate
+- (void)addPanGestrueToAllTPLineBandView
+{
+    [self.rubberBandView addPanGestureRecognizerToDeviceInfoView];
+    [self.lbViewTest addPanGestureRecognizerToDeviceInfoView];
+}
+
+- (void)removePanGestrueFromAllOtherTPLineBandView:(id)sender
+{
+    if (sender == self.rubberBandView)
+    {
+        [self.lbViewTest removePanGestureRecognizerFromDeviceInfoView];
+    }
+    
+    if (sender == self.lbViewTest)
+    {
+        [self.rubberBandView removePanGestureRecognizerFromDeviceInfoView];
+    }
+    
+}
 
 @end

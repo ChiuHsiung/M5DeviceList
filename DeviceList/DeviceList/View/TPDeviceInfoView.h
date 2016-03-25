@@ -14,9 +14,9 @@
 @property (nonatomic, assign) CGFloat lineWidth;
 
 @property (nonatomic, strong) NSString *deviceType;
-@property (nonatomic, strong) NSString *deviceName;
 
-@property (nonatomic, assign) BOOL isParentalCtrl;
-@property (nonatomic, strong) NSString *parentalCtrlTime;
+@property (strong, nonatomic) UIImageView *deviceTypeImgView;
+
+- (instancetype)initWithFrame:(CGRect)frame withCircleColor:(UIColor *)circleColor andLineWidth:(CGFloat)lineWidth;
 
 @end

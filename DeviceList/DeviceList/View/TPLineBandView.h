@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class TPDeviceInfoView;
+
 struct  _LineBandProperty{
     
     CGPoint upPoint;
@@ -46,19 +48,66 @@ typedef NS_ENUM(int, POINTMOVED_TYPE)
     POINTMOVED_TYPE_DOWN
 };
 
+@protocol TPLineBandViewDelegate <NSObject>
+
+- (void)removePanGestrueFromAllOtherTPLineBandView:(id)sender;
+- (void)addPanGestrueToAllTPLineBandView;
+
+@end
+
 @interface TPLineBandView : UIView
 
 @property (nonatomic,strong)            UIColor *strokeColor;
 @property (nonatomic,assign)            CGFloat lineWidth;
+
+//TPDeviceInfoView属性
+@property (nonatomic,strong)            NSString *deviceType;
+
+//显示ParentCtrl的View属性
+@property (nonatomic,strong)            NSString *parentalCtrlTime;
+
+//显示设备名的View属性
+@property (nonatomic,strong)            NSString *deviceName;
+
+//显示网速的View属性
+//@property (nonatomic,strong)            NSUInteger curProgress;
+
+
 @property (nonatomic,readonly)          CAShapeLayer *drawLayer;
 @property (nonatomic,assign)            CFTimeInterval duration;
 @property (nonatomic,assign)            LineBandProperty property;
 @property (nonatomic,assign)            POINTMOVED_TYPE pointMoved;//-1, 0, 1分别表示没动，上点动，以及下点动
 
+//显示设备类型的View
+@property (nonatomic,strong)            TPDeviceInfoView *deviceInfoView;
+//显示ParentCtrl的View
+@property (nonatomic,strong)            UILabel *parentCtrlLabel;
+//显示设备名的View
+@property (nonatomic,strong)            UILabel *deviceNameLabel;
+//显示网速的View
+//@property (nonatomic,strong)            UIView *progressView;
 
-- (id)initWithFrame:(CGRect)frame layerProperty:(LineBandProperty)property;
+@property (nonatomic,strong)            TPLineBandView *nextLineBandView;
+
+@property (nonatomic,weak)              id<TPLineBandViewDelegate>delegate;
+
+- (id)initWithFrame:(CGRect)frame
+     andStrokeColor:(UIColor *)strokeColor
+       andLineWidth:(CGFloat)lineWidth
+       andMaxOffset:(CGFloat)maxOffset
+        andDelegate:(id)someOne;
+
+- (id)initWithFrame:(CGRect)frame
+      layerProperty:(LineBandProperty)property
+     andStrokeColor:(UIColor *)strokeColor
+       andLineWidth:(CGFloat)lineWidth
+        andDelegate:(id)someOne;
+
 - (void)pullWithOffSetX:(CGFloat)offSetX andOffsetY:(CGFloat)offsetY;
 - (void)recoverStateAnimation;
 - (void)resetDefault;
+
+- (void)addPanGestureRecognizerToDeviceInfoView;
+- (void)removePanGestureRecognizerFromDeviceInfoView;
 
 @end

@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DeviceListViewController : UIViewController
+#import "TPLineBandView.h"
+
+@interface DeviceListViewController : UIViewController <TPLineBandViewDelegate>
 
 @property (nonatomic, strong) NSArray *deviceList;
 
