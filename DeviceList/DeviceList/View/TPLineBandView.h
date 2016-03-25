@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class TPDeviceInfoView;
+@class TPProgressView;
 
 struct  _LineBandProperty{
     
@@ -70,7 +71,8 @@ typedef NS_ENUM(int, POINTMOVED_TYPE)
 @property (nonatomic,strong)            NSString *deviceName;
 
 //显示网速的View属性
-//@property (nonatomic,strong)            NSUInteger curProgress;
+@property (nonatomic,assign)            float curProgress;
+@property (nonatomic,assign)            float totalProgress;//必须先给totalProgress赋值
 
 
 @property (nonatomic,readonly)          CAShapeLayer *drawLayer;
@@ -85,7 +87,7 @@ typedef NS_ENUM(int, POINTMOVED_TYPE)
 //显示设备名的View
 @property (nonatomic,strong)            UILabel *deviceNameLabel;
 //显示网速的View
-//@property (nonatomic,strong)            UIView *progressView;
+@property (nonatomic,strong)            TPProgressView *progressView;
 
 @property (nonatomic,strong)            TPLineBandView *nextLineBandView;
 

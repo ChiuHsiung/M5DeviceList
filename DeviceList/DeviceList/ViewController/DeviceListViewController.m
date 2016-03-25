@@ -71,12 +71,16 @@
     _rubberBandView.deviceType = @"phone";
     _rubberBandView.deviceName = @"KK's iPhone";
     _rubberBandView.parentalCtrlTime = @"12:00 ~ 13:00";
+    _rubberBandView.totalProgress = 1000;//必须先设置totalProgress，否则设置curProgress会无效
+    _rubberBandView.curProgress = 800;
     //    _rubberBandView.backgroundColor = [UIColor blueColor];
     
     _lbViewTest = [[TPLineBandView alloc] initWithFrame:CGRectMake(0, _rubberBandView.frame.origin.y + _rubberBandView.bounds.size.height, self.view.bounds.size.width, maxOffset * 2)andStrokeColor:[UIColor grayColor] andLineWidth:2.0f andMaxOffset:maxOffset andDelegate:self];
     _lbViewTest.duration = 0.2;
     _lbViewTest.deviceType = @"laptop";
     _lbViewTest.deviceName = @"Jake's Mac";
+    _lbViewTest.totalProgress = 1000;//必须先设置totalProgress，否则设置curProgress会无效
+    _lbViewTest.curProgress = 100;
 //    _lbViewTest.parentalCtrlTime = @"12:45 ~ 14:45";
     //    _lbViewTest.backgroundColor = [UIColor blueColor];
     

@@ -9,6 +9,7 @@
 #import "TPLineBandView.h"
 
 #import "TPDeviceInfoView.h"
+#import "TPProgressView.h"
 #import "TPAttributedStringGenerator.h"
 
 #import <QuartzCore/QuartzCore.h>
@@ -74,6 +75,7 @@ static float acceleration(float time,float space) {
         [self _initDeviceInfoView];
         [self updateDeviceNameLabel];
         [self updateParentCtrlLabel];
+        [self updateProgressView];
         
         self.delegate = someOne;
     }
@@ -91,6 +93,7 @@ static float acceleration(float time,float space) {
         [self _initDeviceInfoView];
         [self updateDeviceNameLabel];
         [self updateParentCtrlLabel];
+        [self updateProgressView];
         
         self.delegate = someOne;
     }
@@ -183,6 +186,28 @@ static float acceleration(float time,float space) {
     [self addSubview:self.parentCtrlLabel];
 }
 
+- (void)updateProgressView
+{
+    if (self.totalProgress <= 0)
+    {
+        return;
+    }
+    if (!self.progressView)
+    {
+        CGFloat maxWidth = self.bounds.size.width / 2 - self.deviceInfoView.bounds.size.width / 2;
+        
+        self.progressView = [[TPProgressView alloc] initWithFrame:CGRectMake(self.bounds.size.width - maxWidth,
+                                                                             self.deviceNameLabel.frame.origin.y + self.deviceNameLabel.bounds.size.height,
+                                                                             maxWidth,
+                                                                             self.deviceNameLabel.bounds.size.height / 2)
+                                                withTotalProgress:self.totalProgress];
+        self.progressView.bgViewColor = [UIColor whiteColor];
+        self.progressView.progressColor = [UIColor colorWithRed:(25.0f / 255.0f) green:(192.0f / 255.0f) blue:(255.0f / 255.0f) alpha:1.0f];
+        [self addSubview:self.progressView];
+    }
+    self.progressView.curProcess = self.curProgress;
+}
+
 
 #pragma mark - attributes
 - (void)setProperty:(LineBandProperty)property {
@@ -251,6 +276,27 @@ static float acceleration(float time,float space) {
     {
         [self updateParentCtrlLabel];
     }
+}
+
+- (void)setCurProgress:(float)curProgress
+{
+    if (!self.totalProgress)
+    {
+        NSLog(@"必须先给totalProgress赋值");
+        return;
+    }
+    
+    _curProgress = curProgress;
+    [self updateProgressView];
+}
+
+- (void)setTotalProgress:(float)totalProgress
+{
+    if (totalProgress <= 0)
+    {
+        return;
+    }
+    _totalProgress = totalProgress;
 }
 
 - (void)resetDefault {
@@ -536,11 +582,8 @@ static float acceleration(float time,float space) {
         [self.delegate addPanGestrueToAllTPLineBandView];
     }
     
-    self.deviceNameLabel.alpha = 1.0f;
-    self.parentCtrlLabel.alpha = 1.0f;
-    
-    [self transitionWithType:kCATransitionFade withSubType:kCATransitionFromRight forView:self.deviceNameLabel];
-    [self transitionWithType:kCATransitionFade withSubType:kCATransitionFromLeft forView:self.parentCtrlLabel];
+    //使其它控件重新出现，且带动画效果
+    [self makeOtherViewAppear];
     
 }
 
@@ -592,8 +635,8 @@ static float acceleration(float time,float space) {
             [self.delegate removePanGestrueFromAllOtherTPLineBandView:self];
         }
         
-        self.deviceNameLabel.alpha = 0.0f;
-        self.parentCtrlLabel.alpha = 0.0f;
+        //控制其它控件消失
+        [self makeOtherViewDisappear];
         
     }else if (recoginzer.state == UIGestureRecognizerStateChanged)
     {
@@ -624,6 +667,24 @@ static float acceleration(float time,float space) {
 }
 
 #pragma mark - utlity
+
+- (void)makeOtherViewDisappear
+{
+    self.deviceNameLabel.alpha = 0.0f;
+    self.parentCtrlLabel.alpha = 0.0f;
+    self.progressView.alpha = 0.0f;
+}
+
+- (void)makeOtherViewAppear
+{
+    self.deviceNameLabel.alpha = 1.0f;
+    self.parentCtrlLabel.alpha = 1.0f;
+    self.progressView.alpha = 1.0f;
+    
+    [self transitionWithType:kCATransitionFade withSubType:kCATransitionFromRight forView:self.deviceNameLabel];
+    [self transitionWithType:kCATransitionFade withSubType:kCATransitionFromLeft forView:self.parentCtrlLabel];
+    [self transitionWithType:kCATransitionFade withSubType:kCATransitionFromRight forView:self.progressView];
+}
 
 - (CGPoint)adjustDeviceInfoViewCenterWithOffsetX:(CGFloat)offsetX andOffsetY:(CGFloat)offsetY
 {

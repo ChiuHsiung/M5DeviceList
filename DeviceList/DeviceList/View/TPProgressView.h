@@ -10,4 +10,12 @@
 
 @interface TPProgressView : UIView
 
+@property (nonatomic,assign) float curProcess;
+@property (nonatomic,assign, readonly) float totalProcess;
+
+@property (nonatomic,strong) UIColor *bgViewColor;
+@property (nonatomic,strong) UIColor *progressColor;
+
+- (id)initWithFrame:(CGRect)frame withTotalProgress:(float)totalProgress;
+
 @end

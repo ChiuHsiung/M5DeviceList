@@ -1,9 +1,9 @@
 //
 //  TPProgressView.m
-//  PE
+//  DeviceList
 //
-//  Created by 杨志达 on 14-6-20.
-//  Copyright (c) 2014年 PE. All rights reserved.
+//  Created by zhuangqiuxiong on 16/3/25.
+//  Copyright © 2016年 zhuangqiuxiong. All rights reserved.
 //
 
 #import "TPProgressView.h"
@@ -21,84 +21,70 @@
 
 @implementation TPProgressView
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame withTotalProgress:(float)totalProgress
 {
     self = [super initWithFrame:frame];
     if (self)
     {
+        _totalProcess = totalProgress;
         self.borderWidth = 1;
-        [self initViews];
-        [self zdFrame:frame];
+        [self _initViews:frame];
         
     }
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame andBorderWidth:(NSUInteger)borderWidth
-{
-    self = [super initWithFrame:frame];
-    if (self)
-    {
-        self.borderWidth = borderWidth;
-        [self initViews];
-        [self zdFrame:frame];
-
-    }
-    return self;
-}
-
-- (void)setFrame:(CGRect)frame
-{
-    [super setFrame:frame];
-    [self zdFrame:frame];
-}
-
-- (void)zdFrame:(CGRect)frame
-{
-    self.layer.cornerRadius = frame.size.height/2;
-
-    self.foregroundView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
-    self.foregroundView.layer.cornerRadius = frame.size.height/2;
-    self.backgroundView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
-    
-    UIBezierPath *bgPath = [[UIBezierPath alloc] init];
-    [bgPath moveToPoint:CGPointMake(frame.size.width - frame.size.height/2, frame.size.height/2)];
-    [bgPath addLineToPoint:CGPointMake(frame.size.height/2, frame.size.height/2)];
-    
-    UIBezierPath *path = [[UIBezierPath alloc] init];
-    [path moveToPoint:CGPointMake(frame.size.height/2, frame.size.height/2)];
-    [path addLineToPoint:CGPointMake(frame.size.width - frame.size.height/2, frame.size.height/2)];
-}
-
-- (void)initViews
+- (void)_initViews:(CGRect)frame
 {
     self.backgroundView = [[UIView alloc] init];
     self.backgroundView.clipsToBounds = YES;
     [self addSubview:self.backgroundView];
     
-
+    
     self.foregroundView = [[UIView alloc] init];
     self.foregroundView.clipsToBounds = YES;
     [self addSubview:self.foregroundView];
+    
+    self.cornerRadius = frame.size.height/2;
+    self.layer.cornerRadius = self.cornerRadius;
+    self.foregroundView.layer.cornerRadius = self.cornerRadius;
+    
+    self.backgroundView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+    self.foregroundView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+    
     
 }
 
 #pragma property set or get
 
-- (void)setBackgroundColor:(UIColor *)backgroundColor
+- (void)setBgViewColor:(UIColor *)bgViewColor
 {
-    self.backgroundView.backgroundColor = backgroundColor;
+    self.backgroundView.backgroundColor = bgViewColor;
 }
 
 - (void)setProgressColor:(UIColor *)progressColor
 {
+    //    self.layer.borderColor = progressColor.CGColor;//进度条边界
     self.layer.borderColor = [UIColor clearColor].CGColor;
     self.foregroundView.backgroundColor = progressColor;
 }
 
-- (void)setProgress:(CGFloat)progress
+- (void)setCurProcess:(float)curProcess
 {
-    self.foregroundView.frame = CGRectMake(0, 0, self.frame.size.width * progress, self.frame.size.height);
+    if (curProcess > _totalProcess)
+    {
+        return;
+    }
+    
+    _curProcess = curProcess;
+    //为了显示好看的处理
+    if (curProcess != 0)
+    {
+        CGFloat atLeastProgress = self.cornerRadius * 2 / self.bounds.size.width * _totalProcess;
+        _curProcess = curProcess < atLeastProgress ? atLeastProgress:curProcess;
+    }
+    
+    self.foregroundView.frame = CGRectMake(0, 0, self.bounds.size.width * _curProcess / _totalProcess, self.bounds.size.height);
 }
 
 - (void)setBorderWidth:(NSUInteger)borderWidth
@@ -107,15 +93,5 @@
     self.layer.borderWidth = borderWidth;
 }
 
-
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

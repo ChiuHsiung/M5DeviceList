@@ -1,18 +1,21 @@
 //
 //  TPProgressView.h
-//  PE
+//  DeviceList
 //
-//  Created by 杨志达 on 14-6-20.
-//  Copyright (c) 2014年 PE. All rights reserved.
+//  Created by zhuangqiuxiong on 16/3/25.
+//  Copyright © 2016年 zhuangqiuxiong. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
 @interface TPProgressView : UIView
 
-@property (nonatomic,assign) CGFloat progress;
+@property (nonatomic,assign) float curProcess;
+@property (nonatomic,assign, readonly) float totalProcess;
 
 @property (nonatomic,strong) UIColor *bgViewColor;
 @property (nonatomic,strong) UIColor *progressColor;
+
+- (id)initWithFrame:(CGRect)frame withTotalProgress:(float)totalProgress;
 
 @end

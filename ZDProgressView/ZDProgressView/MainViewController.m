@@ -41,9 +41,9 @@
     [self.slider addTarget:self action:@selector(slider:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:self.slider];
     
-    self.TPProgressView = [[TPProgressView alloc] initWithFrame:CGRectMake(60, 200, 200, 25)];
-    self.TPProgressView.progress = 0;
-    self.TPProgressView.bgViewColor = [UIColor redColor];
+    self.TPProgressView = [[TPProgressView alloc] initWithFrame:CGRectMake(60, 200, 200, 15) withTotalProgress:1.0f];
+    self.TPProgressView.curProcess = 0;
+    self.TPProgressView.bgViewColor = [UIColor whiteColor];
     self.TPProgressView.progressColor = self.view.tintColor;
     [self.view addSubview:self.TPProgressView];
     
@@ -54,7 +54,7 @@
 #pragma mark - slider
 - (void)slider:(UISlider *)slider
 {
-    self.TPProgressView.progress = slider.value;
+    self.TPProgressView.curProcess = slider.value;
 }
 
 #pragma mark - view load
