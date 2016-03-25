@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
-   <FileRef
-      location = "group:RubberBandView/RubberBandView.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:TouchTracker/TouchTracker.xcodeproj">
-   </FileRef>
+   <Group
+      location = "container:"
+      name = "Test project">
+      <FileRef
+         location = "group:ZDProgressView/ZDProgressView.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:RubberBandView/RubberBandView.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:TouchTracker/TouchTracker.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:SlideOutToUnlock/SlideOutToUnlock.xcodeproj">
+      </FileRef>
+   </Group>
    <FileRef
       location = "group:DeviceList/DeviceList.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:SlideOutToUnlock/SlideOutToUnlock.xcodeproj">
    </FileRef>
 </Workspace>

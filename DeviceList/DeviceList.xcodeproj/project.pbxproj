@@ -13,6 +13,7 @@
 		3CC8781F1CA0EA2F0054F6EE /* TPCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC8781E1CA0EA2F0054F6EE /* TPCircle.m */; };
 		3CC878211CA0F47B0054F6EE /* Design.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC878201CA0F47B0054F6EE /* Design.xib */; };
 		3CC878241CA125350054F6EE /* TPAttributedStringGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC878231CA125350054F6EE /* TPAttributedStringGenerator.m */; };
+		3CCBD28A1CA53CE600A2076C /* TPProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CCBD2891CA53CE600A2076C /* TPProgressView.m */; };
 		3CEBBED11CA0E3B300B2F751 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CEBBED01CA0E3B300B2F751 /* main.m */; };
 		3CEBBED41CA0E3B300B2F751 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CEBBED31CA0E3B300B2F751 /* AppDelegate.m */; };
 		3CEBBED61CA0E3B300B2F751 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CEBBED51CA0E3B300B2F751 /* Assets.xcassets */; };
@@ -30,6 +31,8 @@
 		3CC878201CA0F47B0054F6EE /* Design.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Design.xib; sourceTree = "<group>"; };
 		3CC878221CA125350054F6EE /* TPAttributedStringGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPAttributedStringGenerator.h; path = View/TPAttributedStringGenerator.h; sourceTree = "<group>"; };
 		3CC878231CA125350054F6EE /* TPAttributedStringGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPAttributedStringGenerator.m; path = View/TPAttributedStringGenerator.m; sourceTree = "<group>"; };
+		3CCBD2881CA53CE600A2076C /* TPProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPProgressView.h; path = View/TPProgressView.h; sourceTree = "<group>"; };
+		3CCBD2891CA53CE600A2076C /* TPProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPProgressView.m; path = View/TPProgressView.m; sourceTree = "<group>"; };
 		3CEBBECC1CA0E3B300B2F751 /* DeviceList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeviceList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CEBBED01CA0E3B300B2F751 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3CEBBED21CA0E3B300B2F751 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -97,6 +100,8 @@
 				3CC8781E1CA0EA2F0054F6EE /* TPCircle.m */,
 				3C278DAC1CA2AE34009C5B1D /* TPDeviceInfoView.h */,
 				3C278DAD1CA2AE34009C5B1D /* TPDeviceInfoView.m */,
+				3CCBD2881CA53CE600A2076C /* TPProgressView.h */,
+				3CCBD2891CA53CE600A2076C /* TPProgressView.m */,
 				3C278DA61CA242ED009C5B1D /* TPLineBandView.h */,
 				3C278DA71CA242ED009C5B1D /* TPLineBandView.m */,
 			);
@@ -188,6 +193,7 @@
 				3CC878191CA0E88E0054F6EE /* DeviceListViewController.m in Sources */,
 				3C278DA81CA242ED009C5B1D /* TPLineBandView.m in Sources */,
 				3CC8781F1CA0EA2F0054F6EE /* TPCircle.m in Sources */,
+				3CCBD28A1CA53CE600A2076C /* TPProgressView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
