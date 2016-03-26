@@ -25,16 +25,17 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="device_logo" translatesAutoresizingMaskIntoConstraints="NO" id="eEk-G0-OcH">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="block_logo" translatesAutoresizingMaskIntoConstraints="NO" id="eEk-G0-OcH">
                         <rect key="frame" x="170" y="35" width="96" height="96"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                     </imageView>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             </view>
-            <point key="canvasLocation" x="420" y="443"/>
+            <point key="canvasLocation" x="271" y="371"/>
         </viewController>
     </objects>
     <resources>
-        <image name="device_logo" width="97" height="102"/>
+        <image name="block_logo" width="782" height="782"/>
     </resources>
 </document>

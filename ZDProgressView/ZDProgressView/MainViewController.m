@@ -8,12 +8,14 @@
 
 #import "MainViewController.h"
 #import "TPProgressView.h"
+#import "TPBlockView.h"
 
 
 @interface MainViewController ()
 
 @property (nonatomic,strong) TPProgressView *TPProgressView;
 @property (nonatomic,strong) UISlider *slider;
+@property (nonnull, strong) TPBlockView *blockView;
 
 @end
 
@@ -47,7 +49,11 @@
     self.TPProgressView.progressColor = self.view.tintColor;
     [self.view addSubview:self.TPProgressView];
     
-    
+    self.blockView = [[TPBlockView alloc] initWithFrame:CGRectMake(60, 250, 100, 100) andImageName:@"block_logo" andTotalProgress:1.0f];
+    self.blockView.curProcess = 0;
+    self.blockView.bgViewColor = [UIColor lightGrayColor];
+    self.blockView.progressColor = [UIColor blackColor];
+    [self.view addSubview:self.blockView];
 
 }
 
@@ -55,6 +61,7 @@
 - (void)slider:(UISlider *)slider
 {
     self.TPProgressView.curProcess = slider.value;
+    self.blockView.curProcess = slider.value;
 }
 
 #pragma mark - view load

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3CAF3F0E1CA63A9E00C71149 /* TPBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAF3F0D1CA63A9E00C71149 /* TPBlockView.m */; };
 		AA3E06351953C692009EA2A9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3E06341953C692009EA2A9 /* Foundation.framework */; };
 		AA3E06371953C692009EA2A9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3E06361953C692009EA2A9 /* CoreGraphics.framework */; };
 		AA3E06391953C692009EA2A9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3E06381953C692009EA2A9 /* UIKit.framework */; };
@@ -34,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3CAF3F0C1CA63A9E00C71149 /* TPBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPBlockView.h; sourceTree = "<group>"; };
+		3CAF3F0D1CA63A9E00C71149 /* TPBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPBlockView.m; sourceTree = "<group>"; };
 		AA3E06311953C692009EA2A9 /* ZDProgressView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZDProgressView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA3E06341953C692009EA2A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AA3E06361953C692009EA2A9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -158,6 +161,8 @@
 			children = (
 				AA3E06671953C708009EA2A9 /* TPProgressView.h */,
 				AA3E06661953C708009EA2A9 /* TPProgressView.m */,
+				3CAF3F0C1CA63A9E00C71149 /* TPBlockView.h */,
+				3CAF3F0D1CA63A9E00C71149 /* TPBlockView.m */,
 			);
 			name = ZDProgressView;
 			sourceTree = "<group>";
@@ -261,6 +266,7 @@
 				AA3E06451953C693009EA2A9 /* PVAppDelegate.m in Sources */,
 				AA3E06681953C708009EA2A9 /* TPProgressView.m in Sources */,
 				AA3E06651953C6A2009EA2A9 /* MainViewController.m in Sources */,
+				3CAF3F0E1CA63A9E00C71149 /* TPBlockView.m in Sources */,
 				AA3E06411953C693009EA2A9 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,6 +1,6 @@
 //
 //  TPLineBandView.m
-//  RubberBandView
+//  DeviceList
 //
 //  Created by zhuangqiuxiong on 16/3/23.
 //  Copyright © 2016年 zhuangqiuxiong. All rights reserved.
