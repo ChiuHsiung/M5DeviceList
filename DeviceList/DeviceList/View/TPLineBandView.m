@@ -697,14 +697,14 @@ static float acceleration(float time,float space) {
         
         CGFloat offSetX = touchPoint.x - _touchBeginPoint.x;
         
+        [self recoverStateAnimation:YES];
+        self.blockView.curProcess = 0;
+        self.blockView.alpha = 0.0f;
+        
         if (offSetX > 0)
         {
             return;
         }
-        
-        [self recoverStateAnimation:YES];
-        self.blockView.curProcess = 0;
-        self.blockView.alpha = 0.0f;
         
         if (self.nextLineBandView)
         {
