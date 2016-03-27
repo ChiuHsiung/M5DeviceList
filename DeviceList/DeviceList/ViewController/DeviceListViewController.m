@@ -46,14 +46,6 @@
 - (void)reloadChildViews
 {
     
-    [self.view addSubview:self.circle];
-    [self.circle addSubview:self.numOfDevicesLabel];
-    [self.circle addSubview:self.deciveLogoImgView];
-    [self.circle addSubview:self.deviceLabel];
-    
-    [self layoutCircle];
-    
-    
 #pragma mark - 测试模拟数据
     NSDictionary *device0 = @{
                               @"deviceType" :           @"phone",
@@ -77,7 +69,14 @@
                               
                               };
     
-    self.deviceList = @[device0, device1, device2];
+    self.deviceList = [[NSMutableArray alloc] initWithArray:@[device0, device1, device2]];
+    
+    [self.view addSubview:self.circle];
+    [self.circle addSubview:self.numOfDevicesLabel];
+    [self.circle addSubview:self.deciveLogoImgView];
+    [self.circle addSubview:self.deviceLabel];
+    
+    [self layoutCircle];
     
     self.bandViewList = [[NSMutableArray alloc] init];
     CGFloat maxOffset = self.view.bounds.size.width / 2 / 4;
@@ -129,37 +128,50 @@
     return _circle;
 }
 
+- (TPAttributedStringGenerator *)generateNSAttributedString:(NSString *)string
+{
+    CGFloat maxWidth = self.circle.bounds.size.width * 0.5;
+    
+    TPAttributedStringGenerator* attrGen = [[TPAttributedStringGenerator alloc] init];
+    attrGen.text = [NSString stringWithFormat:@"%lu", (unsigned long)[self.deviceList count]];
+    //        attrGen.text = [NSString stringWithFormat:@"%d", 17];
+    attrGen.font = [UIFont fontWithName:@"HelveticaNeue" size:35];
+    attrGen.textColor = [UIColor grayColor];
+    attrGen.textAlignment = NSTextAlignmentRight;
+    attrGen.constraintSize = CGSizeMake(maxWidth, MAXFLOAT);
+    attrGen.lineBreakMode = NSLineBreakByWordWrapping;
+    [attrGen generate];
+    
+    return attrGen;
+}
+
+- (void)updateNumOfDevicesLabel
+{
+    CGFloat maxWidth = self.circle.bounds.size.width * 0.5;
+    
+    
+    TPAttributedStringGenerator* attrGen = [self generateNSAttributedString:[NSString stringWithFormat:@"%lu", (unsigned long)[self.deviceList count]]];
+    _numOfDevicesLabel.attributedText = attrGen.attributedString;
+    _numOfDevicesLabel.numberOfLines = 0;//0代表根据文本动态调整行数
+    _numOfDevicesLabel.backgroundColor = [UIColor clearColor];
+    [_numOfDevicesLabel sizeToFit];
+    _numOfDevicesLabel.frame = CGRectMake(maxWidth - _numOfDevicesLabel.bounds.size.width,
+                                          maxWidth - _numOfDevicesLabel.bounds.size.height,
+                                          maxWidth,
+                                          _numOfDevicesLabel.bounds.size.height);
+    [_numOfDevicesLabel sizeToFit];
+    
+    
+    self.numOfDevicesLabelHeight = attrGen.bounds.size.height;
+}
+
 - (UILabel *)numOfDevicesLabel
 {
     if (nil == _numOfDevicesLabel)
     {
         _numOfDevicesLabel = [[UILabel alloc] init];
-        
-        CGFloat maxWidth = self.circle.bounds.size.width * 0.5;
-        
-        TPAttributedStringGenerator* attrGen = [[TPAttributedStringGenerator alloc] init];
-//        attrGen.text = [NSString stringWithFormat:@"%lu", (unsigned long)[self.deviceList count]];
-        attrGen.text = [NSString stringWithFormat:@"%d", 17];
-        attrGen.font = [UIFont fontWithName:@"HelveticaNeue" size:35];
-        attrGen.textColor = [UIColor grayColor];
-        attrGen.textAlignment = NSTextAlignmentRight;
-        attrGen.constraintSize = CGSizeMake(maxWidth, MAXFLOAT);
-        attrGen.lineBreakMode = NSLineBreakByWordWrapping;
-        [attrGen generate];
-        
-        _numOfDevicesLabel.attributedText = attrGen.attributedString;
-        _numOfDevicesLabel.numberOfLines = 0;//0代表根据文本动态调整行数
-        _numOfDevicesLabel.backgroundColor = [UIColor clearColor];
-        [_numOfDevicesLabel sizeToFit];
-        _numOfDevicesLabel.frame = CGRectMake(maxWidth - _numOfDevicesLabel.bounds.size.width,
-                                              maxWidth - _numOfDevicesLabel.bounds.size.height,
-                                              maxWidth,
-                                              _numOfDevicesLabel.bounds.size.height);
-        [_numOfDevicesLabel sizeToFit];
-        
-        
-        self.numOfDevicesLabelHeight = attrGen.bounds.size.height;
     }
+    [self updateNumOfDevicesLabel];
     
     return _numOfDevicesLabel;
 }
@@ -321,6 +333,58 @@
         }
         
     }
+    
+}
+
+- (void)deleteTPLineBandView:(id)sender
+{
+    int deleteIndex = 0;
+    for (int i = 0; i < [self.bandViewList count]; i++)
+    {
+        if (self.bandViewList[i] == sender)
+        {
+            deleteIndex = i;
+            break;
+        }
+    }
+    TPLineBandView *deleteBandView = self.bandViewList[deleteIndex];
+    TPLineBandView *firBandView = deleteBandView.nextLineBandView;
+    if (firBandView != nil)
+    {
+        firBandView.frame = deleteBandView.frame;
+        if (deleteIndex != 0)
+        {
+            TPLineBandView *lastBandView = self.bandViewList[deleteIndex - 1];
+            lastBandView.nextLineBandView = firBandView;
+        }
+        
+        TPLineBandView *preBandView = firBandView;
+        for (int i = deleteIndex + 2; i < [self.bandViewList count]; i++)
+        {
+            TPLineBandView *bandViewItem = self.bandViewList[i];
+            bandViewItem.frame = CGRectMake(0, preBandView.frame.origin.y + preBandView.bounds.size.height, bandViewItem.bounds.size.width, bandViewItem.bounds.size.height);
+            
+            preBandView = bandViewItem;
+        }
+        
+    }
+    
+    //说明delete的BandView是最后一个
+    else
+    {
+        if (deleteIndex - 1 >= 0)
+        {
+            TPLineBandView *lastBandView = self.bandViewList[deleteIndex - 1];
+            lastBandView.nextLineBandView = nil;
+        }
+    }
+    
+    
+    
+    [sender removeFromSuperview];
+    [self.bandViewList removeObjectAtIndex:deleteIndex];
+    [self.deviceList removeObjectAtIndex:deleteIndex];
+    [self updateNumOfDevicesLabel];
     
 }
 

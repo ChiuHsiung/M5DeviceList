@@ -15,7 +15,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-static CFTimeInterval defaultDuration = 0.3;
+static CFTimeInterval defaultDuration = 0.2;
 
 //加速度
 static float acceleration(float time,float space) {
@@ -340,9 +340,13 @@ static float acceleration(float time,float space) {
     [self redrawWithPath:path.CGPath];
 }
 
-- (void)recoverStateAnimation {
+- (void)recoverStateAnimation:(BOOL)isNeedAnimation {
     _beginProperty = CopyLBProperty(_currentProperty);
     if (_duration == 0) _duration = defaultDuration;
+    if (!isNeedAnimation)
+    {
+        _duration = 0;
+    }
     _beginTime = 0;
     _animationRegisteredTime = [_drawLayer convertTime:CACurrentMediaTime() fromLayer:nil];
     if (_link) _link.paused = NO;
@@ -685,20 +689,48 @@ static float acceleration(float time,float space) {
             self.deviceInfoView.center = [self adjustDeviceInfoViewCenterWithOffsetX:offSetX andOffsetY:0];
         }
         
-        self.blockView.curProcess = -offSetX;
+        self.blockView.curProcess = fabs(offSetX);
         
     }
     else
     {
         
-        [self recoverStateAnimation];
-        if (self.nextLineBandView)
+        CGFloat offSetX = touchPoint.x - _touchBeginPoint.x;
+        
+        if (offSetX > 0)
         {
-            [self.nextLineBandView recoverStateAnimation];
-//            [self.nextLineBandView addPanGestureRecognizerToDeviceInfoView];
+            return;
         }
+        
+        [self recoverStateAnimation:YES];
         self.blockView.curProcess = 0;
         self.blockView.alpha = 0.0f;
+        
+        if (self.nextLineBandView)
+        {
+            if (fabs(offSetX) > self.property.maxOffSet)
+            {
+                //如删除本视图，则下一视图不需要动画
+                [self.nextLineBandView recoverStateAnimation:false];
+            }
+            else
+            {
+                [self.nextLineBandView recoverStateAnimation:true];
+            }
+//            [self.nextLineBandView recoverStateAnimation:true];
+            
+        }
+        
+        //删除本视图
+        if (fabs(offSetX) > self.property.maxOffSet)
+        {
+            //这里可以增加弹框确定是否确认block
+            if ([self.delegate respondsToSelector:@selector(deleteTPLineBandView:)])
+            {
+                [self.delegate deleteTPLineBandView:self];
+                return;
+            }
+        }
         
     }
 }

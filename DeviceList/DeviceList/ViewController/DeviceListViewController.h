@@ -12,6 +12,6 @@
 
 @interface DeviceListViewController : UIViewController <TPLineBandViewDelegate>
 
-@property (nonatomic, strong) NSArray *deviceList;
+@property (nonatomic, strong) NSMutableArray *deviceList;
 
 @end

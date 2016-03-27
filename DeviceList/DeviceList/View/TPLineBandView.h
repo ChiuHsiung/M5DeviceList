@@ -54,6 +54,8 @@ typedef NS_ENUM(int, POINTMOVED_TYPE)
 - (void)removePanGestrueFromAllOtherTPLineBandView:(id)sender;
 - (void)addPanGestrueToAllTPLineBandView;
 
+- (void)deleteTPLineBandView:(id)sender;
+
 @end
 
 @interface TPLineBandView : UIView
