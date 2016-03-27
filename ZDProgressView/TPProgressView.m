@@ -71,7 +71,7 @@
 
 - (void)setCurProcess:(float)curProcess
 {
-    if (curProcess > _totalProcess)
+    if (curProcess > _totalProcess || curProcess < 0)
     {
         return;
     }

@@ -56,7 +56,7 @@
     
     TPAttributedStringGenerator* attrGen = [[TPAttributedStringGenerator alloc] init];
     attrGen.text = @"左拉拖黑";
-    attrGen.font = [UIFont fontWithName:@"HelveticaNeue" size:15];
+    attrGen.font = [UIFont fontWithName:@"HelveticaNeue" size:10];
     attrGen.textColor = [UIColor grayColor];
     attrGen.textAlignment = NSTextAlignmentLeft;
     attrGen.constraintSize = CGSizeMake(maxWidth, MAXFLOAT);

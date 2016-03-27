@@ -11,6 +11,7 @@
 #import "TPDeviceInfoView.h"
 #import "TPProgressView.h"
 #import "TPAttributedStringGenerator.h"
+#import "TPBlockView.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -33,7 +34,9 @@ static float acceleration(float time,float space) {
     CGPoint _touchBeginPoint;
 }
 
-@property (nonatomic,strong)CAShapeLayer *drawLayer;
+@property (nonatomic,strong)        CAShapeLayer *drawLayer;
+
+@property (nonatomic,strong)        TPBlockView *blockView;
 
 @end
 
@@ -76,6 +79,7 @@ static float acceleration(float time,float space) {
         [self updateDeviceNameLabel];
         [self updateParentCtrlLabel];
         [self updateProgressView];
+        [self _initBlockView];
         
         self.delegate = someOne;
     }
@@ -94,6 +98,7 @@ static float acceleration(float time,float space) {
         [self updateDeviceNameLabel];
         [self updateParentCtrlLabel];
         [self updateProgressView];
+        [self _initBlockView];
         
         self.delegate = someOne;
     }
@@ -206,6 +211,24 @@ static float acceleration(float time,float space) {
         [self addSubview:self.progressView];
     }
     self.progressView.curProcess = self.curProgress;
+}
+
+- (void)_initBlockView
+{
+    CGFloat maxWidth = self.bounds.size.width / 2 - self.deviceInfoView.bounds.size.width / 2;
+    CGFloat blockViewWidth = 80 < maxWidth ? 80 : maxWidth;
+    CGFloat blockViewHeight = 18;
+    self.blockView = [[TPBlockView alloc] initWithFrame:CGRectMake(self.bounds.size.width - blockViewWidth,
+                                                                   self.deviceInfoView.center.y - blockViewHeight / 2,
+                                                                   blockViewWidth,
+                                                                   blockViewHeight)
+                                           andImageName:@"block_logo"
+                                       andTotalProgress:self.property.maxOffSet];
+    self.blockView.curProcess = 0;
+    self.blockView.bgViewColor = [UIColor lightGrayColor];
+    self.blockView.progressColor = [UIColor blackColor];
+    self.blockView.alpha = 0.0f;
+    [self addSubview:self.blockView];
 }
 
 
@@ -635,13 +658,21 @@ static float acceleration(float time,float space) {
             [self.delegate removePanGestrueFromAllOtherTPLineBandView:self];
         }
         
-        //控制其它控件消失
-        [self makeOtherViewDisappear];
         
-    }else if (recoginzer.state == UIGestureRecognizerStateChanged)
+    }
+    else if (recoginzer.state == UIGestureRecognizerStateChanged)
     {
         CGFloat offSetX = touchPoint.x - _touchBeginPoint.x;
         CGFloat offSetY = touchPoint.y - _touchBeginPoint.y;
+        
+        if (offSetX > 0)
+        {
+            return;
+        }
+        
+        //控制其它控件消失
+        [self makeOtherViewDisappear];
+        self.blockView.alpha = 1.0f;
         
         [self pullWithOffSetX:offSetX andOffsetY:0];
         if (self.nextLineBandView)
@@ -654,7 +685,11 @@ static float acceleration(float time,float space) {
             self.deviceInfoView.center = [self adjustDeviceInfoViewCenterWithOffsetX:offSetX andOffsetY:0];
         }
         
-    }else {
+        self.blockView.curProcess = -offSetX;
+        
+    }
+    else
+    {
         
         [self recoverStateAnimation];
         if (self.nextLineBandView)
@@ -662,6 +697,8 @@ static float acceleration(float time,float space) {
             [self.nextLineBandView recoverStateAnimation];
 //            [self.nextLineBandView addPanGestureRecognizerToDeviceInfoView];
         }
+        self.blockView.curProcess = 0;
+        self.blockView.alpha = 0.0f;
         
     }
 }

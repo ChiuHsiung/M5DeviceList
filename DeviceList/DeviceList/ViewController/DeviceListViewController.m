@@ -25,8 +25,7 @@
 @property (nonatomic, assign) CGFloat numOfDevicesLabelHeight;//记录numOfDevicesLabel的高度
 
 
-@property (nonatomic,strong) TPLineBandView *rubberBandView;
-@property (nonatomic,strong) TPLineBandView *lbViewTest;
+@property (nonatomic,strong) NSMutableArray *bandViewList;
 
 @end
 
@@ -54,40 +53,64 @@
     
     [self layoutCircle];
     
-    [UIView animateWithDuration:2.0 animations:^{
-        self.circle.alpha = 1.0f;
-        self.numOfDevicesLabel.alpha = 1.0f;
-        self.deciveLogoImgView.alpha = 1.0f;
-        self.deviceLabel.alpha = 1.0f;
-    } completion:^(BOOL finished) {
-        
-    }];
     
 #pragma mark - 测试模拟数据
+    NSDictionary *device0 = @{
+                              @"deviceType" :           @"phone",
+                              @"deviceName" :           @"KK's iPhone",
+                              @"parentalCtrlTime":      @"12:00 ~ 13:00",
+                              @"curProgress":           @800
+                              
+                              };
+    NSDictionary *device1 = @{
+                              @"deviceType" :           @"laptop",
+                              @"deviceName" :           @"Jake's Mac",
+                              @"parentalCtrlTime":      @"12:45 ~ 14:45",
+                              @"curProgress":           @600
+                              
+                              };
+    NSDictionary *device2 = @{
+                              @"deviceType" :           @"phone",
+                              @"deviceName" :           @"None",
+                              @"parentalCtrlTime":      @"",
+                              @"curProgress":           @500
+                              
+                              };
+    
+    self.deviceList = @[device0, device1, device2];
+    
+    self.bandViewList = [[NSMutableArray alloc] init];
     CGFloat maxOffset = self.view.bounds.size.width / 2 / 4;
     
-    _rubberBandView = [[TPLineBandView alloc] initWithFrame:CGRectMake(0, self.circle.frame.origin.y + self.circle.bounds.size.height, self.view.bounds.size.width, maxOffset * 2)andStrokeColor:[UIColor grayColor] andLineWidth:2.0f andMaxOffset:maxOffset andDelegate:self];
-    _rubberBandView.duration = 0.2;
-    _rubberBandView.deviceType = @"phone";
-    _rubberBandView.deviceName = @"KK's iPhone";
-    _rubberBandView.parentalCtrlTime = @"12:00 ~ 13:00";
-    _rubberBandView.totalProgress = 1000;//必须先设置totalProgress，否则设置curProgress会无效
-    _rubberBandView.curProgress = 800;
-    //    _rubberBandView.backgroundColor = [UIColor blueColor];
+    NSDictionary *deviceItem0 = self.deviceList[0];
+    TPLineBandView *bandViewListItem0 = [[TPLineBandView alloc] initWithFrame:CGRectMake(0, self.circle.frame.origin.y + self.circle.bounds.size.height, self.view.bounds.size.width, maxOffset * 2) andStrokeColor:[UIColor grayColor] andLineWidth:2.0f andMaxOffset:maxOffset andDelegate:self];
+    bandViewListItem0.duration = 0.2;
+    bandViewListItem0.deviceType = deviceItem0[@"deviceType"];
+    bandViewListItem0.deviceName = deviceItem0[@"deviceName"];
+    bandViewListItem0.parentalCtrlTime = deviceItem0[@"parentalCtrlTime"];
+    bandViewListItem0.totalProgress = 1000;//必须先设置totalProgress，否则设置curProgress会无效
+    bandViewListItem0.curProgress = [deviceItem0[@"curProgress"] floatValue];
+    [self.view addSubview:bandViewListItem0];
+    [self.bandViewList addObject:bandViewListItem0];
     
-    _lbViewTest = [[TPLineBandView alloc] initWithFrame:CGRectMake(0, _rubberBandView.frame.origin.y + _rubberBandView.bounds.size.height, self.view.bounds.size.width, maxOffset * 2)andStrokeColor:[UIColor grayColor] andLineWidth:2.0f andMaxOffset:maxOffset andDelegate:self];
-    _lbViewTest.duration = 0.2;
-    _lbViewTest.deviceType = @"laptop";
-    _lbViewTest.deviceName = @"Jake's Mac";
-    _lbViewTest.totalProgress = 1000;//必须先设置totalProgress，否则设置curProgress会无效
-    _lbViewTest.curProgress = 100;
-//    _lbViewTest.parentalCtrlTime = @"12:45 ~ 14:45";
-    //    _lbViewTest.backgroundColor = [UIColor blueColor];
+    TPLineBandView *preBandView = bandViewListItem0;
+    for (int i = 1; i < [self.deviceList count]; i++)
+    {
+        NSDictionary *dictItem = self.deviceList[i];
+        TPLineBandView *bandViewItem = [[TPLineBandView alloc] initWithFrame:CGRectMake(0, preBandView.frame.origin.y + preBandView.bounds.size.height, self.view.bounds.size.width, maxOffset * 2) andStrokeColor:[UIColor grayColor] andLineWidth:2.0f andMaxOffset:maxOffset andDelegate:self];
+        bandViewItem.duration = 0.2;
+        bandViewItem.deviceType = dictItem[@"deviceType"];
+        bandViewItem.deviceName = dictItem[@"deviceName"];
+        bandViewItem.parentalCtrlTime = dictItem[@"parentalCtrlTime"];
+        bandViewItem.totalProgress = 1000;//必须先设置totalProgress，否则设置curProgress会无效
+        bandViewItem.curProgress = [dictItem[@"curProgress"] floatValue];
+        [self.view addSubview:bandViewItem];
+        [self.bandViewList addObject:bandViewItem];
+        
+        preBandView.nextLineBandView = bandViewItem;
+        preBandView = bandViewItem;
+    }
     
-    _rubberBandView.nextLineBandView = _lbViewTest;
-    
-    [self.view addSubview:_rubberBandView];
-    [self.view addSubview:_lbViewTest];
     
 }
 
@@ -101,7 +124,6 @@
         _circle.center = CGPointMake(self.view.center.x, 44 + _circle.bounds.size.height / 2);
         
         _circle.lineWidth = 2.0f;
-        _circle.alpha = 0.0f;
     }
     
     return _circle;
@@ -135,7 +157,6 @@
                                               _numOfDevicesLabel.bounds.size.height);
         [_numOfDevicesLabel sizeToFit];
         
-        _numOfDevicesLabel.alpha = 0.0f;
         
         self.numOfDevicesLabelHeight = attrGen.bounds.size.height;
     }
@@ -161,7 +182,6 @@
                                               imgViewWidth,
                                               imgViewHeight);
         
-        _deciveLogoImgView.alpha = 0.0f;
         
     }
     
@@ -194,7 +214,6 @@
         
         _deviceLabel.center = CGPointMake(maxWidth, maxWidth + _deviceLabel.bounds.size.height / 2.0 + edgeDistance);
         
-        _deviceLabel.alpha = 0.0f;
         
     }
     
@@ -284,20 +303,23 @@
 #pragma mark - Delegate
 - (void)addPanGestrueToAllTPLineBandView
 {
-    [self.rubberBandView addPanGestureRecognizerToDeviceInfoView];
-    [self.lbViewTest addPanGestureRecognizerToDeviceInfoView];
+
+    for (TPLineBandView *bandLineItem in self.bandViewList)
+    {
+        [bandLineItem addPanGestureRecognizerToDeviceInfoView];
+    }
 }
 
 - (void)removePanGestrueFromAllOtherTPLineBandView:(id)sender
 {
-    if (sender == self.rubberBandView)
+
+    for (TPLineBandView *bandLineItem in self.bandViewList)
     {
-        [self.lbViewTest removePanGestureRecognizerFromDeviceInfoView];
-    }
-    
-    if (sender == self.lbViewTest)
-    {
-        [self.rubberBandView removePanGestureRecognizerFromDeviceInfoView];
+        if (sender != bandLineItem)
+        {
+            [bandLineItem removePanGestureRecognizerFromDeviceInfoView];
+        }
+        
     }
     
 }

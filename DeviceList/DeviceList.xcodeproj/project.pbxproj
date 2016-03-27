@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3C278DA81CA242ED009C5B1D /* TPLineBandView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C278DA71CA242ED009C5B1D /* TPLineBandView.m */; };
 		3C278DAE1CA2AE34009C5B1D /* TPDeviceInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C278DAD1CA2AE34009C5B1D /* TPDeviceInfoView.m */; };
+		3C84EE441CA79D1900BB915E /* TPBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C84EE431CA79D1900BB915E /* TPBlockView.m */; };
 		3CC878191CA0E88E0054F6EE /* DeviceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC878181CA0E88E0054F6EE /* DeviceListViewController.m */; };
 		3CC8781F1CA0EA2F0054F6EE /* TPCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC8781E1CA0EA2F0054F6EE /* TPCircle.m */; };
 		3CC878211CA0F47B0054F6EE /* Design.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC878201CA0F47B0054F6EE /* Design.xib */; };
@@ -24,6 +25,8 @@
 		3C278DA71CA242ED009C5B1D /* TPLineBandView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPLineBandView.m; path = View/TPLineBandView.m; sourceTree = "<group>"; };
 		3C278DAC1CA2AE34009C5B1D /* TPDeviceInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPDeviceInfoView.h; path = View/TPDeviceInfoView.h; sourceTree = "<group>"; };
 		3C278DAD1CA2AE34009C5B1D /* TPDeviceInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPDeviceInfoView.m; path = View/TPDeviceInfoView.m; sourceTree = "<group>"; };
+		3C84EE421CA79D1900BB915E /* TPBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPBlockView.h; path = View/TPBlockView.h; sourceTree = "<group>"; };
+		3C84EE431CA79D1900BB915E /* TPBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPBlockView.m; path = View/TPBlockView.m; sourceTree = "<group>"; };
 		3CC878171CA0E88E0054F6EE /* DeviceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceListViewController.h; path = ViewController/DeviceListViewController.h; sourceTree = "<group>"; };
 		3CC878181CA0E88E0054F6EE /* DeviceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceListViewController.m; path = ViewController/DeviceListViewController.m; sourceTree = "<group>"; };
 		3CC8781D1CA0EA2F0054F6EE /* TPCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPCircle.h; path = View/TPCircle.h; sourceTree = "<group>"; };
@@ -102,6 +105,8 @@
 				3C278DAD1CA2AE34009C5B1D /* TPDeviceInfoView.m */,
 				3CCBD2881CA53CE600A2076C /* TPProgressView.h */,
 				3CCBD2891CA53CE600A2076C /* TPProgressView.m */,
+				3C84EE421CA79D1900BB915E /* TPBlockView.h */,
+				3C84EE431CA79D1900BB915E /* TPBlockView.m */,
 				3C278DA61CA242ED009C5B1D /* TPLineBandView.h */,
 				3C278DA71CA242ED009C5B1D /* TPLineBandView.m */,
 			);
@@ -187,6 +192,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C278DAE1CA2AE34009C5B1D /* TPDeviceInfoView.m in Sources */,
+				3C84EE441CA79D1900BB915E /* TPBlockView.m in Sources */,
 				3CC878241CA125350054F6EE /* TPAttributedStringGenerator.m in Sources */,
 				3CEBBED41CA0E3B300B2F751 /* AppDelegate.m in Sources */,
 				3CEBBED11CA0E3B300B2F751 /* main.m in Sources */,

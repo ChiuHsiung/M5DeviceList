@@ -49,7 +49,7 @@
     self.TPProgressView.progressColor = self.view.tintColor;
     [self.view addSubview:self.TPProgressView];
     
-    self.blockView = [[TPBlockView alloc] initWithFrame:CGRectMake(60, 250, 100, 100) andImageName:@"block_logo" andTotalProgress:1.0f];
+    self.blockView = [[TPBlockView alloc] initWithFrame:CGRectMake(60, 250, 100, 20) andImageName:@"block_logo" andTotalProgress:1.0f];
     self.blockView.curProcess = 0;
     self.blockView.bgViewColor = [UIColor lightGrayColor];
     self.blockView.progressColor = [UIColor blackColor];
