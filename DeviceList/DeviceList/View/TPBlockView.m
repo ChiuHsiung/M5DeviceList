@@ -93,12 +93,21 @@
 
 - (void)setCurProcess:(float)curProcess
 {
-    if (curProcess > _totalProcess || curProcess < 0)
+    if (curProcess > _totalProcess)
     {
-        return;
+        _curProcess = _totalProcess;
     }
     
-    _curProcess = curProcess;
+    else if (curProcess < 0)
+    {
+        _curProcess = 0;
+    }
+    
+    else
+    {
+        _curProcess = curProcess;
+
+    }
     
     self.backgroundView.frame = CGRectMake(0,
                                            self.bounds.size.height - self.bounds.size.height * _curProcess / _totalProcess,

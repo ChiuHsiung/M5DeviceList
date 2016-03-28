@@ -671,7 +671,7 @@ static float acceleration(float time,float space) {
         
         if (offSetX > 0)
         {
-            return;
+            offSetX = 0;
         }
         
         //控制其它控件消失
