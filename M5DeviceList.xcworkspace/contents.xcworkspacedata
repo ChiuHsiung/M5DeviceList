@@ -5,6 +5,9 @@
       location = "container:"
       name = "Test project">
       <FileRef
+         location = "group:AvatarPhoto-master/AvatarPhoto.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:ZDProgressView/ZDProgressView.xcodeproj">
       </FileRef>
       <FileRef

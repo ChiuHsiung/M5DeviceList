@@ -25,6 +25,7 @@
     if (self)
     {
         _totalProcess = totalProgress;
+        
         [self _initViews:frame andImageName:imageName];
         
     }

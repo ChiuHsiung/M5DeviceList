@@ -22,8 +22,6 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     DeviceListViewController *deviceListVC = [[DeviceListViewController alloc] init];
-    NSArray *deivceList = @[@"KK's iphone", @"Jake's Mac", @"None", @"Steven's iphone"];
-    deviceListVC.deviceList = deivceList;
     self.window.rootViewController = deviceListVC;
     
     [self.window makeKeyAndVisible];
