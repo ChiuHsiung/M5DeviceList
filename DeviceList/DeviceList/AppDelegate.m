@@ -3,11 +3,12 @@
 //  DeviceList
 //
 //  Created by zhuangqiuxiong on 16/3/22.
-//  Copyright © 2016年 zhuangqiuxiong. All rights reserved.
+//  Copyright © 2016年 tplink. All rights reserved.
 //
 
 #import "AppDelegate.h"
 #import "DeviceListViewController.h"
+#import "UserlistViewController.h"
 
 @interface AppDelegate ()
 
@@ -21,9 +22,12 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
-    DeviceListViewController *deviceListVC = [[DeviceListViewController alloc] init];
-    self.window.rootViewController = deviceListVC;
+//    DeviceListViewController *deviceListVC = [[DeviceListViewController alloc] init];
+//    self.window.rootViewController = deviceListVC;
+    UserlistViewController *userListVC = [[UserlistViewController alloc] init];
+    UINavigationController *naVC = [[UINavigationController alloc] initWithRootViewController:userListVC];
     
+    [self.window setRootViewController:naVC];
     [self.window makeKeyAndVisible];
     return YES;
 }

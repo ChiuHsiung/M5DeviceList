@@ -3,7 +3,7 @@
 //  DeviceList
 //
 //  Created by zhuangqiuxiong on 16/3/23.
-//  Copyright © 2016年 zhuangqiuxiong. All rights reserved.
+//  Copyright © 2016年 tplink. All rights reserved.
 //
 
 #import "TPLineBandView.h"

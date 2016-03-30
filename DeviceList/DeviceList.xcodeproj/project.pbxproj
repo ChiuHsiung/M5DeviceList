@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C38EAFD1CABA0A80095363F /* AddNewOwnerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C38EAFC1CABA0A80095363F /* AddNewOwnerViewController.m */; };
 		3C8B0C8C1CAA571700EB1531 /* TPBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C831CAA571700EB1531 /* TPBlockView.m */; };
 		3C8B0C8D1CAA571700EB1531 /* TPCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C851CAA571700EB1531 /* TPCircle.m */; };
 		3C8B0C8E1CAA571700EB1531 /* TPDeviceInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C871CAA571700EB1531 /* TPDeviceInfoView.m */; };
 		3C8B0C8F1CAA571700EB1531 /* TPLineBandView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C891CAA571700EB1531 /* TPLineBandView.m */; };
 		3C8B0C901CAA571700EB1531 /* TPProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C8B1CAA571700EB1531 /* TPProgressView.m */; };
+		3C8B0C941CAA63E900EB1531 /* UserlistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C931CAA63E900EB1531 /* UserlistViewController.m */; };
+		3C8B0C971CAA6FAA00EB1531 /* ChooseUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C961CAA6FAA00EB1531 /* ChooseUserTableViewCell.m */; };
 		3CC878191CA0E88E0054F6EE /* DeviceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC878181CA0E88E0054F6EE /* DeviceListViewController.m */; };
 		3CC878211CA0F47B0054F6EE /* Design.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC878201CA0F47B0054F6EE /* Design.xib */; };
 		3CC878241CA125350054F6EE /* TPAttributedStringGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC878231CA125350054F6EE /* TPAttributedStringGenerator.m */; };
@@ -21,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3C38EAFB1CABA0A80095363F /* AddNewOwnerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddNewOwnerViewController.h; path = ViewController/AddNewOwnerViewController.h; sourceTree = "<group>"; };
+		3C38EAFC1CABA0A80095363F /* AddNewOwnerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddNewOwnerViewController.m; path = ViewController/AddNewOwnerViewController.m; sourceTree = "<group>"; };
 		3C8B0C821CAA571700EB1531 /* TPBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPBlockView.h; sourceTree = "<group>"; };
 		3C8B0C831CAA571700EB1531 /* TPBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPBlockView.m; sourceTree = "<group>"; };
 		3C8B0C841CAA571700EB1531 /* TPCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircle.h; sourceTree = "<group>"; };
@@ -31,6 +36,10 @@
 		3C8B0C891CAA571700EB1531 /* TPLineBandView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPLineBandView.m; sourceTree = "<group>"; };
 		3C8B0C8A1CAA571700EB1531 /* TPProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPProgressView.h; sourceTree = "<group>"; };
 		3C8B0C8B1CAA571700EB1531 /* TPProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPProgressView.m; sourceTree = "<group>"; };
+		3C8B0C921CAA63E900EB1531 /* UserlistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserlistViewController.h; path = ViewController/UserlistViewController.h; sourceTree = "<group>"; };
+		3C8B0C931CAA63E900EB1531 /* UserlistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserlistViewController.m; path = ViewController/UserlistViewController.m; sourceTree = "<group>"; };
+		3C8B0C951CAA6FAA00EB1531 /* ChooseUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChooseUserTableViewCell.h; path = DeviceList/View/Userlist/ChooseUserTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		3C8B0C961CAA6FAA00EB1531 /* ChooseUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChooseUserTableViewCell.m; path = DeviceList/View/Userlist/ChooseUserTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		3CC878171CA0E88E0054F6EE /* DeviceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceListViewController.h; path = ViewController/DeviceListViewController.h; sourceTree = "<group>"; };
 		3CC878181CA0E88E0054F6EE /* DeviceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceListViewController.m; path = ViewController/DeviceListViewController.m; sourceTree = "<group>"; };
 		3CC878201CA0F47B0054F6EE /* Design.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Design.xib; sourceTree = "<group>"; };
@@ -70,6 +79,16 @@
 				3C8B0C8B1CAA571700EB1531 /* TPProgressView.m */,
 			);
 			name = Devicelist;
+			path = View/Devicelist;
+			sourceTree = "<group>";
+		};
+		3C8B0C911CAA638D00EB1531 /* Userlist */ = {
+			isa = PBXGroup;
+			children = (
+				3C8B0C951CAA6FAA00EB1531 /* ChooseUserTableViewCell.h */,
+				3C8B0C961CAA6FAA00EB1531 /* ChooseUserTableViewCell.m */,
+			);
+			name = Userlist;
 			path = View/Devicelist;
 			sourceTree = "<group>";
 		};
@@ -118,6 +137,7 @@
 				3CC878221CA125350054F6EE /* TPAttributedStringGenerator.h */,
 				3CC878231CA125350054F6EE /* TPAttributedStringGenerator.m */,
 				3C8B0C811CAA571700EB1531 /* Devicelist */,
+				3C8B0C911CAA638D00EB1531 /* Userlist */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -127,6 +147,10 @@
 			children = (
 				3CC878171CA0E88E0054F6EE /* DeviceListViewController.h */,
 				3CC878181CA0E88E0054F6EE /* DeviceListViewController.m */,
+				3C8B0C921CAA63E900EB1531 /* UserlistViewController.h */,
+				3C8B0C931CAA63E900EB1531 /* UserlistViewController.m */,
+				3C38EAFB1CABA0A80095363F /* AddNewOwnerViewController.h */,
+				3C38EAFC1CABA0A80095363F /* AddNewOwnerViewController.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -158,7 +182,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0720;
-				ORGANIZATIONNAME = zhuangqiuxiong;
+				ORGANIZATIONNAME = tplink;
 				TargetAttributes = {
 					3CEBBECB1CA0E3B300B2F751 = {
 						CreatedOnToolsVersion = 7.2;
@@ -205,11 +229,14 @@
 				3C8B0C901CAA571700EB1531 /* TPProgressView.m in Sources */,
 				3CC878241CA125350054F6EE /* TPAttributedStringGenerator.m in Sources */,
 				3C8B0C8D1CAA571700EB1531 /* TPCircle.m in Sources */,
+				3C8B0C971CAA6FAA00EB1531 /* ChooseUserTableViewCell.m in Sources */,
 				3CEBBED41CA0E3B300B2F751 /* AppDelegate.m in Sources */,
 				3CEBBED11CA0E3B300B2F751 /* main.m in Sources */,
 				3C8B0C8C1CAA571700EB1531 /* TPBlockView.m in Sources */,
+				3C8B0C941CAA63E900EB1531 /* UserlistViewController.m in Sources */,
 				3CC878191CA0E88E0054F6EE /* DeviceListViewController.m in Sources */,
 				3C8B0C8F1CAA571700EB1531 /* TPLineBandView.m in Sources */,
+				3C38EAFD1CABA0A80095363F /* AddNewOwnerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +335,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.Clientlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d47e54e5-8d3b-4de5-9761-d45d385360a3";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -323,6 +351,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.Clientlist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d47e54e5-8d3b-4de5-9761-d45d385360a3";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

@@ -3,7 +3,7 @@
 //  Devicelist
 //
 //  Created by zhuangqiuxiong on 16/3/26.
-//  Copyright © 2016年 zhuangqiuxiong. All rights reserved.
+//  Copyright © 2016年 tplink. All rights reserved.
 //
 
 #import "TPBlockView.h"

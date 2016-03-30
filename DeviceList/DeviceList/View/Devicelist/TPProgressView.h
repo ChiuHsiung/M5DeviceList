@@ -3,7 +3,7 @@
 //  DeviceList
 //
 //  Created by zhuangqiuxiong on 16/3/25.
-//  Copyright © 2016年 zhuangqiuxiong. All rights reserved.
+//  Copyright © 2016年 tplink. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
