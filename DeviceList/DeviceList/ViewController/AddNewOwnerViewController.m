@@ -36,9 +36,10 @@
 #define daily_time_limit_switch_tag             (1001)
 #define bed_time_limit_switch_tag               (1002)
 
-@interface AddNewOwnerViewController ()
+@interface AddNewOwnerViewController ()<UIImagePickerControllerDelegate, UIPopoverPresentationControllerDelegate>
 
 @property (nonatomic, strong) UIButton *ownerHeaderImageBtn;
+@property (nonatomic, strong) CAShapeLayer *drawLayer;
 @property (nonatomic, strong) UILabel *tipsLabel;
 @property (nonatomic, strong) UILabel *staticLabel;
 @property (nonatomic, strong) UITextField *ownerNameTextField;
@@ -76,10 +77,10 @@
     self.ownerHeaderImageBtn.layer.masksToBounds = true;
     self.ownerHeaderImageBtn.layer.borderWidth = 1;
     self.ownerHeaderImageBtn.layer.borderColor = [[UIColor grayColor] CGColor];
-    CAShapeLayer *drawLayer = [CAShapeLayer layer];
-    [self.ownerHeaderImageBtn.layer addSublayer:drawLayer];
-    drawLayer.strokeColor = [UIColor darkGrayColor].CGColor;
-    drawLayer.lineWidth = 2;
+    self.drawLayer = [CAShapeLayer layer];
+    [self.ownerHeaderImageBtn.layer addSublayer:self.drawLayer];
+    self.drawLayer.strokeColor = [UIColor darkGrayColor].CGColor;
+    self.drawLayer.lineWidth = 2;
     UIBezierPath *path = [[UIBezierPath alloc] init];
     CGFloat leftX = self.ownerHeaderImageBtn.bounds.size.width / 2 - cross_line_length / 2;
     CGFloat leftY = self.ownerHeaderImageBtn.bounds.size.width / 2;
@@ -89,11 +90,12 @@
     CGFloat topY = leftX;
     [path moveToPoint:CGPointMake(topX, topY)];
     [path addLineToPoint:CGPointMake(topX, topY + cross_line_length)];
-    drawLayer.path = path.CGPath;
+    self.drawLayer.path = path.CGPath;
     [self.ownerHeaderImageBtn addTarget:self action:@selector(ownerHeaderImageBtnOnClick) forControlEvents:UIControlEventTouchUpInside];
     
     self.tipsLabel = [[UILabel alloc] init];
     [self setTipsLabelText:@"上传头像"];
+    [self.tipsLabel sizeToFit];
     self.tipsLabel.bounds = CGRectMake(0, 0, self.view.bounds.size.width, self.tipsLabel.bounds.size.height);
     self.tipsLabel.center = CGPointMake(self.view.center.x, self.ownerHeaderImageBtn.frame.origin.y + self.ownerHeaderImageBtn.bounds.size.height + tipsLabel_top_inset + self.tipsLabel.bounds.size.height / 2);
     
@@ -179,14 +181,84 @@
     [attrGen generate];
     self.tipsLabel.attributedText = attrGen.attributedString;
     self.tipsLabel.numberOfLines = 1;
-    [self.tipsLabel sizeToFit];
+    
 }
 
 
 #pragma mark - 编辑头像
 - (void)ownerHeaderImageBtnOnClick
 {
-    NSLog(@"On click");
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.editing = YES;
+    imagePicker.delegate = self;
+    /*
+     如果这里allowsEditing设置为false，则下面的UIImage *image = [info valueForKey:UIImagePickerControllerEditedImage];
+     应该改为： UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+     也就是改为原图像，而不是编辑后的图像。
+     */
+    //允许编辑图片
+    imagePicker.allowsEditing = YES;
+    //如果设备支持相机，就使用拍照技术
+    //否则让用户从照片库中选择照片
+    //  if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    //  {
+    //    imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    //  }
+    //  else{
+    //    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    //  }
+    
+    /*
+     这里以弹出选择框的形式让用户选择是打开照相机还是图库
+     */
+    //初始化提示框；
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    [alert addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        //创建UIPopoverController对象前先检查当前设备是不是ipad
+        [self presentViewController:imagePicker animated:YES completion:nil];
+    }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"从手机相册中选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        //创建UIPopoverController对象前先检查当前设备是不是ipad
+        [self presentViewController:imagePicker animated:YES completion:nil];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        //取消；
+    }]];
+    //弹出提示框；
+    UIPopoverPresentationController *ppc = alert.popoverPresentationController;
+    ppc.delegate = self;
+    ppc.sourceView = self.view;
+    // 仔细看苹果文档，sourceRect是要与sourceView结合起来使用的。
+    ppc.sourceRect = CGRectMake((CGRectGetWidth(ppc.sourceView.bounds)-2)*0.5f, (CGRectGetHeight(ppc.sourceView.bounds)-2), 2, 2);// 显示在中心位置
+    [self presentViewController:alert animated:YES completion:^{
+        
+    }];
+    //  [self presentViewController:alert animated:true completion:nil];
+    
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    //通过info字典获取选择的照片
+    UIImage *image = [info valueForKey:UIImagePickerControllerEditedImage];
+    //以itemKey为键，将照片存入ImageStore对象中
+//    [[MyImageStore sharedStore] setImage:image forKey:@"CYFStore"];
+    //将照片放入UIImageView对象
+    [self.ownerHeaderImageBtn setImage:image forState:UIControlStateNormal];
+    [self setTipsLabelText:@"更改头像"];
+    [self.drawLayer removeFromSuperlayer];
+    //把一张照片保存到图库中，此时无论是这张照片是照相机拍的还是本身从图库中取出的，都会保存到图库中；
+//    UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
+    
+    //压缩图片,如果图片要上传到服务器或者网络，则需要执行该步骤（压缩），第二个参数是压缩比例，转化为NSData类型；
+//    NSData *fileData = UIImageJPEGRepresentation(image, 1.0);
+    //判断UIPopoverController对象是否存在
+    //关闭以模态形式显示的UIImagePickerController
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
