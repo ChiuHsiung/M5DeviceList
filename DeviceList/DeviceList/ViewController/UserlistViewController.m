@@ -186,6 +186,7 @@
     [cell updateIsSelected:isOwner];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.accessoryType = UITableViewCellAccessoryNone;
     
     return cell;
 }

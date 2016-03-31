@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AddNewOwnerViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
+@interface AddNewOwnerViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
 @end

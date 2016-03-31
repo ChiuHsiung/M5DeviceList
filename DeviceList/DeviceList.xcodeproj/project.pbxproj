@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C088B3D1CACAE2D00937451 /* OwnerTimeCtrlTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C088B3C1CACAE2D00937451 /* OwnerTimeCtrlTableViewCell.m */; };
 		3C38EAFD1CABA0A80095363F /* AddNewOwnerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C38EAFC1CABA0A80095363F /* AddNewOwnerViewController.m */; };
 		3C8B0C8C1CAA571700EB1531 /* TPBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C831CAA571700EB1531 /* TPBlockView.m */; };
 		3C8B0C8D1CAA571700EB1531 /* TPCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C851CAA571700EB1531 /* TPCircle.m */; };
@@ -24,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3C088B3B1CACAE2D00937451 /* OwnerTimeCtrlTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OwnerTimeCtrlTableViewCell.h; path = DeviceList/View/Userlist/OwnerTimeCtrlTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		3C088B3C1CACAE2D00937451 /* OwnerTimeCtrlTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OwnerTimeCtrlTableViewCell.m; path = DeviceList/View/Userlist/OwnerTimeCtrlTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		3C38EAFB1CABA0A80095363F /* AddNewOwnerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddNewOwnerViewController.h; path = ViewController/AddNewOwnerViewController.h; sourceTree = "<group>"; };
 		3C38EAFC1CABA0A80095363F /* AddNewOwnerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddNewOwnerViewController.m; path = ViewController/AddNewOwnerViewController.m; sourceTree = "<group>"; };
 		3C8B0C821CAA571700EB1531 /* TPBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPBlockView.h; sourceTree = "<group>"; };
@@ -87,6 +90,8 @@
 			children = (
 				3C8B0C951CAA6FAA00EB1531 /* ChooseUserTableViewCell.h */,
 				3C8B0C961CAA6FAA00EB1531 /* ChooseUserTableViewCell.m */,
+				3C088B3B1CACAE2D00937451 /* OwnerTimeCtrlTableViewCell.h */,
+				3C088B3C1CACAE2D00937451 /* OwnerTimeCtrlTableViewCell.m */,
 			);
 			name = Userlist;
 			path = View/Devicelist;
@@ -236,6 +241,7 @@
 				3C8B0C941CAA63E900EB1531 /* UserlistViewController.m in Sources */,
 				3CC878191CA0E88E0054F6EE /* DeviceListViewController.m in Sources */,
 				3C8B0C8F1CAA571700EB1531 /* TPLineBandView.m in Sources */,
+				3C088B3D1CACAE2D00937451 /* OwnerTimeCtrlTableViewCell.m in Sources */,
 				3C38EAFD1CABA0A80095363F /* AddNewOwnerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
