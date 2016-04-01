@@ -23,9 +23,9 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
-//    DeviceListViewController *deviceListVC = [[DeviceListViewController alloc] init];
-//    self.window.rootViewController = deviceListVC;
+//    DeviceListViewController *vc = [[DeviceListViewController alloc] init];
     EditDeviceNameAndTypeViewController *vc = [[EditDeviceNameAndTypeViewController alloc] init];
+//    UserlistViewController *vc = [[UserlistViewController alloc] init];
     UINavigationController *naVC = [[UINavigationController alloc] initWithRootViewController:vc];
     
     [self.window setRootViewController:naVC];

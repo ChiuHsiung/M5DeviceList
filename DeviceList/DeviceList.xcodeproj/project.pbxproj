@@ -350,7 +350,7 @@
 				INFOPLIST_FILE = DeviceList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.Clientlist;
+				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.EditDevice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d47e54e5-8d3b-4de5-9761-d45d385360a3";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -366,7 +366,7 @@
 				INFOPLIST_FILE = DeviceList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.Clientlist;
+				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.EditDevice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d47e54e5-8d3b-4de5-9761-d45d385360a3";
 				TARGETED_DEVICE_FAMILY = "1,2";
