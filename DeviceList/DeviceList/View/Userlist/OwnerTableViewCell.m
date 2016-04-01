@@ -1,12 +1,12 @@
 //
-//  ChooseUserTableViewCell.m
+//  OwnerTableViewCell.m
 //  DeviceList
 //
 //  Created by zhuangqiuxiong on 16/3/29.
 //  Copyright © 2016年 tplink. All rights reserved.
 //
 
-#import "ChooseUserTableViewCell.h"
+#import "OwnerTableViewCell.h"
 #import "TPAttributedStringGenerator.h"
 
 #define userImage_left_inset        (10.0f)
@@ -19,7 +19,7 @@
 #define radio_right_inset           (15.0f)
 #define radio_top_inset             (15.0f)
 
-@interface ChooseUserTableViewCell()
+@interface OwnerTableViewCell()
 
 @property (nonatomic, strong) UIView *userImage;
 @property (nonatomic, strong) UILabel *firAlphaLabel;
@@ -31,7 +31,7 @@
 
 @end
 
-@implementation ChooseUserTableViewCell
+@implementation OwnerTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

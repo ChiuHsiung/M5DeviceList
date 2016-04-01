@@ -1,5 +1,5 @@
 //
-//  ChooseUserTableViewCell.h
+//  OwnerTableViewCell.h
 //  DeviceList
 //
 //  Created by zhuangqiuxiong on 16/3/29.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ChooseUserTableViewCell : UITableViewCell
+@interface OwnerTableViewCell : UITableViewCell
 
 - (void)updateUserName:(NSString *)userName;
 - (void)updateIsSelected:(BOOL)isSelected;

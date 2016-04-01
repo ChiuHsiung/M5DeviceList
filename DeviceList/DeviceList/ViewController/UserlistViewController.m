@@ -7,7 +7,7 @@
 //
 
 #import "UserlistViewController.h"
-#import "ChooseUserTableViewCell.h"
+#import "OwnerTableViewCell.h"
 #import "AddNewOwnerViewController.h"
 
 #import "TPAttributedStringGenerator.h"
@@ -154,6 +154,7 @@
     }
 }
 
+#pragma mark - TableView delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -171,10 +172,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ChooseUserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_REUSE_INDENTIFIER];
+    OwnerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_REUSE_INDENTIFIER];
     if (nil == cell)
     {
-        cell = [[ChooseUserTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_REUSE_INDENTIFIER];
+        cell = [[OwnerTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_REUSE_INDENTIFIER];
     }
     
     NSString *userName = self.userList[indexPath.row][@"userName"];

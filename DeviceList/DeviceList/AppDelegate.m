@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "DeviceListViewController.h"
 #import "UserlistViewController.h"
+#import "EditDeviceNameAndTypeViewController.h"
 
 @interface AppDelegate ()
 
@@ -24,8 +25,8 @@
     
 //    DeviceListViewController *deviceListVC = [[DeviceListViewController alloc] init];
 //    self.window.rootViewController = deviceListVC;
-    UserlistViewController *userListVC = [[UserlistViewController alloc] init];
-    UINavigationController *naVC = [[UINavigationController alloc] initWithRootViewController:userListVC];
+    EditDeviceNameAndTypeViewController *vc = [[EditDeviceNameAndTypeViewController alloc] init];
+    UINavigationController *naVC = [[UINavigationController alloc] initWithRootViewController:vc];
     
     [self.window setRootViewController:naVC];
     [self.window makeKeyAndVisible];
