@@ -7,17 +7,16 @@
 //
 
 #import "DeviceTypeTableViewCell.h"
-#import "TPAttributedStringGenerator.h"
 
-#define deviceTypeImage_left_inset          (10.0f)
-#define deviceTypeImage_top_inset           (5.0f)
+static CGFloat const deviceTypeImage_left_inset =           10.0f;
+static CGFloat const deviceTypeImage_top_inset =            5.0f;
 
-#define label_left_inset                    (10.0f)
-#define label_top_inset                     (5.0f)
-#define label_right_inset                   (5.0f)
+static CGFloat const label_left_inset =                     10.0f;
+static CGFloat const label_top_inset =                      5.0f;
+static CGFloat const label_right_inset =                    5.0f;
 
-#define radio_right_inset                   (15.0f)
-#define radio_top_inset                     (15.0f)
+static CGFloat const radio_right_inset =                    15.0f;
+static CGFloat const radio_top_inset =                      15.0f;
 
 @interface DeviceTypeTableViewCell()
 
@@ -50,34 +49,47 @@
 - (void)creatUI{
     
     self.backgroundColor = [UIColor whiteColor];
-    CGFloat cellWidth = [[UIScreen mainScreen] applicationFrame].size.width;
-    self.deviceTypeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.height - deviceTypeImage_top_inset * 2, self.bounds.size.height - deviceTypeImage_top_inset * 2)];
-    self.deviceTypeImageView.center = CGPointMake(deviceTypeImage_left_inset + self.deviceTypeImageView.bounds.size.width / 2, self.center.y);
-    [self.contentView addSubview:self.deviceTypeImageView];
     
-    CGFloat radioImageViewHeight = self.bounds.size.height - radio_top_inset * 2;
-    self.radioImageView = [[UIImageView alloc] initWithFrame:CGRectMake(cellWidth - radio_right_inset - radioImageViewHeight, radio_top_inset, radioImageViewHeight, radioImageViewHeight)];
+    self.deviceTypeImageView = [[UIImageView alloc] init];
+    [self.contentView addSubview:self.deviceTypeImageView];
+    [self.deviceTypeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.deviceTypeImageView.superview).offset(deviceTypeImage_left_inset);
+        make.top.equalTo(self.deviceTypeImageView.superview).offset(deviceTypeImage_top_inset);
+        make.bottom.equalTo(self.deviceTypeImageView.superview).offset(-deviceTypeImage_top_inset);
+        make.width.equalTo(self.deviceTypeImageView.mas_height);
+        
+    }];
+    
+    self.radioImageView = [[UIImageView alloc] init];
     self.radioImageView.image = [UIImage imageNamed:@"unchecked"];
     [self addSubview:self.radioImageView];
+    [self.radioImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.radioImageView.superview).offset(radio_top_inset);
+        make.right.equalTo(self.radioImageView.superview).offset(-radio_right_inset);
+        make.bottom.equalTo(self.radioImageView.superview).offset(-radio_top_inset);
+        make.width.equalTo(self.radioImageView.mas_height);
+        
+    }];
     
-    
-    CGFloat maxWidth = cellWidth - (self.deviceTypeImageView.bounds.size.width + deviceTypeImage_left_inset + label_left_inset) - (self.radioImageView.bounds.size.width + radio_right_inset + label_right_inset);
-    self.deviceTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.deviceTypeImageView.bounds.size.width + deviceTypeImage_left_inset + label_left_inset,
-                                                                     label_top_inset,
-                                                                     maxWidth,
-                                                                     self.bounds.size.height - label_top_inset * 2)];
-    
-    TPAttributedStringGenerator* attrGen = [[TPAttributedStringGenerator alloc] init];
-    attrGen.text = [NSString stringWithFormat:@"%@", @"None"];
-    attrGen.font = [UIFont fontWithName:@"HelveticaNeue" size:10];
-    attrGen.textColor = [UIColor grayColor];
-    attrGen.textAlignment = NSTextAlignmentLeft;
-    attrGen.constraintSize = CGSizeMake(maxWidth, MAXFLOAT);
-    attrGen.lineBreakMode = NSLineBreakByTruncatingTail;
-    [attrGen generate];
-    self.deviceTypeLabel.attributedText = attrGen.attributedString;
-    self.deviceTypeLabel.numberOfLines = 1;
+    self.deviceTypeLabel = [[UILabel alloc] init];
+    [self.deviceTypeLabel setBackgroundColor:[UIColor whiteColor]];
     [self addSubview:self.deviceTypeLabel];
+    [self.deviceTypeLabel setText:[NSString stringWithFormat:@"%@", @"None"]];
+    [self.deviceTypeLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10.0]];
+    self.deviceTypeLabel.textColor = [UIColor grayColor];
+    self.deviceTypeLabel.numberOfLines = 1;
+    self.deviceTypeLabel.textAlignment = NSTextAlignmentLeft;
+    self.deviceTypeLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    [self.deviceTypeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.deviceTypeLabel.superview).offset(label_top_inset);
+        make.left.equalTo(self.deviceTypeImageView.mas_right).offset(label_left_inset);
+        make.right.equalTo(self.radioImageView.mas_left).offset(-label_right_inset);
+        make.bottom.equalTo(self.deviceTypeLabel.superview).offset(-label_top_inset);
+        
+    }];
     
 }
 
@@ -89,19 +101,7 @@
         return;
     }
     
-    
-    CGFloat cellWidth = [[UIScreen mainScreen] applicationFrame].size.width;
-    CGFloat maxWidth = cellWidth - (self.deviceTypeImageView.bounds.size.width + deviceTypeImage_left_inset + label_left_inset) - (self.radioImageView.bounds.size.width + radio_right_inset + label_right_inset);
-    TPAttributedStringGenerator* attrGen = [[TPAttributedStringGenerator alloc] init];
-    attrGen.text = [NSString stringWithFormat:@"%@", deviceType];
-    attrGen.font = [UIFont fontWithName:@"HelveticaNeue" size:10];
-    attrGen.textColor = [UIColor grayColor];
-    attrGen.textAlignment = NSTextAlignmentLeft;
-    attrGen.constraintSize = CGSizeMake(maxWidth, MAXFLOAT);
-    attrGen.lineBreakMode = NSLineBreakByTruncatingTail;
-    [attrGen generate];
-    
-    self.deviceTypeLabel.attributedText = attrGen.attributedString;
+    self.deviceTypeLabel.text = [NSString stringWithFormat:@"%@", deviceType];
 }
 
 

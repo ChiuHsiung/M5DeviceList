@@ -9,15 +9,15 @@
 #import "OwnerTableViewCell.h"
 #import "TPAttributedStringGenerator.h"
 
-#define userImage_left_inset        (10.0f)
-#define userImage_top_inset         (5.0f)
+static CGFloat const userImage_left_inset =         10.0f;
+static CGFloat const userImage_top_inset =          5.0f;
 
-#define label_left_inset            (10.0f)
-#define label_top_inset             (5.0f)
-#define label_right_inset           (5.0f)
+static CGFloat const label_left_inset =             10.0f;
+static CGFloat const label_top_inset =              5.0f;
+static CGFloat const label_right_inset =            5.0f;
 
-#define radio_right_inset           (15.0f)
-#define radio_top_inset             (15.0f)
+static CGFloat const radio_right_inset =            15.0f;
+static CGFloat const radio_top_inset =              15.0f;
 
 @interface OwnerTableViewCell()
 
@@ -54,54 +54,89 @@
 - (void)creatUI{
 
     self.backgroundColor = [UIColor whiteColor];
-    CGFloat cellWidth = [[UIScreen mainScreen] applicationFrame].size.width;
-    self.userImage = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.height - userImage_top_inset * 2, self.bounds.size.height - userImage_top_inset * 2)];
-    self.userImage.center = CGPointMake(userImage_left_inset + self.userImage.bounds.size.width / 2, self.center.y);
-    self.userImage.layer.cornerRadius = self.userImage.bounds.size.width / 2;
+    self.userImage = [[UIView alloc] init];
+    self.userImage.layer.cornerRadius = (self.bounds.size.height - userImage_top_inset * 2) / 2;
     self.userImage.layer.masksToBounds = YES;
     [self.contentView addSubview:self.userImage];
     
-    self.firAlphaLabel = [[UILabel alloc]initWithFrame:self.userImage.bounds];
-    self.firAlphaLabel.layer.cornerRadius = self.firAlphaLabel.bounds.size.width / 2;
+    [self.userImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.userImage.superview).offset(userImage_left_inset);
+        make.top.equalTo(self.userImage.superview).offset(userImage_top_inset);
+        make.bottom.equalTo(self.userImage.superview).offset(-userImage_top_inset);
+        make.width.equalTo(self.userImage.mas_height);
+        
+    }];
+    
+    
+    self.firAlphaLabel = [[UILabel alloc] init];
+    self.firAlphaLabel.layer.cornerRadius = (self.bounds.size.height - userImage_top_inset * 2) / 2;
     self.firAlphaLabel.layer.masksToBounds = YES;
     self.firAlphaLabel.layer.borderWidth = 1;
     self.firAlphaLabel.layer.borderColor = [UIColor grayColor].CGColor;
     [self.firAlphaLabel setBackgroundColor:[UIColor clearColor]];
     self.firAlphaLabel.textColor = [UIColor grayColor];
-    self.firAlphaLabel.font = [UIFont systemFontOfSize:20];
+    [self.firAlphaLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:20.0]];
     self.firAlphaLabel.textAlignment = NSTextAlignmentCenter;
     [self.userImage addSubview:self.firAlphaLabel];
     
-    self.userHeadImageView = [[UIImageView alloc]initWithFrame:self.userImage.bounds];
-    self.userHeadImageView.layer.cornerRadius = self.userHeadImageView.bounds.size.width / 2;
+    [self.firAlphaLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.firAlphaLabel.superview);
+        make.top.equalTo(self.firAlphaLabel.superview);
+        make.width.equalTo(self.firAlphaLabel.superview);
+        make.height.equalTo(self.firAlphaLabel.superview);
+        
+    }];
+    
+    
+    self.userHeadImageView = [[UIImageView alloc] init];
+    self.userHeadImageView.layer.cornerRadius = (self.bounds.size.height - userImage_top_inset * 2) / 2;
     self.userHeadImageView.layer.masksToBounds = YES;
     self.userHeadImageView.backgroundColor = [UIColor clearColor];
     self.userHeadImageView.image = nil;
     [self.firAlphaLabel addSubview:self.userHeadImageView];
     
-    CGFloat radioImageViewHeight = self.bounds.size.height - radio_top_inset * 2;
-    self.radioImageView = [[UIImageView alloc] initWithFrame:CGRectMake(cellWidth - radio_right_inset - radioImageViewHeight, radio_top_inset, radioImageViewHeight, radioImageViewHeight)];
+    [self.userHeadImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.userHeadImageView.superview);
+        make.top.equalTo(self.userHeadImageView.superview);
+        make.width.equalTo(self.userHeadImageView.superview);
+        make.height.equalTo(self.userHeadImageView.superview);
+        
+    }];
+    
+    
+    self.radioImageView = [[UIImageView alloc] init];
     self.radioImageView.image = [UIImage imageNamed:@"unchecked"];
-    [self addSubview:self.radioImageView];
+    [self.contentView addSubview:self.radioImageView];
+    [self.radioImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.equalTo(self.radioImageView.superview).offset(-radio_right_inset);
+        make.top.equalTo(self.radioImageView.superview).offset(radio_top_inset);
+        make.bottom.equalTo(self.radioImageView.superview).offset(-radio_top_inset);
+        make.width.equalTo(self.radioImageView.mas_height);
+        
+    }];
     
+    self.userNameLabel = [[UILabel alloc] init];
+    [self.contentView addSubview:self.userNameLabel];
+    [self.userNameLabel setBackgroundColor:[UIColor whiteColor]];
+    [self.userNameLabel setText:[NSString stringWithFormat:@"%@", @"None"]];
+    [self.userNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10.0]];
+    self.userNameLabel.textColor = [UIColor grayColor];
+    self.userNameLabel.numberOfLines = 0;
+    self.userNameLabel.textAlignment = NSTextAlignmentLeft;
+    self.userNameLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    [self.userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.userImage.mas_right).offset(label_left_inset);
+        make.right.equalTo(self.radioImageView.mas_left).offset(-label_right_inset);
+        make.top.equalTo(self.userNameLabel.superview).offset(label_top_inset);
+        make.bottom.equalTo(self.userNameLabel.superview).offset(-label_top_inset);
+        
+    }];
     
-    CGFloat maxWidth = cellWidth - (self.userImage.bounds.size.width + userImage_left_inset + label_left_inset) - (self.radioImageView.bounds.size.width + radio_right_inset + label_right_inset);
-    self.userNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.userImage.bounds.size.width + userImage_left_inset + label_left_inset,
-                                                                   label_top_inset,
-                                                                   maxWidth,
-                                                                   self.bounds.size.height - label_top_inset * 2)];
-    
-    TPAttributedStringGenerator* attrGen = [[TPAttributedStringGenerator alloc] init];
-    attrGen.text = [NSString stringWithFormat:@"%@", @"None"];
-    attrGen.font = [UIFont fontWithName:@"HelveticaNeue" size:10];
-    attrGen.textColor = [UIColor grayColor];
-    attrGen.textAlignment = NSTextAlignmentLeft;
-    attrGen.constraintSize = CGSizeMake(maxWidth, MAXFLOAT);
-    attrGen.lineBreakMode = NSLineBreakByTruncatingTail;
-    [attrGen generate];
-    self.userNameLabel.attributedText = attrGen.attributedString;
-    self.userNameLabel.numberOfLines = 1;
-    [self addSubview:self.userNameLabel];
     
 }
 
@@ -123,18 +158,7 @@
         self.firAlphaLabel.text = [[userName substringWithRange:NSMakeRange(0, 1)] uppercaseString];
     }
     
-    CGFloat cellWidth = [[UIScreen mainScreen] applicationFrame].size.width;
-    CGFloat maxWidth = cellWidth - (self.userImage.bounds.size.width + userImage_left_inset + label_left_inset) - (self.radioImageView.bounds.size.width + radio_right_inset + label_right_inset);
-    TPAttributedStringGenerator* attrGen = [[TPAttributedStringGenerator alloc] init];
-    attrGen.text = [NSString stringWithFormat:@"%@", userName];
-    attrGen.font = [UIFont fontWithName:@"HelveticaNeue" size:10];
-    attrGen.textColor = [UIColor grayColor];
-    attrGen.textAlignment = NSTextAlignmentLeft;
-    attrGen.constraintSize = CGSizeMake(maxWidth, MAXFLOAT);
-    attrGen.lineBreakMode = NSLineBreakByTruncatingTail;
-    [attrGen generate];
-    
-    self.userNameLabel.attributedText = attrGen.attributedString;
+    self.userNameLabel.text = [NSString stringWithFormat:@"%@", userName];
 }
 
 

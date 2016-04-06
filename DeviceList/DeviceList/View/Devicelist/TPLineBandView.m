@@ -10,7 +10,6 @@
 
 #import "TPDeviceInfoView.h"
 #import "TPProgressView.h"
-#import "TPAttributedStringGenerator.h"
 #import "TPBlockView.h"
 
 #import <QuartzCore/QuartzCore.h>
