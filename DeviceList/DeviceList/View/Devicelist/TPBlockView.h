@@ -17,7 +17,6 @@
 @property (nonatomic,strong) UIColor *progressColor;
 
 //为了以后多语言适配时的宽度调整，把这两个属性公开
-@property (nonatomic,strong) UIView *rightRectView;
 @property (nonatomic,strong) UILabel *tipsLabel;
 
 - (id)initWithFrame:(CGRect)frame andImageName:(NSString *)imageName andTotalProgress:(float)totalProgress;

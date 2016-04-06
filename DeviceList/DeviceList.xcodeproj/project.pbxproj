@@ -36,6 +36,7 @@
 		3C495CA11CADFDA600B41A15 /* EditDeviceNameAndTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditDeviceNameAndTypeViewController.m; path = ViewController/EditDeviceNameAndTypeViewController.m; sourceTree = "<group>"; };
 		3C495CA31CADFDED00B41A15 /* DeviceTypeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceTypeTableViewCell.h; path = DeviceList/View/Userlist/DeviceTypeTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		3C495CA41CADFDED00B41A15 /* DeviceTypeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceTypeTableViewCell.m; path = DeviceList/View/Userlist/DeviceTypeTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		3C8A66B81CB4FB3600545406 /* libMasonry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMasonry.a; path = "Build/Products/Debug-iphonesimulator/libMasonry.a"; sourceTree = "<group>"; };
 		3C8B0C821CAA571700EB1531 /* TPBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPBlockView.h; sourceTree = "<group>"; };
 		3C8B0C831CAA571700EB1531 /* TPBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPBlockView.m; sourceTree = "<group>"; };
 		3C8B0C841CAA571700EB1531 /* TPCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircle.h; sourceTree = "<group>"; };
@@ -115,6 +116,7 @@
 				3CAFDF5D1CB49E9E0006D1C0 /* libPods.a */,
 				3CEBBECE1CA0E3B300B2F751 /* DeviceList */,
 				3CEBBECD1CA0E3B300B2F751 /* Products */,
+				A274F4ED9F5C9B4BD3C9383C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -176,6 +178,14 @@
 			name = ViewController;
 			sourceTree = "<group>";
 		};
+		A274F4ED9F5C9B4BD3C9383C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3C8A66B81CB4FB3600545406 /* libMasonry.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -186,6 +196,7 @@
 				3CEBBEC81CA0E3B300B2F751 /* Sources */,
 				3CEBBEC91CA0E3B300B2F751 /* Frameworks */,
 				3CEBBECA1CA0E3B300B2F751 /* Resources */,
+				CB67F1C987561CCD4573D6D9 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -240,6 +251,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		CB67F1C987561CCD4573D6D9 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3CEBBEC81CA0E3B300B2F751 /* Sources */ = {
@@ -361,11 +390,35 @@
 					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
 				);
 				INFOPLIST_FILE = DeviceList/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_CFLAGS = "";
-				PODS_ROOT = "${SRCROOT}/../Pods";
-				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.EditDevice;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Build/Products/Debug-iphonesimulator",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"MBProgressHUD\"",
+					"-l\"Masonry\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"UIKit\"",
+				);
+				PODS_ROOT = "${SRCROOT}/Pods";
+				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.DeviceList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d47e54e5-8d3b-4de5-9761-d45d385360a3";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -386,11 +439,35 @@
 					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
 				);
 				INFOPLIST_FILE = DeviceList/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_CFLAGS = "";
-				PODS_ROOT = "${SRCROOT}/../Pods";
-				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.EditDevice;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Build/Products/Debug-iphonesimulator",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"MBProgressHUD\"",
+					"-l\"Masonry\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"UIKit\"",
+				);
+				PODS_ROOT = "${SRCROOT}/Pods";
+				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.DeviceList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d47e54e5-8d3b-4de5-9761-d45d385360a3";
 				TARGETED_DEVICE_FAMILY = "1,2";

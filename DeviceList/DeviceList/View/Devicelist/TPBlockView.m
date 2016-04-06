@@ -7,7 +7,6 @@
 //
 
 #import "TPBlockView.h"
-#import "TPAttributedStringGenerator.h"
 
 @interface TPBlockView()
 
@@ -25,56 +24,61 @@
     if (self)
     {
         _totalProcess = totalProgress;
-        [self _initViews:frame andImageName:imageName];
+        [self setBackgroundColor:[UIColor whiteColor]];
+        [self _initViewsWithImageName:imageName];
         
     }
     return self;
 }
 
-- (void)_initViews:(CGRect)frame andImageName:(NSString *)imageName
+- (void)_initViewsWithImageName:(NSString *)imageName
 {
     self.backgroundView = [[UIView alloc] init];
+    self.backgroundView.backgroundColor = [UIColor clearColor];
     [self addSubview:self.backgroundView];
     
     self.foregroundView = [[UIImageView alloc] init];
+    [self.foregroundView setImage:[UIImage imageNamed:imageName]];
     [self addSubview:self.foregroundView];
     
-    self.backgroundView.frame = CGRectMake(0, 0, frame.size.height, frame.size.height);
-    self.backgroundView.backgroundColor = [UIColor clearColor];
-    
-    self.foregroundView.frame = CGRectMake(0, 0, frame.size.height, frame.size.height);
-    [self.foregroundView setImage:[UIImage imageNamed:imageName]];
-    
-    
-    CGFloat maxWidth = frame.size.width - frame.size.height;
-    
-    self.rightRectView = [[UIView alloc] initWithFrame:CGRectMake(frame.size.height, 0, maxWidth, frame.size.height)];
-    [self.rightRectView setBackgroundColor:[UIColor whiteColor]];
-    [self addSubview:self.rightRectView];
-    
     self.tipsLabel = [[UILabel alloc] init];
-    
-    TPAttributedStringGenerator* attrGen = [[TPAttributedStringGenerator alloc] init];
-    attrGen.text = @"左拉拖黑";
-    attrGen.font = [UIFont fontWithName:@"HelveticaNeue" size:10];
-    attrGen.textColor = [UIColor grayColor];
-    attrGen.textAlignment = NSTextAlignmentLeft;
-    attrGen.constraintSize = CGSizeMake(maxWidth, MAXFLOAT);
-    attrGen.lineBreakMode = NSLineBreakByTruncatingTail;
-    [attrGen generate];
-    
-    self.tipsLabel.attributedText = attrGen.attributedString;
-    [self.tipsLabel sizeToFit];
+    [self.tipsLabel setBackgroundColor:[UIColor whiteColor]];
+    [self addSubview:self.tipsLabel];
+    [self.tipsLabel setText:@"左拉拖黑"];
+    [self.tipsLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10.0]];
+    self.tipsLabel.textColor = [UIColor grayColor];
     self.tipsLabel.numberOfLines = 0;
-    self.tipsLabel.frame = CGRectMake(0,
-                                      0,
-                                      (self.tipsLabel.bounds.size.width < maxWidth ? self.tipsLabel.bounds.size.width : maxWidth),
-                                      (self.tipsLabel.bounds.size.height < frame.size.height ? self.tipsLabel.bounds.size.height : frame.size.height)
-                                      );
-    self.tipsLabel.center = CGPointMake(self.tipsLabel.bounds.size.width / 2, frame.size.height / 2);
+    self.tipsLabel.textAlignment = NSTextAlignmentLeft;
+    self.tipsLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     
-    [self.rightRectView addSubview:self.tipsLabel];
     
+    
+    [self.backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.backgroundView.superview);
+        make.top.equalTo(self.backgroundView.superview);
+        make.width.equalTo(@(self.bounds.size.height));
+        make.height.equalTo(@(self.bounds.size.height));
+        
+    }];
+    
+    [self.foregroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.foregroundView.superview);
+        make.top.equalTo(self.foregroundView.superview);
+        make.width.equalTo(@(self.bounds.size.height));
+        make.height.equalTo(@(self.bounds.size.height));
+        
+    }];
+    
+    [self.tipsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.foregroundView.mas_right);
+        make.top.equalTo(self.tipsLabel.superview);
+        make.right.equalTo(self.tipsLabel.superview);
+        make.height.equalTo(self.tipsLabel.superview);
+        
+    }];
     
 }
 
@@ -109,10 +113,14 @@
 
     }
     
-    self.backgroundView.frame = CGRectMake(0,
-                                           self.bounds.size.height - self.bounds.size.height * _curProcess / _totalProcess,
-                                           self.bounds.size.height,
-                                           self.bounds.size.height * _curProcess / _totalProcess);
+    [self.backgroundView mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.backgroundView.superview).offset(self.backgroundView.superview.bounds.size.height - self.backgroundView.superview.bounds.size.height * _curProcess / _totalProcess);
+        make.height.equalTo(@(self.backgroundView.superview.bounds.size.height * _curProcess / _totalProcess));
+        
+    }];
+    [super updateConstraints];
+
 }
 
 @end

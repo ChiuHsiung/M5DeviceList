@@ -142,18 +142,15 @@ static float acceleration(float time,float space) {
     
     CGFloat maxWidth = self.bounds.size.width / 2 - self.deviceInfoView.bounds.size.width / 2;
     
-    TPAttributedStringGenerator* attrGen = [[TPAttributedStringGenerator alloc] init];
-    attrGen.text = [NSString stringWithFormat:@"%@", self.deviceName];
-    attrGen.font = [UIFont fontWithName:@"HelveticaNeue" size:10];
-    attrGen.textColor = [UIColor grayColor];
-    attrGen.textAlignment = NSTextAlignmentLeft;
-    attrGen.constraintSize = CGSizeMake(maxWidth, MAXFLOAT);
-    attrGen.lineBreakMode = NSLineBreakByTruncatingTail;
-    [attrGen generate];
-    
-    self.deviceNameLabel.attributedText = attrGen.attributedString;
-    [self.deviceNameLabel sizeToFit];
+    [self.deviceNameLabel setText:[NSString stringWithFormat:@"%@", self.deviceName]];
+    [self.deviceNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10.0]];
+    self.deviceNameLabel.textColor = [UIColor grayColor];
     self.deviceNameLabel.numberOfLines = 1;
+    self.deviceNameLabel.textAlignment = NSTextAlignmentLeft;
+    self.deviceNameLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    
+    [self.deviceNameLabel setPreferredMaxLayoutWidth:maxWidth];
+    [self.deviceNameLabel sizeToFit];
     self.deviceNameLabel.frame = CGRectMake(self.bounds.size.width - maxWidth,
                                             self.deviceInfoView.frame.origin.y + self.deviceInfoView.deviceTypeImgView.frame.origin.y,
                                             (self.deviceNameLabel.bounds.size.width < maxWidth ? self.deviceNameLabel.bounds.size.width : maxWidth),
@@ -172,18 +169,17 @@ static float acceleration(float time,float space) {
     
     CGFloat maxWidth = self.bounds.size.width / 2 - self.deviceInfoView.bounds.size.width / 2;
     
-    TPAttributedStringGenerator* attrGen = [[TPAttributedStringGenerator alloc] init];
-    attrGen.text = [NSString stringWithFormat:@"%@", self.parentalCtrlTime];
-    attrGen.font = [UIFont fontWithName:@"HelveticaNeue" size:10];
-    attrGen.textColor = [UIColor grayColor];
-    attrGen.textAlignment = NSTextAlignmentRight;
-    attrGen.constraintSize = CGSizeMake(maxWidth, MAXFLOAT);
-    attrGen.lineBreakMode = NSLineBreakByTruncatingTail;
-    [attrGen generate];
-    
-    self.parentCtrlLabel.attributedText = attrGen.attributedString;
-    [self.parentCtrlLabel sizeToFit];
+    [self.parentCtrlLabel setText:[NSString stringWithFormat:@"%@", self.parentalCtrlTime]];
+    [self.parentCtrlLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10.0]];
+    self.parentCtrlLabel.textColor = [UIColor grayColor];
     self.parentCtrlLabel.numberOfLines = 1;
+    self.parentCtrlLabel.textAlignment = NSTextAlignmentRight;
+    self.parentCtrlLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    
+    [self.parentCtrlLabel setPreferredMaxLayoutWidth:maxWidth];
+    [self.parentCtrlLabel sizeToFit];
+    
+    
     self.parentCtrlLabel.frame = CGRectMake((self.parentCtrlLabel.bounds.size.width < maxWidth ? maxWidth - self.parentCtrlLabel.bounds.size.width : 0),
                                             self.deviceInfoView.center.y - self.parentCtrlLabel.bounds.size.height / 2,
                                             (self.parentCtrlLabel.bounds.size.width < maxWidth ? self.parentCtrlLabel.bounds.size.width : maxWidth),
