@@ -18,6 +18,9 @@
       </FileRef>
    </Group>
    <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:DeviceList/DeviceList.xcodeproj">
    </FileRef>
 </Workspace>

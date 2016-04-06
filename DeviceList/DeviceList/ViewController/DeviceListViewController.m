@@ -273,7 +273,6 @@
     [self.view addConstraints:@[constraintTop, constraintCenterX, constraintWidth]];
     
     [self.circle addConstraint:constraintHeight];
-    
 }
 
 // MARK: CATransition动画实现

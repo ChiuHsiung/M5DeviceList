@@ -18,6 +18,7 @@
 		3C8B0C901CAA571700EB1531 /* TPProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C8B1CAA571700EB1531 /* TPProgressView.m */; };
 		3C8B0C941CAA63E900EB1531 /* UserlistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C931CAA63E900EB1531 /* UserlistViewController.m */; };
 		3C8B0C971CAA6FAA00EB1531 /* OwnerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C961CAA6FAA00EB1531 /* OwnerTableViewCell.m */; };
+		3CAFDF5E1CB49E9E0006D1C0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CAFDF5D1CB49E9E0006D1C0 /* libPods.a */; };
 		3CC878191CA0E88E0054F6EE /* DeviceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC878181CA0E88E0054F6EE /* DeviceListViewController.m */; };
 		3CC878211CA0F47B0054F6EE /* Design.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CC878201CA0F47B0054F6EE /* Design.xib */; };
 		3CC878241CA125350054F6EE /* TPAttributedStringGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC878231CA125350054F6EE /* TPAttributedStringGenerator.m */; };
@@ -49,6 +50,8 @@
 		3C8B0C931CAA63E900EB1531 /* UserlistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserlistViewController.m; path = ViewController/UserlistViewController.m; sourceTree = "<group>"; };
 		3C8B0C951CAA6FAA00EB1531 /* OwnerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OwnerTableViewCell.h; path = DeviceList/View/Userlist/OwnerTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		3C8B0C961CAA6FAA00EB1531 /* OwnerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OwnerTableViewCell.m; path = DeviceList/View/Userlist/OwnerTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		3CAFDF5D1CB49E9E0006D1C0 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "/Users/zhuangqiuxiong/Documents/Developer/GitHub/M5DeviceList/Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<absolute>"; };
+		3CAFDF611CB4A7A20006D1C0 /* DeviceList-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DeviceList-Prefix.pch"; sourceTree = "<group>"; };
 		3CC878171CA0E88E0054F6EE /* DeviceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceListViewController.h; path = ViewController/DeviceListViewController.h; sourceTree = "<group>"; };
 		3CC878181CA0E88E0054F6EE /* DeviceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceListViewController.m; path = ViewController/DeviceListViewController.m; sourceTree = "<group>"; };
 		3CC878201CA0F47B0054F6EE /* Design.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Design.xib; sourceTree = "<group>"; };
@@ -67,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CAFDF5E1CB49E9E0006D1C0 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +112,7 @@
 		3CEBBEC31CA0E3B300B2F751 = {
 			isa = PBXGroup;
 			children = (
+				3CAFDF5D1CB49E9E0006D1C0 /* libPods.a */,
 				3CEBBECE1CA0E3B300B2F751 /* DeviceList */,
 				3CEBBECD1CA0E3B300B2F751 /* Products */,
 			);
@@ -140,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				3CEBBED01CA0E3B300B2F751 /* main.m */,
+				3CAFDF611CB4A7A20006D1C0 /* DeviceList-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -347,9 +353,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: TP Admin (3PAF9M8XT6)";
+				GCC_PREFIX_HEADER = "DeviceList/DeviceList-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+				);
 				INFOPLIST_FILE = DeviceList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_CFLAGS = "";
+				PODS_ROOT = "${SRCROOT}/../Pods";
 				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.EditDevice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d47e54e5-8d3b-4de5-9761-d45d385360a3";
@@ -363,9 +378,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: TP Admin (3PAF9M8XT6)";
+				GCC_PREFIX_HEADER = "DeviceList/DeviceList-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+				);
 				INFOPLIST_FILE = DeviceList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_CFLAGS = "";
+				PODS_ROOT = "${SRCROOT}/../Pods";
 				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.EditDevice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d47e54e5-8d3b-4de5-9761-d45d385360a3";
