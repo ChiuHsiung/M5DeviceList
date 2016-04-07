@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "DeviceListViewController.h"
-#import "UserlistViewController.h"
+#import "OwnerlistViewController.h"
 #import "EditDeviceNameAndTypeViewController.h"
 
 @interface AppDelegate ()
@@ -23,9 +23,9 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
-    DeviceListViewController *vc = [[DeviceListViewController alloc] init];
+//    DeviceListViewController *vc = [[DeviceListViewController alloc] init];
 //    EditDeviceNameAndTypeViewController *vc = [[EditDeviceNameAndTypeViewController alloc] init];
-//    UserlistViewController *vc = [[UserlistViewController alloc] init];
+    OwnerlistViewController *vc = [[OwnerlistViewController alloc] init];
     UINavigationController *naVC = [[UINavigationController alloc] initWithRootViewController:vc];
     
     [self.window setRootViewController:naVC];

@@ -1,5 +1,5 @@
 //
-//  UserlistViewController.h
+//  OwnerlistViewController.h
 //  DeviceList
 //
 //  Created by zhuangqiuxiong on 16/3/29.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UserlistViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface OwnerlistViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSMutableArray *userList;
 

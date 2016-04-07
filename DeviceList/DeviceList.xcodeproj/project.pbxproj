@@ -16,7 +16,7 @@
 		3C8B0C8E1CAA571700EB1531 /* TPDeviceInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C871CAA571700EB1531 /* TPDeviceInfoView.m */; };
 		3C8B0C8F1CAA571700EB1531 /* TPLineBandView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C891CAA571700EB1531 /* TPLineBandView.m */; };
 		3C8B0C901CAA571700EB1531 /* TPProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C8B1CAA571700EB1531 /* TPProgressView.m */; };
-		3C8B0C941CAA63E900EB1531 /* UserlistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C931CAA63E900EB1531 /* UserlistViewController.m */; };
+		3C8B0C941CAA63E900EB1531 /* OwnerlistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C931CAA63E900EB1531 /* OwnerlistViewController.m */; };
 		3C8B0C971CAA6FAA00EB1531 /* OwnerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C961CAA6FAA00EB1531 /* OwnerTableViewCell.m */; };
 		3CAFDF5E1CB49E9E0006D1C0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CAFDF5D1CB49E9E0006D1C0 /* libPods.a */; };
 		3CC878191CA0E88E0054F6EE /* DeviceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC878181CA0E88E0054F6EE /* DeviceListViewController.m */; };
@@ -47,8 +47,8 @@
 		3C8B0C891CAA571700EB1531 /* TPLineBandView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPLineBandView.m; sourceTree = "<group>"; };
 		3C8B0C8A1CAA571700EB1531 /* TPProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPProgressView.h; sourceTree = "<group>"; };
 		3C8B0C8B1CAA571700EB1531 /* TPProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPProgressView.m; sourceTree = "<group>"; };
-		3C8B0C921CAA63E900EB1531 /* UserlistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserlistViewController.h; path = ViewController/UserlistViewController.h; sourceTree = "<group>"; };
-		3C8B0C931CAA63E900EB1531 /* UserlistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserlistViewController.m; path = ViewController/UserlistViewController.m; sourceTree = "<group>"; };
+		3C8B0C921CAA63E900EB1531 /* OwnerlistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OwnerlistViewController.h; path = ViewController/OwnerlistViewController.h; sourceTree = "<group>"; };
+		3C8B0C931CAA63E900EB1531 /* OwnerlistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OwnerlistViewController.m; path = ViewController/OwnerlistViewController.m; sourceTree = "<group>"; };
 		3C8B0C951CAA6FAA00EB1531 /* OwnerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OwnerTableViewCell.h; path = DeviceList/View/Userlist/OwnerTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		3C8B0C961CAA6FAA00EB1531 /* OwnerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OwnerTableViewCell.m; path = DeviceList/View/Userlist/OwnerTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		3CAFDF5D1CB49E9E0006D1C0 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "/Users/zhuangqiuxiong/Documents/Developer/GitHub/M5DeviceList/Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<absolute>"; };
@@ -168,8 +168,8 @@
 			children = (
 				3CC878171CA0E88E0054F6EE /* DeviceListViewController.h */,
 				3CC878181CA0E88E0054F6EE /* DeviceListViewController.m */,
-				3C8B0C921CAA63E900EB1531 /* UserlistViewController.h */,
-				3C8B0C931CAA63E900EB1531 /* UserlistViewController.m */,
+				3C8B0C921CAA63E900EB1531 /* OwnerlistViewController.h */,
+				3C8B0C931CAA63E900EB1531 /* OwnerlistViewController.m */,
 				3C38EAFB1CABA0A80095363F /* AddNewOwnerViewController.h */,
 				3C38EAFC1CABA0A80095363F /* AddNewOwnerViewController.m */,
 				3C495CA01CADFDA600B41A15 /* EditDeviceNameAndTypeViewController.h */,
@@ -285,7 +285,7 @@
 				3C495CA51CADFDED00B41A15 /* DeviceTypeTableViewCell.m in Sources */,
 				3C495CA21CADFDA600B41A15 /* EditDeviceNameAndTypeViewController.m in Sources */,
 				3C8B0C8C1CAA571700EB1531 /* TPBlockView.m in Sources */,
-				3C8B0C941CAA63E900EB1531 /* UserlistViewController.m in Sources */,
+				3C8B0C941CAA63E900EB1531 /* OwnerlistViewController.m in Sources */,
 				3CC878191CA0E88E0054F6EE /* DeviceListViewController.m in Sources */,
 				3C8B0C8F1CAA571700EB1531 /* TPLineBandView.m in Sources */,
 				3C088B3D1CACAE2D00937451 /* OwnerTimeCtrlTableViewCell.m in Sources */,
@@ -418,7 +418,7 @@
 					"\"UIKit\"",
 				);
 				PODS_ROOT = "${SRCROOT}/Pods";
-				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.DeviceList;
+				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.OwnerList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d47e54e5-8d3b-4de5-9761-d45d385360a3";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -467,7 +467,7 @@
 					"\"UIKit\"",
 				);
 				PODS_ROOT = "${SRCROOT}/Pods";
-				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.DeviceList;
+				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.OwnerList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d47e54e5-8d3b-4de5-9761-d45d385360a3";
 				TARGETED_DEVICE_FAMILY = "1,2";
