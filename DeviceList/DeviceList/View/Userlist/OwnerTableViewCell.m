@@ -7,7 +7,6 @@
 //
 
 #import "OwnerTableViewCell.h"
-#import "TPAttributedStringGenerator.h"
 
 static CGFloat const userImage_left_inset =         10.0f;
 static CGFloat const userImage_top_inset =          5.0f;

@@ -8,8 +8,6 @@
 
 #import "TPDeviceInfoView.h"
 
-#import "TPAttributedStringGenerator.h"
-
 #import "TPCircle.h"
 
 

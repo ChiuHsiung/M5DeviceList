@@ -9,8 +9,6 @@
 #import "EditDeviceNameAndTypeViewController.h"
 
 #import "DeviceTypeTableViewCell.h"
-#import "TPAttributedStringGenerator.h"
-
 
 #define CELL_REUSE_INDENTIFIER          @"USER_ITEM_IDENTIFIER"
 #define CELL_HEIGHT                     (44)
