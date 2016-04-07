@@ -9,11 +9,11 @@
 #import "DeviceListViewController.h"
 
 #import "TPCircle.h"
-#import "TPAttributedStringGenerator.h"
 #import "TPDeviceInfoView.h"
 
-#define WIDTH_SCALE (0.4f)
-
+static CGFloat const circle_width_scale =       0.4f;
+static CGFloat const circle_top_inset =         20.0f;
+static CGFloat const deviceLabel_top_inset =    5.0f;
 
 @interface DeviceListViewController ()
 
@@ -79,17 +79,23 @@
     self.deviceList = [[NSMutableArray alloc] initWithArray:@[device0, device1, device2]];
     
     [self.view addSubview:self.circle];
+    [self.circle mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.circle.superview).offset(circle_top_inset);
+        make.centerX.equalTo(self.circle.superview);
+        make.width.equalTo(self.circle.superview).multipliedBy(circle_width_scale);
+        make.height.equalTo(self.circle.superview.mas_width).multipliedBy(circle_width_scale);
+        
+    }];
     [self.circle addSubview:self.numOfDevicesLabel];
     [self.circle addSubview:self.deciveLogoImgView];
     [self.circle addSubview:self.deviceLabel];
-    
-    [self layoutCircle];
     
     self.bandViewList = [[NSMutableArray alloc] init];
     CGFloat maxOffset = self.view.bounds.size.width / 2 / 4;
     
     NSDictionary *deviceItem0 = self.deviceList[0];
-    TPLineBandView *bandViewListItem0 = [[TPLineBandView alloc] initWithFrame:CGRectMake(0, self.circle.frame.origin.y + self.circle.bounds.size.height, self.view.bounds.size.width, maxOffset * 2) andStrokeColor:[UIColor grayColor] andLineWidth:2.0f andMaxOffset:maxOffset andDelegate:self];
+    TPLineBandView *bandViewListItem0 = [[TPLineBandView alloc] initWithFrame:CGRectMake(0, circle_top_inset + self.view.bounds.size.width * circle_width_scale, self.view.bounds.size.width, maxOffset * 2) andStrokeColor:[UIColor grayColor] andLineWidth:2.0f andMaxOffset:maxOffset andDelegate:self];
     bandViewListItem0.duration = 0.2;
     bandViewListItem0.deviceType = deviceItem0[@"deviceType"];
     bandViewListItem0.deviceName = deviceItem0[@"deviceName"];
@@ -125,42 +131,17 @@
     if (nil == _circle)
     {
         _circle = [[TPCircle alloc] initWithCircleColor:[UIColor grayColor]];
-        
-        _circle.bounds = CGRectMake(0, 0, self.view.bounds.size.width * WIDTH_SCALE, self.view.bounds.size.width * WIDTH_SCALE);
-        _circle.center = CGPointMake(self.view.center.x, 44 + _circle.bounds.size.height / 2);
-        
         _circle.lineWidth = 2.0f;
     }
     
     return _circle;
 }
 
-- (TPAttributedStringGenerator *)generateNSAttributedString:(NSString *)string
-{
-    CGFloat maxWidth = self.circle.bounds.size.width * 0.5;
-    
-    TPAttributedStringGenerator* attrGen = [[TPAttributedStringGenerator alloc] init];
-    attrGen.text = [NSString stringWithFormat:@"%lu", (unsigned long)[self.deviceList count]];
-    //        attrGen.text = [NSString stringWithFormat:@"%d", 17];
-    attrGen.font = [UIFont fontWithName:@"HelveticaNeue" size:35];
-    attrGen.textColor = [UIColor grayColor];
-    attrGen.textAlignment = NSTextAlignmentRight;
-    attrGen.constraintSize = CGSizeMake(maxWidth, MAXFLOAT);
-    attrGen.lineBreakMode = NSLineBreakByWordWrapping;
-    [attrGen generate];
-    
-    return attrGen;
-}
-
 - (void)updateNumOfDevicesLabel
 {
-    CGFloat maxWidth = self.circle.bounds.size.width * 0.5;
+    CGFloat maxWidth = self.view.bounds.size.width * circle_width_scale * 0.5;
     
-    
-    TPAttributedStringGenerator* attrGen = [self generateNSAttributedString:[NSString stringWithFormat:@"%lu", (unsigned long)[self.deviceList count]]];
-    _numOfDevicesLabel.attributedText = attrGen.attributedString;
-    _numOfDevicesLabel.numberOfLines = 0;//0代表根据文本动态调整行数
-    _numOfDevicesLabel.backgroundColor = [UIColor clearColor];
+    _numOfDevicesLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[self.deviceList count]];
     [_numOfDevicesLabel sizeToFit];
     _numOfDevicesLabel.frame = CGRectMake(maxWidth - _numOfDevicesLabel.bounds.size.width,
                                           maxWidth - _numOfDevicesLabel.bounds.size.height,
@@ -169,7 +150,7 @@
     [_numOfDevicesLabel sizeToFit];
     
     
-    self.numOfDevicesLabelHeight = attrGen.bounds.size.height;
+    self.numOfDevicesLabelHeight = _numOfDevicesLabel.bounds.size.height;
 }
 
 - (UILabel *)numOfDevicesLabel
@@ -177,6 +158,13 @@
     if (nil == _numOfDevicesLabel)
     {
         _numOfDevicesLabel = [[UILabel alloc] init];
+        _numOfDevicesLabel.backgroundColor = [UIColor clearColor];
+        [_numOfDevicesLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:35.0]];
+        _numOfDevicesLabel.textColor = [UIColor grayColor];
+        _numOfDevicesLabel.numberOfLines = 0;
+        _numOfDevicesLabel.textAlignment = NSTextAlignmentRight;
+        _numOfDevicesLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        
     }
     [self updateNumOfDevicesLabel];
     
@@ -191,7 +179,7 @@
         [_deciveLogoImgView sizeToFit];
         CGFloat widthHeightScale = _deciveLogoImgView.bounds.size.width / _deciveLogoImgView.bounds.size.height;
         
-        CGFloat maxWidth = self.circle.bounds.size.width * 0.5;
+        CGFloat maxWidth = self.view.bounds.size.width * circle_width_scale * 0.5;
         
         CGFloat imgViewHeight = self.numOfDevicesLabelHeight;
         CGFloat imgViewWidth = imgViewHeight * widthHeightScale;
@@ -213,73 +201,24 @@
     {
         _deviceLabel = [[UILabel alloc] init];
         
-        CGFloat maxWidth = self.circle.bounds.size.width * 0.5;
+        CGFloat maxWidth = self.view.bounds.size.width * circle_width_scale * 0.5;
         
-        TPAttributedStringGenerator* attrGen = [[TPAttributedStringGenerator alloc] init];
-        attrGen.text = @"Devices";
-        attrGen.font = [UIFont fontWithName:@"HelveticaNeue" size:20];
-        attrGen.textColor = [UIColor grayColor];
-        attrGen.textAlignment = NSTextAlignmentCenter;
-        attrGen.constraintSize = CGSizeMake(maxWidth, MAXFLOAT);
-        attrGen.lineBreakMode = NSLineBreakByWordWrapping;
-        [attrGen generate];
-        
-        _deviceLabel.attributedText = attrGen.attributedString;
-        _deviceLabel.numberOfLines = 0;//0代表根据文本动态调整行数
         _deviceLabel.backgroundColor = [UIColor clearColor];
+        _deviceLabel.text = @"Devices";
+        [_deviceLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:20.0]];
+        _deviceLabel.textColor = [UIColor grayColor];
+        _deviceLabel.numberOfLines = 0;
+        _deviceLabel.textAlignment = NSTextAlignmentCenter;
+        _deviceLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        
         [_deviceLabel sizeToFit];
         
-        CGFloat edgeDistance = 5.0f;
-        
-        _deviceLabel.center = CGPointMake(maxWidth, maxWidth + _deviceLabel.bounds.size.height / 2.0 + edgeDistance);
+        _deviceLabel.center = CGPointMake(maxWidth, maxWidth + _deviceLabel.bounds.size.height / 2.0 + deviceLabel_top_inset);
         
         
     }
     
     return _deviceLabel;
-}
-
-
-
-- (void)layoutCircle
-{
-    [self.circle setTranslatesAutoresizingMaskIntoConstraints:NO];
-    
-    NSLayoutConstraint *constraintTop = [NSLayoutConstraint constraintWithItem :self.circle
-                                                                      attribute:NSLayoutAttributeTop
-                                                                      relatedBy:NSLayoutRelationEqual
-                                                                         toItem:self.view
-                                                                      attribute:NSLayoutAttributeTop
-                                                                     multiplier:1.0
-                                                                       constant:44.0];
-    
-    NSLayoutConstraint *constraintCenterX = [NSLayoutConstraint constraintWithItem :self.circle
-                                                                          attribute:NSLayoutAttributeCenterX
-                                                                          relatedBy:NSLayoutRelationEqual
-                                                                             toItem:self.view
-                                                                          attribute:NSLayoutAttributeCenterX
-                                                                         multiplier:1.0
-                                                                           constant:0.0];
-    
-    NSLayoutConstraint *constraintWidth = [NSLayoutConstraint constraintWithItem :self.circle
-                                                                        attribute:NSLayoutAttributeWidth
-                                                                        relatedBy:NSLayoutRelationEqual
-                                                                           toItem:self.view
-                                                                        attribute:NSLayoutAttributeWidth
-                                                                       multiplier:WIDTH_SCALE
-                                                                         constant:0.0];
-    
-    NSLayoutConstraint *constraintHeight = [NSLayoutConstraint constraintWithItem :self.circle
-                                                                         attribute:NSLayoutAttributeHeight
-                                                                         relatedBy:NSLayoutRelationEqual
-                                                                            toItem:self.circle
-                                                                         attribute:NSLayoutAttributeWidth
-                                                                        multiplier:1.0
-                                                                          constant:0.0];
-    
-    [self.view addConstraints:@[constraintTop, constraintCenterX, constraintWidth]];
-    
-    [self.circle addConstraint:constraintHeight];
 }
 
 // MARK: CATransition动画实现
