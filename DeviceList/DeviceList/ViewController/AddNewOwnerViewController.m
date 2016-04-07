@@ -8,33 +8,30 @@
 
 #import "AddNewOwnerViewController.h"
 #import "OwnerTimeCtrlTableViewCell.h"
-#import "TPAttributedStringGenerator.h"
-
-#define BAR_HEIGHT                      ([[UIApplication sharedApplication] statusBarFrame].size.height + self.navigationController.navigationBar.frame.                 size.height + 5.0f)
-
-#define ownerHeaderImageBtn_top_inset           (10.0f)
-#define ownerHeaderImageBtn_width               (80.0f)
-#define cross_line_length                       (20.0f)
-
-#define tipsLabel_top_inset                     (5.0f)
-
-#define staticLabel_top_inset                   (30.0f)
-
-#define ownerNameTextField_top_inset            (20.0f)
-#define ownerNameTextField_left_inset           (30.0f)
-#define ownerNameTextField_height               (30.0f)
-
-#define tableview_top_inset                     (10.0f)
 
 #define CELL_REUSE_INDENTIFIER_DEILY            @"TIME_CTRL_IDENTIFIER_DAILY"
 #define CELL_REUSE_INDENTIFIER_BED              @"TIME_CTRL_IDENTIFIER_BED"
 #define CELL_REUSE_INDENTIFIER_TIME             @"TIME_CTRL_IDENTIFIER_TIME"
 
-#define CELL_MAX_NUM                            (5)
 #define CELL_HEIGHT                             (44)
 
 #define daily_time_limit_switch_tag             (1001)
 #define bed_time_limit_switch_tag               (1002)
+
+
+static CGFloat const ownerHeaderImageBtn_top_inset =            15.0f;
+static CGFloat const ownerHeaderImageBtn_width =                80.0f;
+static CGFloat const cross_line_length =                        20.0f;
+
+static CGFloat const tipsLabel_top_inset =                      5.0f;
+
+static CGFloat const staticLabel_top_inset =                    30.0f;
+
+static CGFloat const ownerNameTextField_top_inset =             20.0f;
+static CGFloat const ownerNameTextField_left_inset =            30.0f;
+static CGFloat const ownerNameTextField_height =                30.0f;
+
+static CGFloat const tableview_top_inset =                      10.0f;
 
 @interface AddNewOwnerViewController ()<UIImagePickerControllerDelegate, UIPopoverPresentationControllerDelegate>
 
@@ -63,6 +60,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    //extendedLayoutIncludesOpaqueBars其中这个属性指定了当Bar使用了不透明图片时，视图是否延伸至Bar所在区域，默认值时NO。
+    //而edgesForExtendedLayout则是表示视图是否覆盖到四周的区域，默认是UIRectEdgeAll，即上下左右四个方向都会覆盖，那么为让顶部不进行延伸到导航栏覆盖的区域，我们可以把顶部区域延伸去掉。
+    self.extendedLayoutIncludesOpaqueBars = NO;
+    self.edgesForExtendedLayout = UIRectEdgeBottom | UIRectEdgeLeft | UIRectEdgeRight;
+    
+    
     [self _initViews];
     [self _initData];
 }
@@ -71,9 +75,8 @@
 {
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
-    self.ownerHeaderImageBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, ownerHeaderImageBtn_width, ownerHeaderImageBtn_width)];
-    self.ownerHeaderImageBtn.center = CGPointMake(self.view.center.x, BAR_HEIGHT + ownerHeaderImageBtn_top_inset + ownerHeaderImageBtn_width / 2);
-    [self.ownerHeaderImageBtn.layer setCornerRadius:CGRectGetHeight([self.ownerHeaderImageBtn bounds]) / 2];
+    self.ownerHeaderImageBtn = [[UIButton alloc] init];
+    [self.ownerHeaderImageBtn.layer setCornerRadius:ownerHeaderImageBtn_width / 2];
     self.ownerHeaderImageBtn.layer.masksToBounds = true;
     self.ownerHeaderImageBtn.layer.borderWidth = 1;
     self.ownerHeaderImageBtn.layer.borderColor = [[UIColor grayColor] CGColor];
@@ -82,8 +85,8 @@
     self.drawLayer.strokeColor = [UIColor darkGrayColor].CGColor;
     self.drawLayer.lineWidth = 2;
     UIBezierPath *path = [[UIBezierPath alloc] init];
-    CGFloat leftX = self.ownerHeaderImageBtn.bounds.size.width / 2 - cross_line_length / 2;
-    CGFloat leftY = self.ownerHeaderImageBtn.bounds.size.width / 2;
+    CGFloat leftX = ownerHeaderImageBtn_width / 2 - cross_line_length / 2;
+    CGFloat leftY = ownerHeaderImageBtn_width / 2;
     [path moveToPoint:CGPointMake(leftX, leftY)];
     [path addLineToPoint:CGPointMake(leftX + cross_line_length, leftY)];
     CGFloat topX = leftY;
@@ -92,68 +95,91 @@
     [path addLineToPoint:CGPointMake(topX, topY + cross_line_length)];
     self.drawLayer.path = path.CGPath;
     [self.ownerHeaderImageBtn addTarget:self action:@selector(ownerHeaderImageBtnOnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.ownerHeaderImageBtn];
+    [self.ownerHeaderImageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.ownerHeaderImageBtn.superview).offset(ownerHeaderImageBtn_top_inset);
+        make.centerX.equalTo(self.ownerHeaderImageBtn.superview);
+        make.width.equalTo(@(ownerHeaderImageBtn_width));
+        make.height.equalTo(self.ownerHeaderImageBtn.mas_width);
+        
+    }];
+    
+    
     
     self.tipsLabel = [[UILabel alloc] init];
+    [self.view addSubview:self.tipsLabel];
+    [self.tipsLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10.0]];
+    self.tipsLabel.textColor = [UIColor grayColor];
+    self.tipsLabel.numberOfLines = 1;
+    self.tipsLabel.textAlignment = NSTextAlignmentCenter;
+    self.tipsLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [self setTipsLabelText:@"上传头像"];
     [self.tipsLabel sizeToFit];
-    self.tipsLabel.bounds = CGRectMake(0, 0, self.view.bounds.size.width, self.tipsLabel.bounds.size.height);
-    self.tipsLabel.center = CGPointMake(self.view.center.x, self.ownerHeaderImageBtn.frame.origin.y + self.ownerHeaderImageBtn.bounds.size.height + tipsLabel_top_inset + self.tipsLabel.bounds.size.height / 2);
+    [self.tipsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.ownerHeaderImageBtn.mas_bottom).offset(tipsLabel_top_inset);
+        make.left.equalTo(self.tipsLabel.superview);
+        make.right.equalTo(self.tipsLabel.superview);
+        make.height.equalTo(@(self.tipsLabel.bounds.size.height));
+        
+    }];
+    
+    
     
     self.staticLabel = [[UILabel alloc] init];
-    CGFloat maxWidth = self.view.bounds.size.width;
-    TPAttributedStringGenerator* attrGen = [[TPAttributedStringGenerator alloc] init];
-    attrGen.text = [NSString stringWithFormat:@"%@", @"归属人名称"];
-    attrGen.font = [UIFont fontWithName:@"HelveticaNeue" size:15];
-    attrGen.textColor = [UIColor blackColor];
-    attrGen.textAlignment = NSTextAlignmentCenter;
-    attrGen.constraintSize = CGSizeMake(maxWidth, MAXFLOAT);
-    attrGen.lineBreakMode = NSLineBreakByTruncatingTail;
-    [attrGen generate];
-    self.staticLabel.attributedText = attrGen.attributedString;
+    [self.view addSubview:self.staticLabel];
+    [self.staticLabel setText:[NSString stringWithFormat:@"%@", @"归属人名称"]];
+    [self.staticLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0]];
+    self.staticLabel.textColor = [UIColor blackColor];
     self.staticLabel.numberOfLines = 1;
+    self.staticLabel.textAlignment = NSTextAlignmentCenter;
+    self.staticLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [self.staticLabel sizeToFit];
-    self.staticLabel.bounds = CGRectMake(0, 0, self.view.bounds.size.width, self.staticLabel.bounds.size.height);
-    self.staticLabel.center = CGPointMake(self.view.center.x, self.tipsLabel.frame.origin.y + self.tipsLabel.bounds.size.height + staticLabel_top_inset + self.staticLabel.bounds.size.height / 2);
-
+    [self.staticLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.tipsLabel.mas_bottom).offset(staticLabel_top_inset);
+        make.left.equalTo(self.staticLabel.superview);
+        make.right.equalTo(self.staticLabel.superview);
+        make.height.equalTo(@(self.staticLabel.bounds.size.height));
+        
+    }];
+    
+    
     
     self.ownerNameTextField = [[UITextField alloc] init];
+    [self.view addSubview:self.ownerNameTextField];
     self.ownerNameTextField.textAlignment = NSTextAlignmentCenter;
     self.ownerNameTextField.borderStyle = UITextBorderStyleRoundedRect;
     self.ownerNameTextField.placeholder = @"必填";
     self.ownerNameTextField.returnKeyType = UIReturnKeyDone;
     self.ownerNameTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.ownerNameTextField.delegate = self;
-    self.ownerNameTextField.bounds = CGRectMake(0, 0, self.view.bounds.size.width - ownerNameTextField_left_inset * 2, ownerNameTextField_height);
-    self.ownerNameTextField.center = CGPointMake(self.view.center.x, self.staticLabel.frame.origin.y + self.staticLabel.bounds.size.height + ownerNameTextField_top_inset + self.ownerNameTextField.bounds.size.height / 2);
+    [self.ownerNameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.staticLabel.mas_bottom).offset(ownerNameTextField_top_inset);
+        make.left.equalTo(self.ownerNameTextField.superview).offset(ownerNameTextField_left_inset);
+        make.right.equalTo(self.ownerNameTextField.superview).offset(-ownerNameTextField_left_inset);
+        make.height.equalTo(@(ownerNameTextField_height));
+        
+    }];
+    
+
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    [self.view addSubview:self.tableView];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.scrollEnabled = false;
-    CGFloat maxHeight = CELL_MAX_NUM * CELL_HEIGHT;
-    CGFloat remainHeight = self.view.bounds.size.height - (self.ownerNameTextField.frame.origin.y + self.ownerNameTextField.bounds.size.height) - tableview_top_inset;
-    CGFloat tableViewHeight = 0;
-    if (maxHeight < remainHeight)
-    {
-        self.isTableViewNeedScoll = false;
-        tableViewHeight = maxHeight;
-    }
-    else
-    {
-        self.isTableViewNeedScoll = true;
-        tableViewHeight = remainHeight;
-    }
-    self.tableView.bounds = CGRectMake(0, 0, self.view.bounds.size.width, tableViewHeight);
-    self.tableView.center = CGPointMake(self.view.center.x, self.ownerNameTextField.frame.origin.y + self.ownerNameTextField.bounds.size.height + tableview_top_inset + tableViewHeight / 2);
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.ownerNameTextField.mas_bottom).offset(tableview_top_inset);
+        make.left.equalTo(self.tableView.superview);
+        make.right.equalTo(self.tableView.superview);
+        make.bottom.equalTo(self.tableView.superview);
+        
+    }];
     
-    [self.view addSubview:self.ownerHeaderImageBtn];
-    [self.view addSubview:self.tipsLabel];
-    [self.view addSubview:self.staticLabel];
-    [self.view addSubview:self.ownerNameTextField];
-    [self.view addSubview:self.tableView];
-    
-
 }
 
 - (void)_initData
@@ -166,22 +192,26 @@
     _awakeTime = @"8:00 PM";
     
     _funcList = [[NSMutableArray alloc] initWithArray:@[@"Daily time limit", @"Bed time"]];
+    [self updateTableViewContentSize];
+    self.tableView.scrollEnabled = false;//初始化默认为不能划动
 }
 
 - (void)setTipsLabelText:(NSString *)string
 {
-    CGFloat maxWidth = self.view.bounds.size.width;
-    TPAttributedStringGenerator* attrGen = [[TPAttributedStringGenerator alloc] init];
-    attrGen.text = [NSString stringWithFormat:@"%@", string];
-    attrGen.font = [UIFont fontWithName:@"HelveticaNeue" size:10];
-    attrGen.textColor = [UIColor grayColor];
-    attrGen.textAlignment = NSTextAlignmentCenter;
-    attrGen.constraintSize = CGSizeMake(maxWidth, MAXFLOAT);
-    attrGen.lineBreakMode = NSLineBreakByTruncatingTail;
-    [attrGen generate];
-    self.tipsLabel.attributedText = attrGen.attributedString;
-    self.tipsLabel.numberOfLines = 1;
-    
+    self.tipsLabel.text = string;
+}
+
+- (void)updateTableViewContentSize
+{
+    self.tableView.contentSize = CGSizeMake(self.view.bounds.size.width, [_funcList count] * CELL_HEIGHT);
+    if (self.tableView.bounds.size.height > self.tableView.contentSize.height)
+    {
+        self.tableView.scrollEnabled = false;
+    }
+    else
+    {
+        self.tableView.scrollEnabled = true;
+    }
 }
 
 
@@ -410,20 +440,14 @@
             [self.funcList insertObject:@"Daily time limit" atIndex:1];
             [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:0]];
             [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-            if (self.isTableViewNeedScoll)
-            {
-                self.tableView.scrollEnabled = true;
-            }
+            
         }
         else
         {
             [self.funcList removeObjectAtIndex:1];
             [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:0]];
             [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-            if (self.isTableViewNeedScoll && !_isBedTimeOn)
-            {
-                self.tableView.scrollEnabled = false;
-            }
+            
         }
         [self.tableView endUpdates];
         
@@ -461,10 +485,7 @@
             [indexPaths addObject:[NSIndexPath indexPathForRow:insertIndex1 inSection:0]];
             [indexPaths addObject:[NSIndexPath indexPathForRow:insertIndex2 inSection:0]];
             [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-            if (self.isTableViewNeedScoll)
-            {
-                self.tableView.scrollEnabled = true;
-            }
+            
         }
         else
         {
@@ -473,14 +494,12 @@
             [indexPaths addObject:[NSIndexPath indexPathForRow:insertIndex1 inSection:0]];
             [indexPaths addObject:[NSIndexPath indexPathForRow:insertIndex2 inSection:0]];
             [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
-            if (self.isTableViewNeedScoll && !_isDailyTimeLimitOn)
-            {
-                self.tableView.scrollEnabled = false;
-            }
+            
         }
         [self.tableView endUpdates];
 
     }
+    [self updateTableViewContentSize];
 }
 
 
