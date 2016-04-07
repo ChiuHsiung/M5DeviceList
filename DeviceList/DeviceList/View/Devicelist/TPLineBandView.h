@@ -108,7 +108,7 @@ typedef NS_ENUM(int, POINTMOVED_TYPE)
         andDelegate:(id)someOne;
 
 - (void)pullWithOffSetX:(CGFloat)offSetX andOffsetY:(CGFloat)offsetY;
-- (void)recoverStateAnimation;
+- (void)recoverStateAnimation:(BOOL)isNeedAnimation;
 - (void)resetDefault;
 
 - (void)addPanGestureRecognizerToDeviceInfoView;

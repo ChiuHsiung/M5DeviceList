@@ -14,7 +14,9 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-static CFTimeInterval defaultDuration = 0.2;
+static CFTimeInterval const defaultDuration =           0.2;
+static CGFloat const blockView_left_inset =            40.0f;
+static CGFloat const blockView_height =                18.0f;
 
 //加速度
 static float acceleration(float time,float space) {
@@ -210,9 +212,8 @@ static float acceleration(float time,float space) {
 
 - (void)_initBlockView
 {
-    CGFloat maxWidth = self.bounds.size.width / 2 - self.deviceInfoView.bounds.size.width / 2;
-    CGFloat blockViewWidth = 80 < maxWidth ? 80 : maxWidth;
-    CGFloat blockViewHeight = 18;
+    CGFloat blockViewWidth = self.bounds.size.width / 2 - self.deviceInfoView.bounds.size.width / 2 - blockView_left_inset;
+    CGFloat blockViewHeight = blockView_height;
     self.blockView = [[TPBlockView alloc] initWithFrame:CGRectMake(self.bounds.size.width - blockViewWidth,
                                                                    self.deviceInfoView.center.y - blockViewHeight / 2,
                                                                    blockViewWidth,

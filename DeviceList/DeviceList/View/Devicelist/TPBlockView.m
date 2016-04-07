@@ -8,11 +8,15 @@
 
 #import "TPBlockView.h"
 
+static CGFloat const tipsLabel_left_inset =             5.0f;
+
 @interface TPBlockView()
 
 @property (nonatomic,strong) UIView *backgroundView;
 
 @property (nonatomic,strong) UIImageView *foregroundView;
+
+@property (nonatomic,strong) UIView *rightRectView;
 
 @end
 
@@ -41,9 +45,13 @@
     [self.foregroundView setImage:[UIImage imageNamed:imageName]];
     [self addSubview:self.foregroundView];
     
+    self.rightRectView = [[UIView alloc] init];
+    self.rightRectView.backgroundColor = [UIColor whiteColor];
+    [self addSubview:self.rightRectView];
+    
     self.tipsLabel = [[UILabel alloc] init];
     [self.tipsLabel setBackgroundColor:[UIColor whiteColor]];
-    [self addSubview:self.tipsLabel];
+    [self.rightRectView addSubview:self.tipsLabel];
     [self.tipsLabel setText:@"左拉拖黑"];
     [self.tipsLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10.0]];
     self.tipsLabel.textColor = [UIColor grayColor];
@@ -57,7 +65,7 @@
         
         make.left.equalTo(self.backgroundView.superview);
         make.top.equalTo(self.backgroundView.superview);
-        make.width.equalTo(@(self.bounds.size.height));
+        make.width.equalTo(self.backgroundView.superview);
         make.height.equalTo(@(self.bounds.size.height));
         
     }];
@@ -67,13 +75,22 @@
         make.left.equalTo(self.foregroundView.superview);
         make.top.equalTo(self.foregroundView.superview);
         make.width.equalTo(@(self.bounds.size.height));
-        make.height.equalTo(@(self.bounds.size.height));
+        make.height.equalTo(self.foregroundView.superview);
+        
+    }];
+    
+    [self.rightRectView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.foregroundView.mas_right);
+        make.top.equalTo(self.rightRectView.superview);
+        make.right.equalTo(self.rightRectView.superview);
+        make.height.equalTo(self.rightRectView.superview);
         
     }];
     
     [self.tipsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.foregroundView.mas_right);
+        make.left.equalTo(self.tipsLabel.superview).offset(tipsLabel_left_inset);
         make.top.equalTo(self.tipsLabel.superview);
         make.right.equalTo(self.tipsLabel.superview);
         make.height.equalTo(self.tipsLabel.superview);
