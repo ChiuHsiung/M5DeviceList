@@ -418,7 +418,7 @@
 					"\"UIKit\"",
 				);
 				PODS_ROOT = "${SRCROOT}/Pods";
-				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.OwnerList;
+				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.EditDevice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d47e54e5-8d3b-4de5-9761-d45d385360a3";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -467,7 +467,7 @@
 					"\"UIKit\"",
 				);
 				PODS_ROOT = "${SRCROOT}/Pods";
-				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.OwnerList;
+				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.EditDevice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d47e54e5-8d3b-4de5-9761-d45d385360a3";
 				TARGETED_DEVICE_FAMILY = "1,2";

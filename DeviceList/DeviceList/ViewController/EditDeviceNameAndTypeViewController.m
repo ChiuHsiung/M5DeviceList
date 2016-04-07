@@ -11,17 +11,18 @@
 #import "DeviceTypeTableViewCell.h"
 #import "TPAttributedStringGenerator.h"
 
-#define BAR_HEIGHT                      ([[UIApplication sharedApplication] statusBarFrame].size.height + self.navigationController.navigationBar.frame.                 size.height + 5.0f)
-
-#define deviceNameTextField_top_inset               (10.0f)
-#define deviceNameTextField_left_inset              (30.0f)
-#define deviceNameTextField_height                  (30.0f)
-
-#define staticDeviceTypeLabel_top_inset             (20.0f)
-#define tableview_top_inset                         (10.0f)
 
 #define CELL_REUSE_INDENTIFIER          @"USER_ITEM_IDENTIFIER"
 #define CELL_HEIGHT                     (44)
+
+static CGFloat const staticDeviceNameLabel_top_inset =              15.0f;
+
+static CGFloat const deviceNameTextField_top_inset =                15.0f;
+static CGFloat const deviceNameTextField_left_inset =               30.0f;
+
+static CGFloat const staticDeviceTypeLabel_top_inset =              20.0f;
+
+static CGFloat const tableview_top_inset =                          10.0f;
 
 @interface EditDeviceNameAndTypeViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
@@ -40,6 +41,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    //extendedLayoutIncludesOpaqueBars其中这个属性指定了当Bar使用了不透明图片时，视图是否延伸至Bar所在区域，默认值时NO。
+    //而edgesForExtendedLayout则是表示视图是否覆盖到四周的区域，默认是UIRectEdgeAll，即上下左右四个方向都会覆盖，那么为让顶部不进行延伸到导航栏覆盖的区域，我们可以把顶部区域延伸去掉。
+    self.extendedLayoutIncludesOpaqueBars = NO;
+    self.edgesForExtendedLayout = UIRectEdgeBottom | UIRectEdgeLeft | UIRectEdgeRight;
+    
+    
     #pragma mark - 测试模拟数据
     self.deviceName = @"KK's iPhone";
     self.deviceType = @"phone";
@@ -53,63 +60,91 @@
 {
     [self.view setBackgroundColor:[UIColor whiteColor]];
     self.staticDeviceNameLabel = [[UILabel alloc] init];
-    CGFloat maxWidth = self.view.bounds.size.width;
-    TPAttributedStringGenerator* attrGen = [[TPAttributedStringGenerator alloc] init];
-    attrGen.text = [NSString stringWithFormat:@"%@", @"Device name"];
-    attrGen.font = [UIFont fontWithName:@"HelveticaNeue" size:15];
-    attrGen.textColor = [UIColor blackColor];
-    attrGen.textAlignment = NSTextAlignmentCenter;
-    attrGen.constraintSize = CGSizeMake(maxWidth, MAXFLOAT);
-    attrGen.lineBreakMode = NSLineBreakByTruncatingTail;
-    [attrGen generate];
-    self.staticDeviceNameLabel.attributedText = attrGen.attributedString;
+    [self.view addSubview:self.staticDeviceNameLabel];
+    self.staticDeviceNameLabel.text = [NSString stringWithFormat:@"%@", @"Device name"];
+    [self.staticDeviceNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0]];
+    self.staticDeviceNameLabel.textColor = [UIColor blackColor];
     self.staticDeviceNameLabel.numberOfLines = 1;
+    self.staticDeviceNameLabel.textAlignment = NSTextAlignmentCenter;
+    self.staticDeviceNameLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [self.staticDeviceNameLabel sizeToFit];
-    self.staticDeviceNameLabel.bounds = CGRectMake(0, 0, self.view.bounds.size.width, self.staticDeviceNameLabel.bounds.size.height);
-    self.staticDeviceNameLabel.center = CGPointMake(self.view.center.x, BAR_HEIGHT + self.staticDeviceNameLabel.bounds.size.height / 2);
+    [self.staticDeviceNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.staticDeviceNameLabel.superview).offset(staticDeviceNameLabel_top_inset);
+        make.left.equalTo(self.staticDeviceNameLabel.superview);
+        make.right.equalTo(self.staticDeviceNameLabel.superview);
+        make.height.equalTo(@(self.staticDeviceNameLabel.bounds.size.height));
+        
+    }];
+    
     
     self.deviceNameTextField = [[UITextField alloc] init];
+    [self.view addSubview:self.deviceNameTextField];
     self.deviceNameTextField.textAlignment = NSTextAlignmentCenter;
     self.deviceNameTextField.borderStyle = UITextBorderStyleRoundedRect;
+    self.deviceNameTextField.font = [UIFont fontWithName:@"HelveticaNeue" size:12.0];
+    self.deviceNameTextField.textColor = [UIColor blackColor];
+    self.deviceNameTextField.placeholder = @"Device name";
     self.deviceNameTextField.text = self.deviceName;
     self.deviceNameTextField.returnKeyType = UIReturnKeyDone;
     self.deviceNameTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.deviceNameTextField.delegate = self;
-    self.deviceNameTextField.bounds = CGRectMake(0, 0, self.view.bounds.size.width - deviceNameTextField_left_inset * 2, deviceNameTextField_height);
-    self.deviceNameTextField.center = CGPointMake(self.view.center.x, self.staticDeviceNameLabel.frame.origin.y + self.staticDeviceNameLabel.bounds.size.height + deviceNameTextField_top_inset + self.deviceNameTextField.bounds.size.height / 2);
+    [self.deviceNameTextField sizeToFit];
+    [self.deviceNameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.staticDeviceNameLabel.mas_bottom).offset(deviceNameTextField_top_inset);
+        make.left.equalTo(self.deviceNameTextField.superview).offset(deviceNameTextField_left_inset);
+        make.right.equalTo(self.deviceNameTextField.superview).offset(-deviceNameTextField_left_inset);
+        make.height.equalTo(@(self.deviceNameTextField.bounds.size.height));
+        
+    }];
+    
     
     self.staticDeviceTypeLabel = [[UILabel alloc] init];
-    [attrGen setText:@"Device Type"];
-    self.staticDeviceTypeLabel.attributedText = attrGen.attributedString;
+    [self.view addSubview:self.staticDeviceTypeLabel];
+    self.staticDeviceTypeLabel.text = [NSString stringWithFormat:@"%@", @"Device type"];
+    [self.staticDeviceTypeLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0]];
+    self.staticDeviceTypeLabel.textColor = [UIColor blackColor];
     self.staticDeviceTypeLabel.numberOfLines = 1;
+    self.staticDeviceTypeLabel.textAlignment = NSTextAlignmentCenter;
+    self.staticDeviceTypeLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     [self.staticDeviceTypeLabel sizeToFit];
-    self.staticDeviceTypeLabel.bounds = CGRectMake(0, 0, self.view.bounds.size.width, self.staticDeviceTypeLabel.bounds.size.height);
-    self.staticDeviceTypeLabel.center = CGPointMake(self.view.center.x, self.deviceNameTextField.frame.origin.y + self.deviceNameTextField.bounds.size.height + staticDeviceTypeLabel_top_inset + self.staticDeviceTypeLabel.bounds.size.height / 2);
+    [self.staticDeviceTypeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.deviceNameTextField.mas_bottom).offset(staticDeviceTypeLabel_top_inset);
+        make.left.equalTo(self.staticDeviceTypeLabel.superview);
+        make.right.equalTo(self.staticDeviceTypeLabel.superview);
+        make.height.equalTo(@(self.staticDeviceTypeLabel.bounds.size.height));
+        
+    }];
+    
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    [self.view addSubview:self.tableView];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    CGFloat maxHeight = [self.deviceTypeList count] * CELL_HEIGHT;
-    CGFloat remainHeight = self.view.bounds.size.height - (self.staticDeviceTypeLabel.frame.origin.y + self.staticDeviceTypeLabel.bounds.size.height) - tableview_top_inset;
-    CGFloat tableViewHeight = 0;
-    if (maxHeight < remainHeight)
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.staticDeviceTypeLabel.mas_bottom).offset(tableview_top_inset);
+        make.left.equalTo(self.tableView.superview);
+        make.right.equalTo(self.tableView.superview);
+        make.bottom.equalTo(self.tableView.superview);
+        
+    }];
+    
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    if (self.tableView.bounds.size.height > [self.deviceTypeList count] * CELL_HEIGHT)
     {
         self.tableView.scrollEnabled = false;
-        tableViewHeight = maxHeight;
     }
     else
     {
         self.tableView.scrollEnabled = true;
-        tableViewHeight = remainHeight;
     }
-    self.tableView.bounds = CGRectMake(0, 0, self.view.bounds.size.width, tableViewHeight);
-    self.tableView.center = CGPointMake(self.view.center.x, self.staticDeviceTypeLabel.frame.origin.y + self.staticDeviceTypeLabel.bounds.size.height + tableview_top_inset + tableViewHeight / 2);
-    
-    [self.view addSubview:self.staticDeviceNameLabel];
-    [self.view addSubview:self.deviceNameTextField];
-    [self.view addSubview:self.staticDeviceTypeLabel];
-    [self.view addSubview:self.tableView];
 }
 
 #pragma mark - TextField delegate
