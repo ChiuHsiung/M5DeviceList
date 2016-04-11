@@ -9,6 +9,9 @@
 #import "AddNewOwnerViewController.h"
 #import "OwnerTimeCtrlTableViewCell.h"
 
+#import "TPDailyTimeLimitView.h"
+#import "TPBedTimePicker.h"
+
 #define CELL_REUSE_INDENTIFIER_DEILY            @"TIME_CTRL_IDENTIFIER_DAILY"
 #define CELL_REUSE_INDENTIFIER_BED              @"TIME_CTRL_IDENTIFIER_BED"
 #define CELL_REUSE_INDENTIFIER_TIME             @"TIME_CTRL_IDENTIFIER_TIME"
@@ -33,7 +36,7 @@ static CGFloat const ownerNameTextField_height =                30.0f;
 
 static CGFloat const tableview_top_inset =                      10.0f;
 
-@interface AddNewOwnerViewController ()<UIImagePickerControllerDelegate, UIPopoverPresentationControllerDelegate>
+@interface AddNewOwnerViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UIPopoverPresentationControllerDelegate, TPDailyTimeLimitViewBtnDelegate, TPBedTimePickerDelegate>
 
 @property (nonatomic, strong) UIButton *ownerHeaderImageBtn;
 @property (nonatomic, strong) CAShapeLayer *drawLayer;
@@ -418,9 +421,60 @@ static CGFloat const tableview_top_inset =                      10.0f;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //Daily time limit
+    if (self.isDailyTimeLimitOn && indexPath.row == 1)
+    {
+        TPDailyTimeLimitView *tpDailyTimeLimitView = [[TPDailyTimeLimitView alloc] init];
+        tpDailyTimeLimitView.delegate = self;
+        [tpDailyTimeLimitView show];
+    }
+    
+    //Go to bed
+    else if((self.isDailyTimeLimitOn && indexPath.row == 3) || (!self.isDailyTimeLimitOn && indexPath.row == 2))
+    {
+        TPBedTimePicker *tpBedTimePicker = [[TPBedTimePicker alloc] init];
+        [tpBedTimePicker updateTime:self.bedTime withIsBedTime:YES];
+        tpBedTimePicker.delegate = self;
+        [tpBedTimePicker show];
+    }
+    
+    //Wake up
+    else if((self.isDailyTimeLimitOn && indexPath.row == 4) || (!self.isDailyTimeLimitOn && indexPath.row == 3))
+    {
+        TPBedTimePicker *tpBedTimePicker = [[TPBedTimePicker alloc] init];
+        [tpBedTimePicker updateTime:self.awakeTime withIsBedTime:NO];
+        tpBedTimePicker.delegate = self;
+        [tpBedTimePicker show];
+    }
+    
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
 }
 
+#pragma mark - TPDailyTimeLimitViewDelegate
+- (void)refreshDailyTimeLimit:(NSString *)timeString
+{
+    self.dailyTimeLimit = timeString;
+    [self.tableView reloadData];
+}
+
+#pragma mark - TPBedTimePickerDelegate
+- (void)refreshTime:(NSString *)timeString withIsBedTime:(BOOL)isBedTime
+{
+    if (isBedTime)
+    {
+        self.bedTime = timeString;
+    }
+    else
+    {
+        self.awakeTime = timeString;
+    }
+    [self.tableView reloadData];
+}
+
+
+#pragma mark - 点击Switch
 - (void)updateSwitch:(id)sender
 {
     UISwitch *switchView = (UISwitch *)sender;
@@ -480,7 +534,7 @@ static CGFloat const tableview_top_inset =                      10.0f;
         
         if (_isBedTimeOn)
         {
-            [self.funcList insertObject:@"Bed time" atIndex:insertIndex1];
+            [self.funcList insertObject:@"Go to bed" atIndex:insertIndex1];
             [self.funcList insertObject:@"Awake" atIndex:insertIndex2];
             [indexPaths addObject:[NSIndexPath indexPathForRow:insertIndex1 inSection:0]];
             [indexPaths addObject:[NSIndexPath indexPathForRow:insertIndex2 inSection:0]];

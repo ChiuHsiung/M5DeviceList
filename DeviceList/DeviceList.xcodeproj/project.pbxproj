@@ -8,9 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		3C088B3D1CACAE2D00937451 /* OwnerTimeCtrlTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C088B3C1CACAE2D00937451 /* OwnerTimeCtrlTableViewCell.m */; };
+		3C1838FA1CB649A800A746DE /* TPBaffleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1838F91CB649A800A746DE /* TPBaffleView.m */; };
 		3C38EAFD1CABA0A80095363F /* AddNewOwnerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C38EAFC1CABA0A80095363F /* AddNewOwnerViewController.m */; };
 		3C495CA21CADFDA600B41A15 /* EditDeviceNameAndTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C495CA11CADFDA600B41A15 /* EditDeviceNameAndTypeViewController.m */; };
-		3C495CA51CADFDED00B41A15 /* DeviceTypeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C495CA41CADFDED00B41A15 /* DeviceTypeTableViewCell.m */; };
+		3C84881E1CBB81E200F1D7F3 /* TPDailyTimeLimitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C84881D1CBB81E200F1D7F3 /* TPDailyTimeLimitView.m */; };
+		3C8488211CBB821000F1D7F3 /* DeviceTypeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8488201CBB821000F1D7F3 /* DeviceTypeTableViewCell.m */; };
+		3C8488271CBB84A200F1D7F3 /* TPBedTimePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8488261CBB84A200F1D7F3 /* TPBedTimePicker.m */; };
+		3C84882B1CBB959C00F1D7F3 /* TPTimePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C84882A1CBB959C00F1D7F3 /* TPTimePickerCell.m */; };
+		3C84882E1CBB981700F1D7F3 /* TPTimePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C84882D1CBB981700F1D7F3 /* TPTimePickerView.m */; };
 		3C8B0C8C1CAA571700EB1531 /* TPBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C831CAA571700EB1531 /* TPBlockView.m */; };
 		3C8B0C8D1CAA571700EB1531 /* TPCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C851CAA571700EB1531 /* TPCircle.m */; };
 		3C8B0C8E1CAA571700EB1531 /* TPDeviceInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C871CAA571700EB1531 /* TPDeviceInfoView.m */; };
@@ -29,12 +34,22 @@
 /* Begin PBXFileReference section */
 		3C088B3B1CACAE2D00937451 /* OwnerTimeCtrlTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OwnerTimeCtrlTableViewCell.h; path = DeviceList/View/Userlist/OwnerTimeCtrlTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		3C088B3C1CACAE2D00937451 /* OwnerTimeCtrlTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OwnerTimeCtrlTableViewCell.m; path = DeviceList/View/Userlist/OwnerTimeCtrlTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		3C1838F81CB649A800A746DE /* TPBaffleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPBaffleView.h; path = View/TPBaffleView.h; sourceTree = "<group>"; };
+		3C1838F91CB649A800A746DE /* TPBaffleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPBaffleView.m; path = View/TPBaffleView.m; sourceTree = "<group>"; };
 		3C38EAFB1CABA0A80095363F /* AddNewOwnerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddNewOwnerViewController.h; path = ViewController/AddNewOwnerViewController.h; sourceTree = "<group>"; };
 		3C38EAFC1CABA0A80095363F /* AddNewOwnerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddNewOwnerViewController.m; path = ViewController/AddNewOwnerViewController.m; sourceTree = "<group>"; };
 		3C495CA01CADFDA600B41A15 /* EditDeviceNameAndTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditDeviceNameAndTypeViewController.h; path = ViewController/EditDeviceNameAndTypeViewController.h; sourceTree = "<group>"; };
 		3C495CA11CADFDA600B41A15 /* EditDeviceNameAndTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditDeviceNameAndTypeViewController.m; path = ViewController/EditDeviceNameAndTypeViewController.m; sourceTree = "<group>"; };
-		3C495CA31CADFDED00B41A15 /* DeviceTypeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceTypeTableViewCell.h; path = DeviceList/View/Userlist/DeviceTypeTableViewCell.h; sourceTree = SOURCE_ROOT; };
-		3C495CA41CADFDED00B41A15 /* DeviceTypeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceTypeTableViewCell.m; path = DeviceList/View/Userlist/DeviceTypeTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		3C84881C1CBB81E200F1D7F3 /* TPDailyTimeLimitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPDailyTimeLimitView.h; path = DeviceList/View/Userlist/TPDailyTimeLimitView.h; sourceTree = SOURCE_ROOT; };
+		3C84881D1CBB81E200F1D7F3 /* TPDailyTimeLimitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPDailyTimeLimitView.m; path = DeviceList/View/Userlist/TPDailyTimeLimitView.m; sourceTree = SOURCE_ROOT; };
+		3C84881F1CBB821000F1D7F3 /* DeviceTypeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceTypeTableViewCell.h; path = View/EditDeviceType/DeviceTypeTableViewCell.h; sourceTree = "<group>"; };
+		3C8488201CBB821000F1D7F3 /* DeviceTypeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceTypeTableViewCell.m; path = View/EditDeviceType/DeviceTypeTableViewCell.m; sourceTree = "<group>"; };
+		3C8488251CBB84A200F1D7F3 /* TPBedTimePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPBedTimePicker.h; path = DeviceList/View/Userlist/TPBedTimePicker.h; sourceTree = SOURCE_ROOT; };
+		3C8488261CBB84A200F1D7F3 /* TPBedTimePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPBedTimePicker.m; path = DeviceList/View/Userlist/TPBedTimePicker.m; sourceTree = SOURCE_ROOT; };
+		3C8488291CBB959C00F1D7F3 /* TPTimePickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPTimePickerCell.h; sourceTree = "<group>"; };
+		3C84882A1CBB959C00F1D7F3 /* TPTimePickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPTimePickerCell.m; sourceTree = "<group>"; };
+		3C84882C1CBB981700F1D7F3 /* TPTimePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPTimePickerView.h; sourceTree = "<group>"; };
+		3C84882D1CBB981700F1D7F3 /* TPTimePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPTimePickerView.m; sourceTree = "<group>"; };
 		3C8A66B81CB4FB3600545406 /* libMasonry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMasonry.a; path = "Build/Products/Debug-iphonesimulator/libMasonry.a"; sourceTree = "<group>"; };
 		3C8B0C821CAA571700EB1531 /* TPBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPBlockView.h; sourceTree = "<group>"; };
 		3C8B0C831CAA571700EB1531 /* TPBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPBlockView.m; sourceTree = "<group>"; };
@@ -75,6 +90,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3C84881B1CBB813900F1D7F3 /* EditDeviceType */ = {
+			isa = PBXGroup;
+			children = (
+				3C84881F1CBB821000F1D7F3 /* DeviceTypeTableViewCell.h */,
+				3C8488201CBB821000F1D7F3 /* DeviceTypeTableViewCell.m */,
+			);
+			name = EditDeviceType;
+			sourceTree = "<group>";
+		};
+		3C8488281CBB953E00F1D7F3 /* TPTimePickerView */ = {
+			isa = PBXGroup;
+			children = (
+				3C8488291CBB959C00F1D7F3 /* TPTimePickerCell.h */,
+				3C84882A1CBB959C00F1D7F3 /* TPTimePickerCell.m */,
+				3C84882C1CBB981700F1D7F3 /* TPTimePickerView.h */,
+				3C84882D1CBB981700F1D7F3 /* TPTimePickerView.m */,
+			);
+			name = TPTimePickerView;
+			path = DeviceList/View/Userlist/TPTimePickerView;
+			sourceTree = SOURCE_ROOT;
+		};
 		3C8B0C811CAA571700EB1531 /* Devicelist */ = {
 			isa = PBXGroup;
 			children = (
@@ -100,8 +136,11 @@
 				3C8B0C961CAA6FAA00EB1531 /* OwnerTableViewCell.m */,
 				3C088B3B1CACAE2D00937451 /* OwnerTimeCtrlTableViewCell.h */,
 				3C088B3C1CACAE2D00937451 /* OwnerTimeCtrlTableViewCell.m */,
-				3C495CA31CADFDED00B41A15 /* DeviceTypeTableViewCell.h */,
-				3C495CA41CADFDED00B41A15 /* DeviceTypeTableViewCell.m */,
+				3C84881C1CBB81E200F1D7F3 /* TPDailyTimeLimitView.h */,
+				3C84881D1CBB81E200F1D7F3 /* TPDailyTimeLimitView.m */,
+				3C8488251CBB84A200F1D7F3 /* TPBedTimePicker.h */,
+				3C8488261CBB84A200F1D7F3 /* TPBedTimePicker.m */,
+				3C8488281CBB953E00F1D7F3 /* TPTimePickerView */,
 			);
 			name = Userlist;
 			path = View/Devicelist;
@@ -152,6 +191,9 @@
 		3CEBBEE01CA0E3E800B2F751 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3C1838F81CB649A800A746DE /* TPBaffleView.h */,
+				3C1838F91CB649A800A746DE /* TPBaffleView.m */,
+				3C84881B1CBB813900F1D7F3 /* EditDeviceType */,
 				3C8B0C811CAA571700EB1531 /* Devicelist */,
 				3C8B0C911CAA638D00EB1531 /* Userlist */,
 			);
@@ -271,17 +313,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C8B0C8E1CAA571700EB1531 /* TPDeviceInfoView.m in Sources */,
+				3C84881E1CBB81E200F1D7F3 /* TPDailyTimeLimitView.m in Sources */,
+				3C8488271CBB84A200F1D7F3 /* TPBedTimePicker.m in Sources */,
 				3C8B0C901CAA571700EB1531 /* TPProgressView.m in Sources */,
 				3C8B0C8D1CAA571700EB1531 /* TPCircle.m in Sources */,
 				3C8B0C971CAA6FAA00EB1531 /* OwnerTableViewCell.m in Sources */,
 				3CEBBED41CA0E3B300B2F751 /* AppDelegate.m in Sources */,
 				3CEBBED11CA0E3B300B2F751 /* main.m in Sources */,
-				3C495CA51CADFDED00B41A15 /* DeviceTypeTableViewCell.m in Sources */,
+				3C84882B1CBB959C00F1D7F3 /* TPTimePickerCell.m in Sources */,
 				3C495CA21CADFDA600B41A15 /* EditDeviceNameAndTypeViewController.m in Sources */,
 				3C8B0C8C1CAA571700EB1531 /* TPBlockView.m in Sources */,
+				3C8488211CBB821000F1D7F3 /* DeviceTypeTableViewCell.m in Sources */,
 				3C8B0C941CAA63E900EB1531 /* OwnerlistViewController.m in Sources */,
 				3CC878191CA0E88E0054F6EE /* DeviceListViewController.m in Sources */,
 				3C8B0C8F1CAA571700EB1531 /* TPLineBandView.m in Sources */,
+				3C84882E1CBB981700F1D7F3 /* TPTimePickerView.m in Sources */,
+				3C1838FA1CB649A800A746DE /* TPBaffleView.m in Sources */,
 				3C088B3D1CACAE2D00937451 /* OwnerTimeCtrlTableViewCell.m in Sources */,
 				3C38EAFD1CABA0A80095363F /* AddNewOwnerViewController.m in Sources */,
 			);
@@ -412,7 +459,7 @@
 					"\"UIKit\"",
 				);
 				PODS_ROOT = "${SRCROOT}/Pods";
-				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.EditDevice;
+				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.OwnerList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d47e54e5-8d3b-4de5-9761-d45d385360a3";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -461,7 +508,7 @@
 					"\"UIKit\"",
 				);
 				PODS_ROOT = "${SRCROOT}/Pods";
-				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.EditDevice;
+				PRODUCT_BUNDLE_IDENTIFIER = net.tplink.OwnerList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d47e54e5-8d3b-4de5-9761-d45d385360a3";
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -13,4 +13,6 @@
 - (void)updateFuncLabel:(NSString *)funcString;
 - (void)updateTimeLabel:(NSString *)timeString;
 
+- (NSString *)getTime;
+
 @end

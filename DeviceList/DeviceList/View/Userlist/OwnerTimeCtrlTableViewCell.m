@@ -101,4 +101,9 @@ static CGFloat const timeLabel_width =              40.0f;
     
 }
 
+- (NSString *)getTime
+{
+    return self.timeLabel.text;
+}
+
 @end

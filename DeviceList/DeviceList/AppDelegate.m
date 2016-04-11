@@ -24,8 +24,8 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
 //    DeviceListViewController *vc = [[DeviceListViewController alloc] init];
-    EditDeviceNameAndTypeViewController *vc = [[EditDeviceNameAndTypeViewController alloc] init];
-//    OwnerlistViewController *vc = [[OwnerlistViewController alloc] init];
+//    EditDeviceNameAndTypeViewController *vc = [[EditDeviceNameAndTypeViewController alloc] init];
+    OwnerlistViewController *vc = [[OwnerlistViewController alloc] init];
     UINavigationController *naVC = [[UINavigationController alloc] initWithRootViewController:vc];
     
     [self.window setRootViewController:naVC];
