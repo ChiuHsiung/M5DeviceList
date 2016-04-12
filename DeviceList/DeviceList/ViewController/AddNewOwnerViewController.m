@@ -9,10 +9,11 @@
 #import "AddNewOwnerViewController.h"
 #import "OwnerTimeCtrlTableViewCell.h"
 
-#import "TPButtonListView.h"
 #import "TPBedTimePicker.h"
+#import "TPDailyTimeLimitPicker.h"
 
-#define CELL_REUSE_INDENTIFIER_DEILY            @"TIME_CTRL_IDENTIFIER_DAILY"
+#define CELL_REUSE_INDENTIFIER_DAILY            @"TIME_CTRL_IDENTIFIER_DAILY"
+#define CELL_REUSE_INDENTIFIER_LABEL            @"TIME_CTRL_IDENTIFIER_LABEL"
 #define CELL_REUSE_INDENTIFIER_BED              @"TIME_CTRL_IDENTIFIER_BED"
 #define CELL_REUSE_INDENTIFIER_TIME             @"TIME_CTRL_IDENTIFIER_TIME"
 
@@ -36,7 +37,7 @@ static CGFloat const ownerNameTextField_height =                30.0f;
 
 static CGFloat const tableview_top_inset =                      10.0f;
 
-@interface AddNewOwnerViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UIPopoverPresentationControllerDelegate, TPButtonListViewBtnDelegate, TPBedTimePickerDelegate>
+@interface AddNewOwnerViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UIPopoverPresentationControllerDelegate, TPBedTimePickerDelegate, TPDailyTimeLimitPickerDelegate>
 
 @property (nonatomic, strong) UIButton *ownerHeaderImageBtn;
 @property (nonatomic, strong) CAShapeLayer *drawLayer;
@@ -194,7 +195,7 @@ static CGFloat const tableview_top_inset =                      10.0f;
     _bedTime = @"8:00 AM";
     _awakeTime = @"8:00 PM";
     
-    _funcList = [[NSMutableArray alloc] initWithArray:@[@"Daily time limit", @"Bed time"]];
+    _funcList = [[NSMutableArray alloc] initWithArray:@[@"Daily time limit", @"You can set daily time limits for the total time spent online.", @"Bed time"]];
     [self updateTableViewContentSize];
     self.tableView.scrollEnabled = false;//初始化默认为不能划动
 }
@@ -330,10 +331,10 @@ static CGFloat const tableview_top_inset =                      10.0f;
     NSString *funcString = self.funcList[indexPath.row];
     if (indexPath.row == 0)
     {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_REUSE_INDENTIFIER_DEILY];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_REUSE_INDENTIFIER_DAILY];
         if (nil == cell)
         {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_REUSE_INDENTIFIER_DEILY];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_REUSE_INDENTIFIER_DAILY];
             //add a switch
             UISwitch *switchview = [[UISwitch alloc] initWithFrame:CGRectZero];
             switchview.tag = daily_time_limit_switch_tag;
@@ -349,7 +350,27 @@ static CGFloat const tableview_top_inset =                      10.0f;
         return cell;
     }
     
-    else if ((indexPath.row == 1 && !self.isDailyTimeLimitOn) || (indexPath.row == 2 && self.isDailyTimeLimitOn))
+    else if (indexPath.row == 1 && !self.isDailyTimeLimitOn)
+    {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_REUSE_INDENTIFIER_LABEL];
+        if (nil == cell)
+        {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_REUSE_INDENTIFIER_LABEL];
+            cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:15.0];
+            cell.textLabel.textColor = [UIColor lightGrayColor];
+            cell.textLabel.textAlignment = NSTextAlignmentLeft;
+            cell.textLabel.numberOfLines = 0;
+            cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        }
+        
+        cell.textLabel.text = funcString;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        
+        return cell;
+    }
+    
+    else if (indexPath.row == 2)
     {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_REUSE_INDENTIFIER_BED];
         if (nil == cell)
@@ -399,12 +420,12 @@ static CGFloat const tableview_top_inset =                      10.0f;
         
         else
         {
-            if (indexPath.row == 2)
+            if (indexPath.row == 3)
             {
                 [cell updateTimeLabel:self.bedTime];
             }
             
-            else if(indexPath.row == 3)
+            else if(indexPath.row == 4)
             {
                 [cell updateTimeLabel:self.awakeTime];
             }
@@ -424,13 +445,14 @@ static CGFloat const tableview_top_inset =                      10.0f;
     //Daily time limit
     if (self.isDailyTimeLimitOn && indexPath.row == 1)
     {
-//        TPButtonListView *tpDailyTimeLimitView = [[TPButtonListView alloc] init];
-//        tpDailyTimeLimitView.delegate = self;
-//        [tpDailyTimeLimitView show];
+        TPDailyTimeLimitPicker *tpDailyTimeLimitPicker = [[TPDailyTimeLimitPicker alloc] init];
+        [tpDailyTimeLimitPicker updateDailyTimeLimit:self.dailyTimeLimit];
+        tpDailyTimeLimitPicker.delegate = self;
+        [tpDailyTimeLimitPicker show];
     }
     
     //Go to bed
-    else if((self.isDailyTimeLimitOn && indexPath.row == 3) || (!self.isDailyTimeLimitOn && indexPath.row == 2))
+    else if(indexPath.row == 3)
     {
         TPBedTimePicker *tpBedTimePicker = [[TPBedTimePicker alloc] init];
         [tpBedTimePicker updateTime:self.bedTime withIsBedTime:YES];
@@ -439,7 +461,7 @@ static CGFloat const tableview_top_inset =                      10.0f;
     }
     
     //Wake up
-    else if((self.isDailyTimeLimitOn && indexPath.row == 4) || (!self.isDailyTimeLimitOn && indexPath.row == 3))
+    else if(indexPath.row == 4)
     {
         TPBedTimePicker *tpBedTimePicker = [[TPBedTimePicker alloc] init];
         [tpBedTimePicker updateTime:self.awakeTime withIsBedTime:NO];
@@ -450,6 +472,13 @@ static CGFloat const tableview_top_inset =                      10.0f;
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+}
+
+#pragma mark - TPDailyTimeLimitPickerDelegate
+- (void)refreshDailyTimeLimit:(NSString *)timeString
+{
+    self.dailyTimeLimit = timeString;
+    [self.tableView reloadData];
 }
 
 #pragma mark - TPBedTimePickerDelegate
@@ -484,6 +513,11 @@ static CGFloat const tableview_top_inset =                      10.0f;
         NSMutableArray *indexPaths = [NSMutableArray array];
         if (_isDailyTimeLimitOn)
         {
+            [self.funcList removeObjectAtIndex:1];
+            [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:0]];
+            [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+            
+            [indexPaths removeAllObjects];
             [self.funcList insertObject:@"Daily time limit" atIndex:1];
             [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:0]];
             [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -494,6 +528,11 @@ static CGFloat const tableview_top_inset =                      10.0f;
             [self.funcList removeObjectAtIndex:1];
             [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:0]];
             [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+            
+            [indexPaths removeAllObjects];
+            [self.funcList insertObject:@"You can set daily time limits for the total time spent online." atIndex:1];
+            [indexPaths addObject:[NSIndexPath indexPathForRow:1 inSection:0]];
+            [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
             
         }
         [self.tableView endUpdates];
@@ -509,21 +548,10 @@ static CGFloat const tableview_top_inset =                      10.0f;
         _isBedTimeOn = switchView.isOn;
         [self.tableView beginUpdates];
         NSMutableArray *indexPaths = [NSMutableArray array];
-        int insertIndex1 = 0;
-        int insertIndex2 = 0;
-        int removeIndex = 0;
-        if (_isDailyTimeLimitOn)
-        {
-            insertIndex1 = 3;
-            insertIndex2 = 4;
-            removeIndex = 3;
-        }
-        else
-        {
-            insertIndex1 = 2;
-            insertIndex2 = 3;
-            removeIndex = 2;
-        }
+        int insertIndex1 = 3;
+        int insertIndex2 = 4;
+        int removeIndex = 3;
+        
         
         if (_isBedTimeOn)
         {
