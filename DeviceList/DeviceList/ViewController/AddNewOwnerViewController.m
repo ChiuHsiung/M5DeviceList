@@ -9,7 +9,7 @@
 #import "AddNewOwnerViewController.h"
 #import "OwnerTimeCtrlTableViewCell.h"
 
-#import "TPDailyTimeLimitView.h"
+#import "TPButtonListView.h"
 #import "TPBedTimePicker.h"
 
 #define CELL_REUSE_INDENTIFIER_DEILY            @"TIME_CTRL_IDENTIFIER_DAILY"
@@ -36,7 +36,7 @@ static CGFloat const ownerNameTextField_height =                30.0f;
 
 static CGFloat const tableview_top_inset =                      10.0f;
 
-@interface AddNewOwnerViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UIPopoverPresentationControllerDelegate, TPDailyTimeLimitViewBtnDelegate, TPBedTimePickerDelegate>
+@interface AddNewOwnerViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UIPopoverPresentationControllerDelegate, TPButtonListViewBtnDelegate, TPBedTimePickerDelegate>
 
 @property (nonatomic, strong) UIButton *ownerHeaderImageBtn;
 @property (nonatomic, strong) CAShapeLayer *drawLayer;
@@ -424,9 +424,9 @@ static CGFloat const tableview_top_inset =                      10.0f;
     //Daily time limit
     if (self.isDailyTimeLimitOn && indexPath.row == 1)
     {
-        TPDailyTimeLimitView *tpDailyTimeLimitView = [[TPDailyTimeLimitView alloc] init];
-        tpDailyTimeLimitView.delegate = self;
-        [tpDailyTimeLimitView show];
+//        TPButtonListView *tpDailyTimeLimitView = [[TPButtonListView alloc] init];
+//        tpDailyTimeLimitView.delegate = self;
+//        [tpDailyTimeLimitView show];
     }
     
     //Go to bed
@@ -450,13 +450,6 @@ static CGFloat const tableview_top_inset =                      10.0f;
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-}
-
-#pragma mark - TPDailyTimeLimitViewDelegate
-- (void)refreshDailyTimeLimit:(NSString *)timeString
-{
-    self.dailyTimeLimit = timeString;
-    [self.tableView reloadData];
 }
 
 #pragma mark - TPBedTimePickerDelegate

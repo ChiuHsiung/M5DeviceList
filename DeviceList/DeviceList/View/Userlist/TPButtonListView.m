@@ -52,7 +52,7 @@ static CGFloat const button_between_inset =             10.0f;
         textLabel.textAlignment = NSTextAlignmentCenter;
         textLabel.numberOfLines = 0;
         textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        textLabel.text = @"选择Daily time limit";
+        textLabel.text = @"选择优先时间";
         textLabel.textColor = [UIColor whiteColor];
         textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20.0];
         [textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
