@@ -10,7 +10,7 @@
 
 #import "TPTimePickerCell.h"
 
-static CGFloat const component_width =      100.0f;
+static CGFloat const component_width =      50.0f;
 static CGFloat const row_height      =      50.0f;
 
 @interface TPTimeIntervalPickerView()
@@ -101,13 +101,13 @@ static CGFloat const row_height      =      50.0f;
             break;
         }
     }
-    [self.pickerView selectRow:i inComponent:1 animated:YES];
+    [self.pickerView selectRow:i inComponent:2 animated:YES];
 }
 
 #pragma mark UIPickerViewDataSource,UIPickerViewDelegate
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
-    return 2;
+    return 4;
 }
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
@@ -116,9 +116,14 @@ static CGFloat const row_height      =      50.0f;
     {
         return self.hourArr.count;
     }
-    else
+    else if (component == 2)
     {
         return self.minArr.count ;
+    }
+    
+    else
+    {
+        return 1;
     }
 }
 
@@ -149,10 +154,19 @@ static CGFloat const row_height      =      50.0f;
         cell.titleLabel.text = [NSString stringWithFormat:@"%@",self.hourArr[row]];
     }
     
-    else
+    else if (component == 2)
     {
         cell.titleLabel.text = [NSString stringWithFormat:@"%@", self.minArr[row]];
         
+    }
+    
+    else if (component == 1)
+    {
+        cell.titleLabel.text = @"h";
+    }
+    else if (component == 3)
+    {
+        cell.titleLabel.text = @"min";
     }
     
     
@@ -168,11 +182,12 @@ static CGFloat const row_height      =      50.0f;
         self.curHourStr = self.hourArr[row];
     }
 
-    else
+    else if (component == 2)
     {
         self.curMinStr = self.minArr[row];
     }
     
 }
+
 
 @end

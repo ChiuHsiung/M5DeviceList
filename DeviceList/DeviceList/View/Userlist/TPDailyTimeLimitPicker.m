@@ -13,7 +13,7 @@
 static CGFloat const closeButton_top_inset =            20.0f;
 static CGFloat const closeButton_left_inset =           10.0f;
 
-static CGFloat const pickerView_width =                 200.0f;
+static CGFloat const pickerView_width =                 250.0f;
 static CGFloat const pickerView_row_height =            50.0f;
 static int     const pickerView_display_row =           3;
 
