@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		3C088B3D1CACAE2D00937451 /* OwnerTimeCtrlTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C088B3C1CACAE2D00937451 /* OwnerTimeCtrlTableViewCell.m */; };
 		3C1838FA1CB649A800A746DE /* TPBaffleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1838F91CB649A800A746DE /* TPBaffleView.m */; };
+		3C2D805A1CBDF401004DBEF3 /* UIColor+expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2D80561CBDF401004DBEF3 /* UIColor+expanded.m */; };
+		3C2D805E1CBE4703004DBEF3 /* TPNetworkSpeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2D805D1CBE4703004DBEF3 /* TPNetworkSpeed.m */; };
+		3C344CF11CBF7DDD00177B27 /* TPIntelligentPriorityTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C344CF01CBF7DDD00177B27 /* TPIntelligentPriorityTimeView.m */; };
 		3C38EAFD1CABA0A80095363F /* AddNewOwnerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C38EAFC1CABA0A80095363F /* AddNewOwnerViewController.m */; };
 		3C495CA21CADFDA600B41A15 /* EditDeviceNameAndTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C495CA11CADFDA600B41A15 /* EditDeviceNameAndTypeViewController.m */; };
 		3C4D73CD1CBC8DC000F06CB9 /* TPButtonListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C4D73CC1CBC8DC000F06CB9 /* TPButtonListView.m */; };
@@ -19,10 +22,8 @@
 		3C84882B1CBB959C00F1D7F3 /* TPTimePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C84882A1CBB959C00F1D7F3 /* TPTimePickerCell.m */; };
 		3C84882E1CBB981700F1D7F3 /* TPTimePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C84882D1CBB981700F1D7F3 /* TPTimePickerView.m */; };
 		3C8B0C8C1CAA571700EB1531 /* TPBlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C831CAA571700EB1531 /* TPBlockView.m */; };
-		3C8B0C8D1CAA571700EB1531 /* TPCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C851CAA571700EB1531 /* TPCircle.m */; };
 		3C8B0C8E1CAA571700EB1531 /* TPDeviceInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C871CAA571700EB1531 /* TPDeviceInfoView.m */; };
 		3C8B0C8F1CAA571700EB1531 /* TPLineBandView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C891CAA571700EB1531 /* TPLineBandView.m */; };
-		3C8B0C901CAA571700EB1531 /* TPProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C8B1CAA571700EB1531 /* TPProgressView.m */; };
 		3C8B0C941CAA63E900EB1531 /* OwnerlistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C931CAA63E900EB1531 /* OwnerlistViewController.m */; };
 		3C8B0C971CAA6FAA00EB1531 /* OwnerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8B0C961CAA6FAA00EB1531 /* OwnerTableViewCell.m */; };
 		3CAFDF5E1CB49E9E0006D1C0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CAFDF5D1CB49E9E0006D1C0 /* libPods.a */; };
@@ -38,6 +39,13 @@
 		3C088B3C1CACAE2D00937451 /* OwnerTimeCtrlTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OwnerTimeCtrlTableViewCell.m; path = DeviceList/View/Userlist/OwnerTimeCtrlTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		3C1838F81CB649A800A746DE /* TPBaffleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPBaffleView.h; path = View/TPBaffleView.h; sourceTree = "<group>"; };
 		3C1838F91CB649A800A746DE /* TPBaffleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPBaffleView.m; path = View/TPBaffleView.m; sourceTree = "<group>"; };
+		3C2D80511CBDF1E5004DBEF3 /* TPMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TPMacro.h; sourceTree = "<group>"; };
+		3C2D80551CBDF401004DBEF3 /* UIColor+expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+expanded.h"; sourceTree = "<group>"; };
+		3C2D80561CBDF401004DBEF3 /* UIColor+expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+expanded.m"; sourceTree = "<group>"; };
+		3C2D805C1CBE4703004DBEF3 /* TPNetworkSpeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPNetworkSpeed.h; sourceTree = "<group>"; };
+		3C2D805D1CBE4703004DBEF3 /* TPNetworkSpeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPNetworkSpeed.m; sourceTree = "<group>"; };
+		3C344CEF1CBF7DDD00177B27 /* TPIntelligentPriorityTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPIntelligentPriorityTimeView.h; sourceTree = "<group>"; };
+		3C344CF01CBF7DDD00177B27 /* TPIntelligentPriorityTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPIntelligentPriorityTimeView.m; sourceTree = "<group>"; };
 		3C38EAFB1CABA0A80095363F /* AddNewOwnerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddNewOwnerViewController.h; path = ViewController/AddNewOwnerViewController.h; sourceTree = "<group>"; };
 		3C38EAFC1CABA0A80095363F /* AddNewOwnerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddNewOwnerViewController.m; path = ViewController/AddNewOwnerViewController.m; sourceTree = "<group>"; };
 		3C495CA01CADFDA600B41A15 /* EditDeviceNameAndTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditDeviceNameAndTypeViewController.h; path = ViewController/EditDeviceNameAndTypeViewController.h; sourceTree = "<group>"; };
@@ -59,14 +67,10 @@
 		3C8A66B81CB4FB3600545406 /* libMasonry.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMasonry.a; path = "Build/Products/Debug-iphonesimulator/libMasonry.a"; sourceTree = "<group>"; };
 		3C8B0C821CAA571700EB1531 /* TPBlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPBlockView.h; sourceTree = "<group>"; };
 		3C8B0C831CAA571700EB1531 /* TPBlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPBlockView.m; sourceTree = "<group>"; };
-		3C8B0C841CAA571700EB1531 /* TPCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircle.h; sourceTree = "<group>"; };
-		3C8B0C851CAA571700EB1531 /* TPCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPCircle.m; sourceTree = "<group>"; };
 		3C8B0C861CAA571700EB1531 /* TPDeviceInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPDeviceInfoView.h; sourceTree = "<group>"; };
 		3C8B0C871CAA571700EB1531 /* TPDeviceInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPDeviceInfoView.m; sourceTree = "<group>"; };
 		3C8B0C881CAA571700EB1531 /* TPLineBandView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPLineBandView.h; sourceTree = "<group>"; };
 		3C8B0C891CAA571700EB1531 /* TPLineBandView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPLineBandView.m; sourceTree = "<group>"; };
-		3C8B0C8A1CAA571700EB1531 /* TPProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPProgressView.h; sourceTree = "<group>"; };
-		3C8B0C8B1CAA571700EB1531 /* TPProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPProgressView.m; sourceTree = "<group>"; };
 		3C8B0C921CAA63E900EB1531 /* OwnerlistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OwnerlistViewController.h; path = ViewController/OwnerlistViewController.h; sourceTree = "<group>"; };
 		3C8B0C931CAA63E900EB1531 /* OwnerlistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OwnerlistViewController.m; path = ViewController/OwnerlistViewController.m; sourceTree = "<group>"; };
 		3C8B0C951CAA6FAA00EB1531 /* OwnerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OwnerTableViewCell.h; path = DeviceList/View/Userlist/OwnerTableViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -96,6 +100,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3C2D80491CBDD1ED004DBEF3 /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				3CC878171CA0E88E0054F6EE /* DeviceListViewController.h */,
+				3CC878181CA0E88E0054F6EE /* DeviceListViewController.m */,
+				3C8B0C921CAA63E900EB1531 /* OwnerlistViewController.h */,
+				3C8B0C931CAA63E900EB1531 /* OwnerlistViewController.m */,
+				3C38EAFB1CABA0A80095363F /* AddNewOwnerViewController.h */,
+				3C38EAFC1CABA0A80095363F /* AddNewOwnerViewController.m */,
+				3C495CA01CADFDA600B41A15 /* EditDeviceNameAndTypeViewController.h */,
+				3C495CA11CADFDA600B41A15 /* EditDeviceNameAndTypeViewController.m */,
+			);
+			name = Clients;
+			sourceTree = "<group>";
+		};
+		3C2D804A1CBDD210004DBEF3 /* ParentControl */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ParentControl;
+			sourceTree = "<group>";
+		};
+		3C2D80521CBDF401004DBEF3 /* OC_Category */ = {
+			isa = PBXGroup;
+			children = (
+				3C2D80551CBDF401004DBEF3 /* UIColor+expanded.h */,
+				3C2D80561CBDF401004DBEF3 /* UIColor+expanded.m */,
+			);
+			path = OC_Category;
+			sourceTree = "<group>";
+		};
 		3C84881B1CBB813900F1D7F3 /* EditDeviceType */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,14 +159,14 @@
 			children = (
 				3C8B0C821CAA571700EB1531 /* TPBlockView.h */,
 				3C8B0C831CAA571700EB1531 /* TPBlockView.m */,
-				3C8B0C841CAA571700EB1531 /* TPCircle.h */,
-				3C8B0C851CAA571700EB1531 /* TPCircle.m */,
 				3C8B0C861CAA571700EB1531 /* TPDeviceInfoView.h */,
 				3C8B0C871CAA571700EB1531 /* TPDeviceInfoView.m */,
+				3C2D805C1CBE4703004DBEF3 /* TPNetworkSpeed.h */,
+				3C2D805D1CBE4703004DBEF3 /* TPNetworkSpeed.m */,
+				3C344CEF1CBF7DDD00177B27 /* TPIntelligentPriorityTimeView.h */,
+				3C344CF01CBF7DDD00177B27 /* TPIntelligentPriorityTimeView.m */,
 				3C8B0C881CAA571700EB1531 /* TPLineBandView.h */,
 				3C8B0C891CAA571700EB1531 /* TPLineBandView.m */,
-				3C8B0C8A1CAA571700EB1531 /* TPProgressView.h */,
-				3C8B0C8B1CAA571700EB1531 /* TPProgressView.m */,
 			);
 			name = Devicelist;
 			path = View/Devicelist;
@@ -158,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				3CAFDF5D1CB49E9E0006D1C0 /* libPods.a */,
+				3C2D80521CBDF401004DBEF3 /* OC_Category */,
 				3CEBBECE1CA0E3B300B2F751 /* DeviceList */,
 				3CEBBECD1CA0E3B300B2F751 /* Products */,
 				A274F4ED9F5C9B4BD3C9383C /* Frameworks */,
@@ -203,6 +239,7 @@
 				3C1838F91CB649A800A746DE /* TPBaffleView.m */,
 				3C4D73CB1CBC8DC000F06CB9 /* TPButtonListView.h */,
 				3C4D73CC1CBC8DC000F06CB9 /* TPButtonListView.m */,
+				3C2D80511CBDF1E5004DBEF3 /* TPMacro.h */,
 				3C84881B1CBB813900F1D7F3 /* EditDeviceType */,
 				3C8B0C811CAA571700EB1531 /* Devicelist */,
 				3C8B0C911CAA638D00EB1531 /* Userlist */,
@@ -213,14 +250,8 @@
 		3CEBBEE21CA0E3F700B2F751 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				3CC878171CA0E88E0054F6EE /* DeviceListViewController.h */,
-				3CC878181CA0E88E0054F6EE /* DeviceListViewController.m */,
-				3C8B0C921CAA63E900EB1531 /* OwnerlistViewController.h */,
-				3C8B0C931CAA63E900EB1531 /* OwnerlistViewController.m */,
-				3C38EAFB1CABA0A80095363F /* AddNewOwnerViewController.h */,
-				3C38EAFC1CABA0A80095363F /* AddNewOwnerViewController.m */,
-				3C495CA01CADFDA600B41A15 /* EditDeviceNameAndTypeViewController.h */,
-				3C495CA11CADFDA600B41A15 /* EditDeviceNameAndTypeViewController.m */,
+				3C2D804A1CBDD210004DBEF3 /* ParentControl */,
+				3C2D80491CBDD1ED004DBEF3 /* Clients */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -325,15 +356,15 @@
 				3C8B0C8E1CAA571700EB1531 /* TPDeviceInfoView.m in Sources */,
 				3C8488271CBB84A200F1D7F3 /* TPBedTimePicker.m in Sources */,
 				3C4D73D31CBCE17400F06CB9 /* TPDailyTimeLimitPicker.m in Sources */,
-				3C8B0C901CAA571700EB1531 /* TPProgressView.m in Sources */,
-				3C8B0C8D1CAA571700EB1531 /* TPCircle.m in Sources */,
 				3C8B0C971CAA6FAA00EB1531 /* OwnerTableViewCell.m in Sources */,
 				3CEBBED41CA0E3B300B2F751 /* AppDelegate.m in Sources */,
 				3CEBBED11CA0E3B300B2F751 /* main.m in Sources */,
 				3C4D73CD1CBC8DC000F06CB9 /* TPButtonListView.m in Sources */,
+				3C2D805A1CBDF401004DBEF3 /* UIColor+expanded.m in Sources */,
 				3C84882B1CBB959C00F1D7F3 /* TPTimePickerCell.m in Sources */,
 				3C495CA21CADFDA600B41A15 /* EditDeviceNameAndTypeViewController.m in Sources */,
 				3C8B0C8C1CAA571700EB1531 /* TPBlockView.m in Sources */,
+				3C2D805E1CBE4703004DBEF3 /* TPNetworkSpeed.m in Sources */,
 				3C8488211CBB821000F1D7F3 /* DeviceTypeTableViewCell.m in Sources */,
 				3C8B0C941CAA63E900EB1531 /* OwnerlistViewController.m in Sources */,
 				3CC878191CA0E88E0054F6EE /* DeviceListViewController.m in Sources */,
@@ -341,6 +372,7 @@
 				3C84882E1CBB981700F1D7F3 /* TPTimePickerView.m in Sources */,
 				3C1838FA1CB649A800A746DE /* TPBaffleView.m in Sources */,
 				3C088B3D1CACAE2D00937451 /* OwnerTimeCtrlTableViewCell.m in Sources */,
+				3C344CF11CBF7DDD00177B27 /* TPIntelligentPriorityTimeView.m in Sources */,
 				3C4D73D01CBC9D6E00F06CB9 /* TPTimeIntervalPickerView.m in Sources */,
 				3C38EAFD1CABA0A80095363F /* AddNewOwnerViewController.m in Sources */,
 			);

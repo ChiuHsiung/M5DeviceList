@@ -14,4 +14,11 @@
 
 #import "Masonry.h"
 
+#import "TPMacro.h"
+
+/**
+ *  OC_Catagory Header
+ */
+#import "UIColor+expanded.h"
+
 #endif /* DeviceList_Prefix_pch */

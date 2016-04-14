@@ -75,7 +75,7 @@ static CGFloat const radio_top_inset =              15.0f;
     self.firAlphaLabel.layer.borderColor = [UIColor grayColor].CGColor;
     [self.firAlphaLabel setBackgroundColor:[UIColor clearColor]];
     self.firAlphaLabel.textColor = [UIColor grayColor];
-    [self.firAlphaLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:20.0]];
+    [self.firAlphaLabel setFont:[UIFont systemFontOfSize:20.0]];
     self.firAlphaLabel.textAlignment = NSTextAlignmentCenter;
     [self.userImage addSubview:self.firAlphaLabel];
     
@@ -107,7 +107,7 @@ static CGFloat const radio_top_inset =              15.0f;
     
     
     self.radioImageView = [[UIImageView alloc] init];
-    self.radioImageView.image = [UIImage imageNamed:@"unchecked"];
+    self.radioImageView.image = kUncheck_Image;
     [self.contentView addSubview:self.radioImageView];
     [self.radioImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -122,11 +122,11 @@ static CGFloat const radio_top_inset =              15.0f;
     [self.contentView addSubview:self.userNameLabel];
     [self.userNameLabel setBackgroundColor:[UIColor whiteColor]];
     [self.userNameLabel setText:[NSString stringWithFormat:@"%@", @"None"]];
-    [self.userNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10.0]];
+    [self.userNameLabel setFont:[UIFont systemFontOfSize:10.0]];
     self.userNameLabel.textColor = [UIColor grayColor];
     self.userNameLabel.numberOfLines = 0;
     self.userNameLabel.textAlignment = NSTextAlignmentLeft;
-    self.userNameLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    self.userNameLabel.lineBreakMode = NSLineBreakByWordWrapping;
     [self.userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.left.equalTo(self.userImage.mas_right).offset(label_left_inset);
@@ -165,11 +165,11 @@ static CGFloat const radio_top_inset =              15.0f;
 {
     if (isSelected)
     {
-        self.radioImageView.image = [UIImage imageNamed:@"checked"];
+        self.radioImageView.image = kCheck_Image;
     }
     else
     {
-        self.radioImageView.image = [UIImage imageNamed:@"unchecked"];
+        self.radioImageView.image = kUncheck_Image;
     }
 }
 

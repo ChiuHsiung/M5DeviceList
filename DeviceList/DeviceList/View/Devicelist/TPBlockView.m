@@ -22,27 +22,27 @@ static CGFloat const tipsLabel_left_inset =             5.0f;
 
 @implementation TPBlockView
 
-- (id)initWithFrame:(CGRect)frame andImageName:(NSString *)imageName andTotalProgress:(float)totalProgress
+- (id)initWithFrame:(CGRect)frame andImage:(UIImage *)image andTotalProgress:(float)totalProgress
 {
     self = [super initWithFrame:frame];
     if (self)
     {
         _totalProcess = totalProgress;
         [self setBackgroundColor:[UIColor whiteColor]];
-        [self _initViewsWithImageName:imageName];
+        [self _initViewsWithImage:image];
         
     }
     return self;
 }
 
-- (void)_initViewsWithImageName:(NSString *)imageName
+- (void)_initViewsWithImage:(UIImage *)image
 {
     self.backgroundView = [[UIView alloc] init];
     self.backgroundView.backgroundColor = [UIColor clearColor];
     [self addSubview:self.backgroundView];
     
     self.foregroundView = [[UIImageView alloc] init];
-    [self.foregroundView setImage:[UIImage imageNamed:imageName]];
+    [self.foregroundView setImage:image];
     [self addSubview:self.foregroundView];
     
     self.rightRectView = [[UIView alloc] init];
@@ -53,11 +53,11 @@ static CGFloat const tipsLabel_left_inset =             5.0f;
     [self.tipsLabel setBackgroundColor:[UIColor whiteColor]];
     [self.rightRectView addSubview:self.tipsLabel];
     [self.tipsLabel setText:@"左拉拖黑"];
-    [self.tipsLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10.0]];
+    [self.tipsLabel setFont:[UIFont systemFontOfSize:10.0]];
     self.tipsLabel.textColor = [UIColor grayColor];
     self.tipsLabel.numberOfLines = 0;
     self.tipsLabel.textAlignment = NSTextAlignmentLeft;
-    self.tipsLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    self.tipsLabel.lineBreakMode = NSLineBreakByWordWrapping;
     
     
     

@@ -48,19 +48,19 @@ static CGFloat const timeLabel_width =              40.0f;
     self.backgroundColor = [UIColor whiteColor];
     
     self.funcLabel = [[UILabel alloc] init];
-    [self.funcLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0]];
+    [self.funcLabel setFont:[UIFont systemFontOfSize:15.0]];
     self.funcLabel.textColor = [UIColor grayColor];
     self.funcLabel.numberOfLines = 1;
     self.funcLabel.textAlignment = NSTextAlignmentLeft;
-    self.funcLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    self.funcLabel.lineBreakMode = NSLineBreakByWordWrapping;
     [self.contentView addSubview:self.funcLabel];
     
     self.timeLabel = [[UILabel alloc] init];
-    [self.timeLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10.0]];
+    [self.timeLabel setFont:[UIFont systemFontOfSize:10.0]];
     self.timeLabel.textColor = [UIColor grayColor];
     self.timeLabel.numberOfLines = 1;
     self.timeLabel.textAlignment = NSTextAlignmentRight;
-    self.timeLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    self.timeLabel.lineBreakMode = NSLineBreakByWordWrapping;
     [self.contentView addSubview:self.timeLabel];
     
     [self addConstraint];

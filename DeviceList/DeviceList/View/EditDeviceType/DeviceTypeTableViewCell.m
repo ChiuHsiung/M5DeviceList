@@ -62,7 +62,7 @@ static CGFloat const radio_top_inset =                      15.0f;
     }];
     
     self.radioImageView = [[UIImageView alloc] init];
-    self.radioImageView.image = [UIImage imageNamed:@"unchecked"];
+    self.radioImageView.image = kUncheck_Image;
     [self addSubview:self.radioImageView];
     [self.radioImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -77,11 +77,11 @@ static CGFloat const radio_top_inset =                      15.0f;
     [self.deviceTypeLabel setBackgroundColor:[UIColor whiteColor]];
     [self addSubview:self.deviceTypeLabel];
     [self.deviceTypeLabel setText:[NSString stringWithFormat:@"%@", @"None"]];
-    [self.deviceTypeLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10.0]];
+    [self.deviceTypeLabel setFont:[UIFont systemFontOfSize:10.0]];
     self.deviceTypeLabel.textColor = [UIColor grayColor];
     self.deviceTypeLabel.numberOfLines = 1;
     self.deviceTypeLabel.textAlignment = NSTextAlignmentLeft;
-    self.deviceTypeLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    self.deviceTypeLabel.lineBreakMode = NSLineBreakByWordWrapping;
     [self.deviceTypeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(self.deviceTypeLabel.superview).offset(label_top_inset);
@@ -109,11 +109,11 @@ static CGFloat const radio_top_inset =                      15.0f;
 {
     if (isSelected)
     {
-        self.radioImageView.image = [UIImage imageNamed:@"checked"];
+        self.radioImageView.image = kCheck_Image;
     }
     else
     {
-        self.radioImageView.image = [UIImage imageNamed:@"unchecked"];
+        self.radioImageView.image = kUncheck_Image;
     }
 }
 

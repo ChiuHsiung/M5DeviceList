@@ -71,7 +71,7 @@ static CGFloat const button_width =                     100.0f;
         self.textLabel.numberOfLines = 0;
         self.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
         self.textLabel.textColor = [UIColor whiteColor];
-        self.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20.0];
+        self.textLabel.font = [UIFont systemFontOfSize:20.0];
         [self.textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             
             make.top.equalTo(container);
@@ -98,7 +98,7 @@ static CGFloat const button_width =                     100.0f;
         btn.layer.borderWidth = 1.0f;
         btn.layer.cornerRadius = 10.0f;
         [btn setTitle:@"确定" forState:UIControlStateNormal];
-        btn.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:20.0];
+        btn.titleLabel.font = [UIFont systemFontOfSize:20.0];
         btn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];

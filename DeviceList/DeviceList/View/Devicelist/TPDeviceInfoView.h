@@ -8,15 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TPDeviceInfoView : UIControl
+@protocol TPDeviceInfoViewDelegate <NSObject>
 
-@property (nonatomic, strong) UIColor *circleColor;
-@property (nonatomic, assign) CGFloat lineWidth;
+- (void)circleButtonOnClicked;
+
+@end
+
+@interface TPDeviceInfoView : UIView
+
 
 @property (nonatomic, strong) NSString *deviceType;
 
 @property (strong, nonatomic) UIImageView *deviceTypeImgView;
 
-- (instancetype)initWithFrame:(CGRect)frame withCircleColor:(UIColor *)circleColor andLineWidth:(CGFloat)lineWidth;
+@property (nonatomic, weak) id<TPDeviceInfoViewDelegate> delegate;
 
 @end

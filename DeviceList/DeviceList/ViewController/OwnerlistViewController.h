@@ -10,6 +10,6 @@
 
 @interface OwnerlistViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) NSMutableArray *userList;
+@property (nonatomic, strong) NSMutableArray *ownerList;
 
 @end

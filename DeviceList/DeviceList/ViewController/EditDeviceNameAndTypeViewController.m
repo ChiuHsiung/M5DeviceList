@@ -48,7 +48,7 @@ static CGFloat const tableview_top_inset =                          10.0f;
     #pragma mark - 测试模拟数据
     self.deviceName = @"KK's iPhone";
     self.deviceType = @"phone";
-    self.deviceTypeList = @[@"phone", @"laptop", @"pad", @"ipod", @"unknown"];
+    self.deviceTypeList = @[@"phone", @"pad", @"mac", @"tv", @"unknown"];
     
     [self _initViews];
     
@@ -60,11 +60,11 @@ static CGFloat const tableview_top_inset =                          10.0f;
     self.staticDeviceNameLabel = [[UILabel alloc] init];
     [self.view addSubview:self.staticDeviceNameLabel];
     self.staticDeviceNameLabel.text = [NSString stringWithFormat:@"%@", @"Device name"];
-    [self.staticDeviceNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0]];
+    [self.staticDeviceNameLabel setFont:[UIFont systemFontOfSize:15.0]];
     self.staticDeviceNameLabel.textColor = [UIColor blackColor];
     self.staticDeviceNameLabel.numberOfLines = 1;
     self.staticDeviceNameLabel.textAlignment = NSTextAlignmentCenter;
-    self.staticDeviceNameLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    self.staticDeviceNameLabel.lineBreakMode = NSLineBreakByWordWrapping;
     [self.staticDeviceNameLabel sizeToFit];
     [self.staticDeviceNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -80,7 +80,7 @@ static CGFloat const tableview_top_inset =                          10.0f;
     [self.view addSubview:self.deviceNameTextField];
     self.deviceNameTextField.textAlignment = NSTextAlignmentCenter;
     self.deviceNameTextField.borderStyle = UITextBorderStyleRoundedRect;
-    self.deviceNameTextField.font = [UIFont fontWithName:@"HelveticaNeue" size:12.0];
+    self.deviceNameTextField.font = [UIFont systemFontOfSize:12.0];
     self.deviceNameTextField.textColor = [UIColor blackColor];
     self.deviceNameTextField.placeholder = @"Device name";
     self.deviceNameTextField.text = self.deviceName;
@@ -101,11 +101,11 @@ static CGFloat const tableview_top_inset =                          10.0f;
     self.staticDeviceTypeLabel = [[UILabel alloc] init];
     [self.view addSubview:self.staticDeviceTypeLabel];
     self.staticDeviceTypeLabel.text = [NSString stringWithFormat:@"%@", @"Device type"];
-    [self.staticDeviceTypeLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0]];
+    [self.staticDeviceTypeLabel setFont:[UIFont systemFontOfSize:15.0]];
     self.staticDeviceTypeLabel.textColor = [UIColor blackColor];
     self.staticDeviceTypeLabel.numberOfLines = 1;
     self.staticDeviceTypeLabel.textAlignment = NSTextAlignmentCenter;
-    self.staticDeviceTypeLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    self.staticDeviceTypeLabel.lineBreakMode = NSLineBreakByWordWrapping;
     [self.staticDeviceTypeLabel sizeToFit];
     [self.staticDeviceTypeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         

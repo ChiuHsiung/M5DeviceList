@@ -113,11 +113,11 @@ static CGFloat const tableview_top_inset =                      10.0f;
     
     self.tipsLabel = [[UILabel alloc] init];
     [self.view addSubview:self.tipsLabel];
-    [self.tipsLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10.0]];
+    [self.tipsLabel setFont:[UIFont systemFontOfSize:10.0]];
     self.tipsLabel.textColor = [UIColor grayColor];
     self.tipsLabel.numberOfLines = 1;
     self.tipsLabel.textAlignment = NSTextAlignmentCenter;
-    self.tipsLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    self.tipsLabel.lineBreakMode = NSLineBreakByWordWrapping;
     [self setTipsLabelText:@"上传头像"];
     [self.tipsLabel sizeToFit];
     [self.tipsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -134,11 +134,11 @@ static CGFloat const tableview_top_inset =                      10.0f;
     self.staticLabel = [[UILabel alloc] init];
     [self.view addSubview:self.staticLabel];
     [self.staticLabel setText:[NSString stringWithFormat:@"%@", @"归属人名称"]];
-    [self.staticLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:15.0]];
+    [self.staticLabel setFont:[UIFont systemFontOfSize:15.0]];
     self.staticLabel.textColor = [UIColor blackColor];
     self.staticLabel.numberOfLines = 1;
     self.staticLabel.textAlignment = NSTextAlignmentCenter;
-    self.staticLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    self.staticLabel.lineBreakMode = NSLineBreakByWordWrapping;
     [self.staticLabel sizeToFit];
     [self.staticLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -356,7 +356,7 @@ static CGFloat const tableview_top_inset =                      10.0f;
         if (nil == cell)
         {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_REUSE_INDENTIFIER_LABEL];
-            cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:15.0];
+            cell.textLabel.font = [UIFont systemFontOfSize:15.0];
             cell.textLabel.textColor = [UIColor lightGrayColor];
             cell.textLabel.textAlignment = NSTextAlignmentLeft;
             cell.textLabel.numberOfLines = 0;

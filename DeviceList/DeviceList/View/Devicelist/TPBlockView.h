@@ -19,6 +19,6 @@
 //为了以后多语言适配时的宽度调整，把这个属性公开
 @property (nonatomic,strong) UILabel *tipsLabel;
 
-- (id)initWithFrame:(CGRect)frame andImageName:(NSString *)imageName andTotalProgress:(float)totalProgress;
+- (id)initWithFrame:(CGRect)frame andImage:(UIImage *)image andTotalProgress:(float)totalProgress;
 
 @end

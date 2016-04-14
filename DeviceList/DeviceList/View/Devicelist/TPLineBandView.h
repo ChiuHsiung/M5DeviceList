@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @class TPDeviceInfoView;
-@class TPProgressView;
+@class TPNetworkSpeed;
+@class TPIntelligentPriorityTimeView;
 
 struct  _LineBandProperty{
     
@@ -56,6 +57,8 @@ typedef NS_ENUM(int, POINTMOVED_TYPE)
 
 - (void)deleteTPLineBandView:(id)sender;
 
+- (void)tpLineBandViewOnClicked:(id)sender;
+
 @end
 
 @interface TPLineBandView : UIView
@@ -67,14 +70,14 @@ typedef NS_ENUM(int, POINTMOVED_TYPE)
 @property (nonatomic,strong)            NSString *deviceType;
 
 //显示ParentCtrl的View属性
-@property (nonatomic,strong)            NSString *parentalCtrlTime;
+@property (nonatomic,strong)            NSString *intelligentPriorityTime;
 
 //显示设备名的View属性
 @property (nonatomic,strong)            NSString *deviceName;
 
 //显示网速的View属性
-@property (nonatomic,assign)            float curProgress;
-@property (nonatomic,assign)            float totalProgress;//必须先给totalProgress赋值
+@property (nonatomic,assign)            int downloadSpeed;
+@property (nonatomic,assign)            int uploadSpeed;
 
 
 @property (nonatomic,readonly)          CAShapeLayer *drawLayer;
@@ -84,12 +87,12 @@ typedef NS_ENUM(int, POINTMOVED_TYPE)
 
 //显示设备类型的View
 @property (nonatomic,strong)            TPDeviceInfoView *deviceInfoView;
-//显示ParentCtrl的View
-@property (nonatomic,strong)            UILabel *parentCtrlLabel;
+//显示智能优先的View
+@property (nonatomic,strong)            TPIntelligentPriorityTimeView *intelligentPriorityTimeView;
 //显示设备名的View
 @property (nonatomic,strong)            UILabel *deviceNameLabel;
 //显示网速的View
-@property (nonatomic,strong)            TPProgressView *progressView;
+@property (nonatomic,strong)            TPNetworkSpeed *networkSpeedView;
 
 @property (nonatomic,strong)            TPLineBandView *nextLineBandView;
 
@@ -99,13 +102,9 @@ typedef NS_ENUM(int, POINTMOVED_TYPE)
      andStrokeColor:(UIColor *)strokeColor
        andLineWidth:(CGFloat)lineWidth
        andMaxOffset:(CGFloat)maxOffset
-        andDelegate:(id)someOne;
+        andDelegate:(id)someOne
+   andCircleCenterX:(CGFloat)circleCenterX;
 
-- (id)initWithFrame:(CGRect)frame
-      layerProperty:(LineBandProperty)property
-     andStrokeColor:(UIColor *)strokeColor
-       andLineWidth:(CGFloat)lineWidth
-        andDelegate:(id)someOne;
 
 - (void)pullWithOffSetX:(CGFloat)offSetX andOffsetY:(CGFloat)offsetY;
 - (void)recoverStateAnimation:(BOOL)isNeedAnimation;

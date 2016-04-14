@@ -8,22 +8,35 @@
 
 #import "TPLineBandView.h"
 
+#import "TPIntelligentPriorityTimeView.h"
 #import "TPDeviceInfoView.h"
-#import "TPProgressView.h"
+#import "TPNetworkSpeed.h"
 #import "TPBlockView.h"
 
 #import <QuartzCore/QuartzCore.h>
 
-static CFTimeInterval const defaultDuration =           0.2;
-static CGFloat const blockView_left_inset =            40.0f;
-static CGFloat const blockView_height =                18.0f;
+static CFTimeInterval const defaultDuration =                       0.2;
+static CGFloat const blockView_left_inset =                         40.0f;
+static CGFloat const blockView_height =                             18.0f;
+
+static CGFloat const line_height =                                  30.0f;
+
+static CGFloat const intelligentPrioritylabel_height =              15.0f;
+static CGFloat const intelligentPrioritylabel_right_inset =         5.0f;
+
+static CGFloat const deviceNameLabel_top_inset =                    5.0f;
+static CGFloat const deviceNameLabel_left_inset =                   10.0f;
+
+static CGFloat const networkSpeedView_left_inset = deviceNameLabel_left_inset;
+static CGFloat const networkSpeedView_top_inset =                   5.0f;
+static CGFloat const networkSpeedView_height =                      10.0f;
 
 //加速度
 static float acceleration(float time,float space) {
     return space*2/(time*time);
 }
 
-@interface TPLineBandView()
+@interface TPLineBandView() <TPDeviceInfoViewDelegate>
 {
     CFTimeInterval _beginTime;
     CFTimeInterval _animationRegisteredTime;
@@ -39,12 +52,14 @@ static float acceleration(float time,float space) {
 
 @property (nonatomic,strong)        TPBlockView *blockView;
 
+@property (nonatomic,assign)        CGFloat circleCenterX;
+
 @end
 
 @implementation TPLineBandView
 
 @synthesize deviceName = _deviceName;
-@synthesize parentalCtrlTime = _parentalCtrlTime;
+@synthesize intelligentPriorityTime = _intelligentPriorityTime;
 
 - (void)dealloc {
     if (_link) [_link invalidate];
@@ -65,47 +80,28 @@ static float acceleration(float time,float space) {
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame andStrokeColor:(UIColor *)strokeColor andLineWidth:(CGFloat)lineWidth andMaxOffset:(CGFloat)maxOffset andDelegate:(id)someOne
+- (id)initWithFrame:(CGRect)frame andStrokeColor:(UIColor *)strokeColor andLineWidth:(CGFloat)lineWidth andMaxOffset:(CGFloat)maxOffset andDelegate:(id)someOne andCircleCenterX:(CGFloat)circleCenterX
 {
     if (self = [super initWithFrame:frame]) {
         [self _initLayer];
         
-        LineBandProperty property = MakeLBProperty(self.bounds.size.width / 2 , 0, self.bounds.size.width / 2, self.bounds.size.height / 2, maxOffset);
+        LineBandProperty property = MakeLBProperty(circleCenterX , 0, circleCenterX, line_height, maxOffset);
         
         self.property = property;
         self.strokeColor = strokeColor;
         self.lineWidth = lineWidth;
+        self.circleCenterX = circleCenterX;
         
         [self _initDeviceInfoView];
         [self updateDeviceNameLabel];
-        [self updateParentCtrlLabel];
-        [self updateProgressView];
+        [self updateIntelligentPriorityTimeView];
+        [self updateNetworkSpeed];
         [self _initBlockView];
         
         self.delegate = someOne;
     }
     return self;
 }
-
-- (id)initWithFrame:(CGRect)frame layerProperty:(LineBandProperty)property andStrokeColor:(UIColor *)strokeColor andLineWidth:(CGFloat)lineWidth  andDelegate:(id)someOne
-{
-    if (self = [super initWithFrame:frame]) {
-        [self _initLayer];
-        self.property = property;
-        self.strokeColor = strokeColor;
-        self.lineWidth = lineWidth;
-        
-        [self _initDeviceInfoView];
-        [self updateDeviceNameLabel];
-        [self updateParentCtrlLabel];
-        [self updateProgressView];
-        [self _initBlockView];
-        
-        self.delegate = someOne;
-    }
-    return self;
-}
-
 
 - (void)_initLayer
 {
@@ -122,11 +118,10 @@ static float acceleration(float time,float space) {
                                                                          0,
                                                                          self.bounds.size.height - (_property.downPoint.y -  _property.upPoint.y),
                                                                          self.bounds.size.height - (_property.downPoint.y -  _property.upPoint.y)
-                                                                         )
-                                              withCircleColor:self.strokeColor
-                                                 andLineWidth:self.lineWidth];
+                                                                         )];
     
     _deviceInfoView.center = [self adjustDeviceInfoViewCenterWithOffsetX:0 andOffsetY:0];
+    _deviceInfoView.delegate = self;
 //    _deviceInfoView.backgroundColor = [UIColor yellowColor];
     [self addSubview:_deviceInfoView];
     [self addPanGestureRecognizerToDeviceInfoView];
@@ -139,86 +134,71 @@ static float acceleration(float time,float space) {
     {
         self.deviceNameLabel = [[UILabel alloc] init];
         [self addSubview:self.deviceNameLabel];
+        
+        [self.deviceNameLabel setFont:[UIFont systemFontOfSize:15.0]];
+        self.deviceNameLabel.textColor = [UIColor blackColor];
+        self.deviceNameLabel.numberOfLines = 1;
+        self.deviceNameLabel.textAlignment = NSTextAlignmentLeft;
+        self.deviceNameLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        
     }
     
-    CGFloat maxWidth = self.bounds.size.width / 2 - self.deviceInfoView.bounds.size.width / 2;
+    CGFloat maxWidth = self.bounds.size.width - self.circleCenterX - self.deviceInfoView.bounds.size.width / 2 - deviceNameLabel_left_inset;
     
     [self.deviceNameLabel setText:[NSString stringWithFormat:@"%@", self.deviceName]];
-    [self.deviceNameLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10.0]];
-    self.deviceNameLabel.textColor = [UIColor grayColor];
-    self.deviceNameLabel.numberOfLines = 1;
-    self.deviceNameLabel.textAlignment = NSTextAlignmentLeft;
-    self.deviceNameLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    
-    [self.deviceNameLabel setPreferredMaxLayoutWidth:maxWidth];
     [self.deviceNameLabel sizeToFit];
     self.deviceNameLabel.frame = CGRectMake(self.bounds.size.width - maxWidth,
-                                            self.deviceInfoView.frame.origin.y + self.deviceInfoView.deviceTypeImgView.frame.origin.y,
+                                            self.deviceInfoView.frame.origin.y + deviceNameLabel_top_inset,
                                             (self.deviceNameLabel.bounds.size.width < maxWidth ? self.deviceNameLabel.bounds.size.width : maxWidth),
                                             self.deviceNameLabel.bounds.size.height);
     [self addSubview:self.deviceNameLabel];
     
 }
 
-- (void)updateParentCtrlLabel
+- (void)updateIntelligentPriorityTimeView
 {
-    if (!self.parentCtrlLabel)
+    if (!self.intelligentPriorityTimeView)
     {
-        self.parentCtrlLabel = [[UILabel alloc] init];
-        [self addSubview:self.parentCtrlLabel];
+        self.intelligentPriorityTimeView = [[TPIntelligentPriorityTimeView alloc] init];
+        [self addSubview:self.intelligentPriorityTimeView];
+        CGFloat maxWidth = self.circleCenterX - self.deviceInfoView.bounds.size.width / 2 - intelligentPrioritylabel_right_inset;
+        
+        self.intelligentPriorityTimeView.frame = CGRectMake((self.intelligentPriorityTimeView.bounds.size.width < maxWidth ? maxWidth - self.intelligentPriorityTimeView.bounds.size.width : 0),
+                                                            self.deviceInfoView.center.y - intelligentPrioritylabel_height / 2,
+                                                            (self.intelligentPriorityTimeView.bounds.size.width < maxWidth ? self.intelligentPriorityTimeView.bounds.size.width : maxWidth),
+                                                            intelligentPrioritylabel_height);
+        
     }
     
-    CGFloat maxWidth = self.bounds.size.width / 2 - self.deviceInfoView.bounds.size.width / 2;
-    
-    [self.parentCtrlLabel setText:[NSString stringWithFormat:@"%@", self.parentalCtrlTime]];
-    [self.parentCtrlLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:10.0]];
-    self.parentCtrlLabel.textColor = [UIColor grayColor];
-    self.parentCtrlLabel.numberOfLines = 1;
-    self.parentCtrlLabel.textAlignment = NSTextAlignmentRight;
-    self.parentCtrlLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-    
-    [self.parentCtrlLabel setPreferredMaxLayoutWidth:maxWidth];
-    [self.parentCtrlLabel sizeToFit];
     
     
-    self.parentCtrlLabel.frame = CGRectMake((self.parentCtrlLabel.bounds.size.width < maxWidth ? maxWidth - self.parentCtrlLabel.bounds.size.width : 0),
-                                            self.deviceInfoView.center.y - self.parentCtrlLabel.bounds.size.height / 2,
-                                            (self.parentCtrlLabel.bounds.size.width < maxWidth ? self.parentCtrlLabel.bounds.size.width : maxWidth),
-                                            self.parentCtrlLabel.bounds.size.height);
-    [self addSubview:self.parentCtrlLabel];
+    [self.intelligentPriorityTimeView updateInIntelligentPriorityTime:self.intelligentPriorityTime];
+    
 }
 
-- (void)updateProgressView
+- (void)updateNetworkSpeed
 {
-    if (self.totalProgress <= 0)
+    if (!self.networkSpeedView)
     {
-        return;
+        self.networkSpeedView = [[TPNetworkSpeed alloc] init];
+        [self addSubview:self.networkSpeedView];
     }
-    if (!self.progressView)
-    {
-        CGFloat maxWidth = self.bounds.size.width / 2 - self.deviceInfoView.bounds.size.width / 2;
-        
-        self.progressView = [[TPProgressView alloc] initWithFrame:CGRectMake(self.bounds.size.width - maxWidth,
-                                                                             self.deviceNameLabel.frame.origin.y + self.deviceNameLabel.bounds.size.height,
-                                                                             maxWidth,
-                                                                             self.deviceNameLabel.bounds.size.height / 2)
-                                                withTotalProgress:self.totalProgress];
-        self.progressView.bgViewColor = [UIColor whiteColor];
-        self.progressView.progressColor = [UIColor colorWithRed:(25.0f / 255.0f) green:(192.0f / 255.0f) blue:(255.0f / 255.0f) alpha:1.0f];
-        [self addSubview:self.progressView];
-    }
-    self.progressView.curProcess = self.curProgress;
+    CGFloat maxWidth = self.bounds.size.width - self.circleCenterX - self.deviceInfoView.bounds.size.width / 2 - networkSpeedView_left_inset;
+    self.networkSpeedView.frame = CGRectMake(self.bounds.size.width - maxWidth,
+                                             self.deviceNameLabel.frame.origin.y + self.deviceNameLabel.bounds.size.height + networkSpeedView_top_inset,
+                                             maxWidth,
+                                             networkSpeedView_height);
 }
 
 - (void)_initBlockView
 {
-    CGFloat blockViewWidth = self.bounds.size.width / 2 - self.deviceInfoView.bounds.size.width / 2 - blockView_left_inset;
+    CGFloat blockViewWidth = self.bounds.size.width - self.circleCenterX - self.deviceInfoView.bounds.size.width / 2 - blockView_left_inset;
     CGFloat blockViewHeight = blockView_height;
     self.blockView = [[TPBlockView alloc] initWithFrame:CGRectMake(self.bounds.size.width - blockViewWidth,
                                                                    self.deviceInfoView.center.y - blockViewHeight / 2,
                                                                    blockViewWidth,
                                                                    blockViewHeight)
-                                           andImageName:@"block_logo"
+                                           andImage:kBlock_Logo_Image
                                        andTotalProgress:self.property.maxOffSet];
     self.blockView.curProcess = 0;
     self.blockView.bgViewColor = [UIColor lightGrayColor];
@@ -244,7 +224,6 @@ static float acceleration(float time,float space) {
 - (void)setLineWidth:(CGFloat)lineWidth
 {
     _lineWidth = lineWidth;
-    self.deviceInfoView.lineWidth = lineWidth;
     if (_drawLayer) _drawLayer.lineWidth = lineWidth;
     [self resetDefault];
 }
@@ -278,44 +257,33 @@ static float acceleration(float time,float space) {
     
 }
 
-- (NSString *)parentalCtrlTime
+- (NSString *)intelligentPriorityTime
 {
-    if (nil == _parentalCtrlTime)
-    {
-        _parentalCtrlTime = @"";
-    }
-    
-    return _parentalCtrlTime;
+    return _intelligentPriorityTime;
 }
 
-- (void)setParentalCtrlTime:(NSString *)parentalCtrlTime
+- (void)setIntelligentPriorityTime:(NSString *)intelligentPriorityTime
 {
-    _parentalCtrlTime = parentalCtrlTime;
-    if (parentalCtrlTime)
+    _intelligentPriorityTime = intelligentPriorityTime;
+    if (intelligentPriorityTime && ![intelligentPriorityTime isEqualToString:@""])
     {
-        [self updateParentCtrlLabel];
+        [self updateIntelligentPriorityTimeView];
+        //这里还要为TPDeviceInfoView更改图片，加上星标
     }
 }
 
-- (void)setCurProgress:(float)curProgress
+- (void)setUploadSpeed:(int)uploadSpeed
 {
-    if (!self.totalProgress)
-    {
-        NSLog(@"必须先给totalProgress赋值");
-        return;
-    }
-    
-    _curProgress = curProgress;
-    [self updateProgressView];
+    _uploadSpeed = uploadSpeed;
+    [self updateNetworkSpeed];
+    [self.networkSpeedView updateUploadSpeed:uploadSpeed];
 }
 
-- (void)setTotalProgress:(float)totalProgress
+- (void)setDownloadSpeed:(int)downloadSpeed
 {
-    if (totalProgress <= 0)
-    {
-        return;
-    }
-    _totalProgress = totalProgress;
+    _downloadSpeed = downloadSpeed;
+    [self updateNetworkSpeed];
+    [self.networkSpeedView updateDownloadSpeed:downloadSpeed];
 }
 
 - (void)resetDefault {
@@ -736,24 +704,24 @@ static float acceleration(float time,float space) {
 - (void)makeOtherViewDisappear
 {
     self.deviceNameLabel.alpha = 0.0f;
-    self.parentCtrlLabel.alpha = 0.0f;
-    self.progressView.alpha = 0.0f;
+    self.intelligentPriorityTimeView.alpha = 0.0f;
+    self.networkSpeedView.alpha = 0.0f;
 }
 
 - (void)makeOtherViewAppear
 {
     self.deviceNameLabel.alpha = 1.0f;
-    self.parentCtrlLabel.alpha = 1.0f;
-    self.progressView.alpha = 1.0f;
+    self.intelligentPriorityTimeView.alpha = 1.0f;
+    self.networkSpeedView.alpha = 1.0f;
     
     [self transitionWithType:kCATransitionFade withSubType:kCATransitionFromRight forView:self.deviceNameLabel];
-    [self transitionWithType:kCATransitionFade withSubType:kCATransitionFromLeft forView:self.parentCtrlLabel];
-    [self transitionWithType:kCATransitionFade withSubType:kCATransitionFromRight forView:self.progressView];
+    [self transitionWithType:kCATransitionFade withSubType:kCATransitionFromLeft forView:self.intelligentPriorityTimeView];
+    [self transitionWithType:kCATransitionFade withSubType:kCATransitionFromRight forView:self.networkSpeedView];
 }
 
 - (CGPoint)adjustDeviceInfoViewCenterWithOffsetX:(CGFloat)offsetX andOffsetY:(CGFloat)offsetY
 {
-    return  CGPointMake(self.bounds.size.width / 2 + offsetX,
+    return  CGPointMake(self.circleCenterX + offsetX,
                         self.deviceInfoView.bounds.size.height / 2 + (self.property.downPoint.y - self.property.upPoint.y) + offsetY);
 }
 
@@ -788,6 +756,15 @@ static float acceleration(float time,float space) {
     
     [view.layer addAnimation:animation forKey: @"animation"];
     
+}
+
+#pragma mark - TPDeviceInfoViewDelegate
+- (void)circleButtonOnClicked
+{
+    if ([self.delegate respondsToSelector:@selector(tpLineBandViewOnClicked:)])
+    {
+        [self.delegate tpLineBandViewOnClicked:self];
+    }
 }
 
 
