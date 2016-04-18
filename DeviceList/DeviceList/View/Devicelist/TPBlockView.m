@@ -8,7 +8,7 @@
 
 #import "TPBlockView.h"
 
-static CGFloat const tipsLabel_left_inset =             5.0f;
+static CGFloat const tipsLabel_left_margin =             5.0f;
 
 @interface TPBlockView()
 
@@ -90,7 +90,7 @@ static CGFloat const tipsLabel_left_inset =             5.0f;
     
     [self.tipsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.tipsLabel.superview).offset(tipsLabel_left_inset);
+        make.left.equalTo(self.tipsLabel.superview).offset(tipsLabel_left_margin);
         make.top.equalTo(self.tipsLabel.superview);
         make.right.equalTo(self.tipsLabel.superview);
         make.height.equalTo(self.tipsLabel.superview);

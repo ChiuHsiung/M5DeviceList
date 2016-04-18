@@ -8,12 +8,12 @@
 
 #import "OwnerTimeCtrlTableViewCell.h"
 
-static CGFloat const funcLabel_left_inset =         15.0f;
-static CGFloat const funcLabel_top_inset =          5.0f;
-static CGFloat const funcLabel_right_inset =        5.0f;
+static CGFloat const funcLabel_left_margin =         15.0f;
+static CGFloat const funcLabel_top_margin =          5.0f;
+static CGFloat const funcLabel_right_margin =        5.0f;
 
-static CGFloat const timeLabel_right_inset =        5.0f;
-static CGFloat const timeLabel_top_inset =          5.0f;
+static CGFloat const timeLabel_right_margin =        5.0f;
+static CGFloat const timeLabel_top_margin =          5.0f;
 static CGFloat const timeLabel_width =              40.0f;
 
 @interface OwnerTimeCtrlTableViewCell()
@@ -82,9 +82,9 @@ static CGFloat const timeLabel_width =              40.0f;
     
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(self.timeLabel.superview).offset(timeLabel_top_inset);
-        make.bottom.equalTo(self.timeLabel.superview).offset(-timeLabel_top_inset);
-        make.right.equalTo(self.timeLabel.superview).offset(-timeLabel_right_inset);
+        make.top.equalTo(self.timeLabel.superview).offset(timeLabel_top_margin);
+        make.bottom.equalTo(self.timeLabel.superview).offset(-timeLabel_top_margin);
+        make.right.equalTo(self.timeLabel.superview).offset(-timeLabel_right_margin);
         make.width.equalTo(self.timeLabel.superview).offset(timeLabel_width);
         
     }];
@@ -92,10 +92,10 @@ static CGFloat const timeLabel_width =              40.0f;
     
     [self.funcLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(self.funcLabel.superview).offset(funcLabel_top_inset);
-        make.bottom.equalTo(self.funcLabel.superview).offset(-funcLabel_top_inset);
-        make.left.equalTo(self.funcLabel.superview).offset(funcLabel_left_inset);
-        make.right.equalTo(self.funcLabel.superview).offset(-funcLabel_right_inset);
+        make.top.equalTo(self.funcLabel.superview).offset(funcLabel_top_margin);
+        make.bottom.equalTo(self.funcLabel.superview).offset(-funcLabel_top_margin);
+        make.left.equalTo(self.funcLabel.superview).offset(funcLabel_left_margin);
+        make.right.equalTo(self.funcLabel.superview).offset(-funcLabel_right_margin);
         
     }];
     

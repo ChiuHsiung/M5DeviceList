@@ -8,15 +8,9 @@
 
 #import "OwnerTableViewCell.h"
 
-static CGFloat const userImage_left_inset =         10.0f;
-static CGFloat const userImage_top_inset =          5.0f;
 
-static CGFloat const label_left_inset =             10.0f;
-static CGFloat const label_top_inset =              5.0f;
-static CGFloat const label_right_inset =            5.0f;
 
-static CGFloat const radio_right_inset =            15.0f;
-static CGFloat const radio_top_inset =              15.0f;
+
 
 @interface OwnerTableViewCell()
 
@@ -26,7 +20,7 @@ static CGFloat const radio_top_inset =              15.0f;
 
 
 @property (nonatomic, strong) UILabel *userNameLabel;
-@property (nonatomic, strong) UIImageView *radioImageView;
+@property (nonatomic, strong) UIView *radioView;
 
 @end
 
@@ -54,22 +48,22 @@ static CGFloat const radio_top_inset =              15.0f;
 
     self.backgroundColor = [UIColor whiteColor];
     self.userImage = [[UIView alloc] init];
-    self.userImage.layer.cornerRadius = (self.bounds.size.height - userImage_top_inset * 2) / 2;
+    self.userImage.layer.cornerRadius = (OwnerTableViewCell_Height - userImage_top_margin * 2) / 2;
     self.userImage.layer.masksToBounds = YES;
     [self.contentView addSubview:self.userImage];
     
     [self.userImage mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.userImage.superview).offset(userImage_left_inset);
-        make.top.equalTo(self.userImage.superview).offset(userImage_top_inset);
-        make.bottom.equalTo(self.userImage.superview).offset(-userImage_top_inset);
+        make.left.equalTo(self.userImage.superview).offset(userImage_left_margin);
+        make.top.equalTo(self.userImage.superview).offset(userImage_top_margin);
+        make.bottom.equalTo(self.userImage.superview).offset(-userImage_top_margin);
         make.width.equalTo(self.userImage.mas_height);
         
     }];
     
     
     self.firAlphaLabel = [[UILabel alloc] init];
-    self.firAlphaLabel.layer.cornerRadius = (self.bounds.size.height - userImage_top_inset * 2) / 2;
+    self.firAlphaLabel.layer.cornerRadius = (OwnerTableViewCell_Height - userImage_top_margin * 2) / 2;
     self.firAlphaLabel.layer.masksToBounds = YES;
     self.firAlphaLabel.layer.borderWidth = 1;
     self.firAlphaLabel.layer.borderColor = [UIColor grayColor].CGColor;
@@ -90,7 +84,7 @@ static CGFloat const radio_top_inset =              15.0f;
     
     
     self.userHeadImageView = [[UIImageView alloc] init];
-    self.userHeadImageView.layer.cornerRadius = (self.bounds.size.height - userImage_top_inset * 2) / 2;
+    self.userHeadImageView.layer.cornerRadius = (OwnerTableViewCell_Height - userImage_top_margin * 2) / 2;
     self.userHeadImageView.layer.masksToBounds = YES;
     self.userHeadImageView.backgroundColor = [UIColor clearColor];
     self.userHeadImageView.image = nil;
@@ -106,15 +100,16 @@ static CGFloat const radio_top_inset =              15.0f;
     }];
     
     
-    self.radioImageView = [[UIImageView alloc] init];
-    self.radioImageView.image = kUncheck_Image;
-    [self.contentView addSubview:self.radioImageView];
-    [self.radioImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.radioView = [[UIView alloc] init];
+    [self.contentView addSubview:self.radioView];
+    self.radioView.layer.cornerRadius = (OwnerTableViewCell_Height - radio_top_margin * 2) / 2;
+    self.radioView.layer.masksToBounds = YES;
+    [self.radioView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.right.equalTo(self.radioImageView.superview).offset(-radio_right_inset);
-        make.top.equalTo(self.radioImageView.superview).offset(radio_top_inset);
-        make.bottom.equalTo(self.radioImageView.superview).offset(-radio_top_inset);
-        make.width.equalTo(self.radioImageView.mas_height);
+        make.top.equalTo(self.radioView.superview).offset(radio_top_margin);
+        make.right.equalTo(self.radioView.superview).offset(-radio_right_margin);
+        make.bottom.equalTo(self.radioView.superview).offset(-radio_top_margin);
+        make.width.equalTo(self.radioView.mas_height);
         
     }];
     
@@ -122,17 +117,17 @@ static CGFloat const radio_top_inset =              15.0f;
     [self.contentView addSubview:self.userNameLabel];
     [self.userNameLabel setBackgroundColor:[UIColor whiteColor]];
     [self.userNameLabel setText:[NSString stringWithFormat:@"%@", @"None"]];
-    [self.userNameLabel setFont:[UIFont systemFontOfSize:10.0]];
-    self.userNameLabel.textColor = [UIColor grayColor];
+    [self.userNameLabel setFont:[UIFont systemFontOfSize:15.0]];
+    self.userNameLabel.textColor = [UIColor blackColor];
     self.userNameLabel.numberOfLines = 0;
     self.userNameLabel.textAlignment = NSTextAlignmentLeft;
     self.userNameLabel.lineBreakMode = NSLineBreakByWordWrapping;
     [self.userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(self.userImage.mas_right).offset(label_left_inset);
-        make.right.equalTo(self.radioImageView.mas_left).offset(-label_right_inset);
-        make.top.equalTo(self.userNameLabel.superview).offset(label_top_inset);
-        make.bottom.equalTo(self.userNameLabel.superview).offset(-label_top_inset);
+        make.left.equalTo(self.userImage.mas_right).offset(label_left_margin);
+        make.right.equalTo(self.radioView.mas_left).offset(-label_right_margin);
+        make.top.equalTo(self.userNameLabel.superview).offset(label_top_margin);
+        make.bottom.equalTo(self.userNameLabel.superview).offset(-label_top_margin);
         
     }];
     
@@ -149,6 +144,7 @@ static CGFloat const radio_top_inset =              15.0f;
     if ([userName isEqualToString:@"None"])
     {
         self.firAlphaLabel.layer.borderWidth = 0;
+        self.firAlphaLabel.text = @"";
         self.userHeadImageView.image = nil;
     }
     else
@@ -165,11 +161,16 @@ static CGFloat const radio_top_inset =              15.0f;
 {
     if (isSelected)
     {
-        self.radioImageView.image = kCheck_Image;
+        [self.radioView setBackgroundColor:[UIColor yellowColor]];
+        self.radioView.layer.borderWidth = 0;
+        self.radioView.layer.borderColor = [UIColor clearColor].CGColor;
+        
     }
     else
     {
-        self.radioImageView.image = kUncheck_Image;
+        [self.radioView setBackgroundColor:[UIColor clearColor]];
+        self.radioView.layer.borderWidth = 1;
+        self.radioView.layer.borderColor = [UIColor grayColor].CGColor;
     }
 }
 
@@ -183,11 +184,13 @@ static CGFloat const radio_top_inset =              15.0f;
     if (nil == imageName)
     {
         self.userHeadImageView.image = nil;
+        self.firAlphaLabel.layer.borderWidth = 1;
     }
     else
     {
         UIImage *image = [UIImage imageNamed:imageName];
         self.userHeadImageView.image = image;
+        self.firAlphaLabel.layer.borderWidth = 0;
     }
     
 }

@@ -10,14 +10,14 @@
 
 #import "TPTimeIntervalPickerView.h"
 
-static CGFloat const closeButton_top_inset =            20.0f;
-static CGFloat const closeButton_left_inset =           10.0f;
+static CGFloat const closeButton_top_margin =            20.0f;
+static CGFloat const closeButton_left_margin =           10.0f;
 
 static CGFloat const pickerView_width =                 250.0f;
 static CGFloat const pickerView_row_height =            50.0f;
 static int     const pickerView_display_row =           3;
 
-static CGFloat const button_top_inset =                 20.0f;
+static CGFloat const button_top_margin =                 20.0f;
 static CGFloat const button_width =                     100.0f;
 
 @interface TPDailyTimeLimitPicker()
@@ -48,8 +48,8 @@ static CGFloat const button_width =                     100.0f;
         [closeButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
         [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.top.equalTo(self).offset(closeButton_top_inset);
-            make.left.equalTo(self).offset(closeButton_left_inset);
+            make.top.equalTo(self).offset(closeButton_top_margin);
+            make.left.equalTo(self).offset(closeButton_left_margin);
             
         }];
         
@@ -104,7 +104,7 @@ static CGFloat const button_width =                     100.0f;
         [btn addTarget:self action:@selector(btnOnClick:) forControlEvents:UIControlEventTouchUpInside];
         [btn mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.top.equalTo(self.pickerView.mas_bottom).offset(button_top_inset);
+            make.top.equalTo(self.pickerView.mas_bottom).offset(button_top_margin);
             make.centerX.equalTo(container);
             make.width.equalTo(@(button_width));
             make.bottom.equalTo(container);

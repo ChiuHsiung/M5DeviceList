@@ -8,11 +8,11 @@
 
 #import "TPNetworkSpeed.h"
 
-static CGFloat dowloadSpeedLabel_left_inset =           5.0f;
+static CGFloat dowloadSpeedLabel_left_margin =           5.0f;
 
-static CGFloat uploadImageView_left_inset =             5.0f;
+static CGFloat uploadImageView_left_margin =             5.0f;
 
-static CGFloat uploadSpeedLabel_left_inset =            5.0f;
+static CGFloat uploadSpeedLabel_left_margin =            5.0f;
 
 @interface TPNetworkSpeed()
 
@@ -68,7 +68,7 @@ static CGFloat uploadSpeedLabel_left_inset =            5.0f;
     [self.dowloadSpeedLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(self);
-        make.left.equalTo(self.downloadImageView.mas_right).offset(dowloadSpeedLabel_left_inset);
+        make.left.equalTo(self.downloadImageView.mas_right).offset(dowloadSpeedLabel_left_margin);
         make.bottom.equalTo(self);
         
     }];
@@ -79,7 +79,7 @@ static CGFloat uploadSpeedLabel_left_inset =            5.0f;
     [self.uploadImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(self);
-        make.left.equalTo(self.dowloadSpeedLabel.mas_right).offset(uploadImageView_left_inset);
+        make.left.equalTo(self.dowloadSpeedLabel.mas_right).offset(uploadImageView_left_margin);
         make.bottom.equalTo(self);
         make.width.equalTo(self.uploadImageView.mas_height).multipliedBy(widthHeightScale);
     }];
@@ -95,7 +95,7 @@ static CGFloat uploadSpeedLabel_left_inset =            5.0f;
     [self.uploadSpeedLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(self);
-        make.left.equalTo(self.uploadImageView.mas_right).offset(uploadSpeedLabel_left_inset);
+        make.left.equalTo(self.uploadImageView.mas_right).offset(uploadSpeedLabel_left_margin);
         make.bottom.equalTo(self);
         
     }];

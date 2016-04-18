@@ -17,6 +17,7 @@
 		3C4D73CD1CBC8DC000F06CB9 /* TPButtonListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C4D73CC1CBC8DC000F06CB9 /* TPButtonListView.m */; };
 		3C4D73D01CBC9D6E00F06CB9 /* TPTimeIntervalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C4D73CF1CBC9D6E00F06CB9 /* TPTimeIntervalPickerView.m */; };
 		3C4D73D31CBCE17400F06CB9 /* TPDailyTimeLimitPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C4D73D21CBCE17400F06CB9 /* TPDailyTimeLimitPicker.m */; };
+		3C5E20F91CC0987F00408941 /* TPUnderlineTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C5E20F81CC0987F00408941 /* TPUnderlineTextField.m */; };
 		3C8488211CBB821000F1D7F3 /* DeviceTypeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8488201CBB821000F1D7F3 /* DeviceTypeTableViewCell.m */; };
 		3C8488271CBB84A200F1D7F3 /* TPBedTimePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C8488261CBB84A200F1D7F3 /* TPBedTimePicker.m */; };
 		3C84882B1CBB959C00F1D7F3 /* TPTimePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C84882A1CBB959C00F1D7F3 /* TPTimePickerCell.m */; };
@@ -32,6 +33,7 @@
 		3CEBBED11CA0E3B300B2F751 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CEBBED01CA0E3B300B2F751 /* main.m */; };
 		3CEBBED41CA0E3B300B2F751 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CEBBED31CA0E3B300B2F751 /* AppDelegate.m */; };
 		3CEBBED61CA0E3B300B2F751 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3CEBBED51CA0E3B300B2F751 /* Assets.xcassets */; };
+		3CFD19901CC48FC6007FF9F0 /* UITableView+LoadAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFD198F1CC48FC6007FF9F0 /* UITableView+LoadAnimation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +58,8 @@
 		3C4D73CF1CBC9D6E00F06CB9 /* TPTimeIntervalPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPTimeIntervalPickerView.m; sourceTree = "<group>"; };
 		3C4D73D11CBCE17400F06CB9 /* TPDailyTimeLimitPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPDailyTimeLimitPicker.h; path = DeviceList/View/Userlist/TPDailyTimeLimitPicker.h; sourceTree = SOURCE_ROOT; };
 		3C4D73D21CBCE17400F06CB9 /* TPDailyTimeLimitPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPDailyTimeLimitPicker.m; path = DeviceList/View/Userlist/TPDailyTimeLimitPicker.m; sourceTree = SOURCE_ROOT; };
+		3C5E20F71CC0987F00408941 /* TPUnderlineTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPUnderlineTextField.h; path = View/TPUnderlineTextField.h; sourceTree = "<group>"; };
+		3C5E20F81CC0987F00408941 /* TPUnderlineTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPUnderlineTextField.m; path = View/TPUnderlineTextField.m; sourceTree = "<group>"; };
 		3C84881F1CBB821000F1D7F3 /* DeviceTypeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeviceTypeTableViewCell.h; path = View/EditDeviceType/DeviceTypeTableViewCell.h; sourceTree = "<group>"; };
 		3C8488201CBB821000F1D7F3 /* DeviceTypeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeviceTypeTableViewCell.m; path = View/EditDeviceType/DeviceTypeTableViewCell.m; sourceTree = "<group>"; };
 		3C8488251CBB84A200F1D7F3 /* TPBedTimePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPBedTimePicker.h; path = DeviceList/View/Userlist/TPBedTimePicker.h; sourceTree = SOURCE_ROOT; };
@@ -86,6 +90,8 @@
 		3CEBBED31CA0E3B300B2F751 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3CEBBED51CA0E3B300B2F751 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3CEBBEDA1CA0E3B300B2F751 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3CFD198E1CC48FC6007FF9F0 /* UITableView+LoadAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+LoadAnimation.h"; sourceTree = "<group>"; };
+		3CFD198F1CC48FC6007FF9F0 /* UITableView+LoadAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+LoadAnimation.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +133,8 @@
 			children = (
 				3C2D80551CBDF401004DBEF3 /* UIColor+expanded.h */,
 				3C2D80561CBDF401004DBEF3 /* UIColor+expanded.m */,
+				3CFD198E1CC48FC6007FF9F0 /* UITableView+LoadAnimation.h */,
+				3CFD198F1CC48FC6007FF9F0 /* UITableView+LoadAnimation.m */,
 			);
 			path = OC_Category;
 			sourceTree = "<group>";
@@ -237,6 +245,8 @@
 			children = (
 				3C1838F81CB649A800A746DE /* TPBaffleView.h */,
 				3C1838F91CB649A800A746DE /* TPBaffleView.m */,
+				3C5E20F71CC0987F00408941 /* TPUnderlineTextField.h */,
+				3C5E20F81CC0987F00408941 /* TPUnderlineTextField.m */,
 				3C4D73CB1CBC8DC000F06CB9 /* TPButtonListView.h */,
 				3C4D73CC1CBC8DC000F06CB9 /* TPButtonListView.m */,
 				3C2D80511CBDF1E5004DBEF3 /* TPMacro.h */,
@@ -354,6 +364,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C8B0C8E1CAA571700EB1531 /* TPDeviceInfoView.m in Sources */,
+				3C5E20F91CC0987F00408941 /* TPUnderlineTextField.m in Sources */,
 				3C8488271CBB84A200F1D7F3 /* TPBedTimePicker.m in Sources */,
 				3C4D73D31CBCE17400F06CB9 /* TPDailyTimeLimitPicker.m in Sources */,
 				3C8B0C971CAA6FAA00EB1531 /* OwnerTableViewCell.m in Sources */,
@@ -370,6 +381,7 @@
 				3CC878191CA0E88E0054F6EE /* DeviceListViewController.m in Sources */,
 				3C8B0C8F1CAA571700EB1531 /* TPLineBandView.m in Sources */,
 				3C84882E1CBB981700F1D7F3 /* TPTimePickerView.m in Sources */,
+				3CFD19901CC48FC6007FF9F0 /* UITableView+LoadAnimation.m in Sources */,
 				3C1838FA1CB649A800A746DE /* TPBaffleView.m in Sources */,
 				3C088B3D1CACAE2D00937451 /* OwnerTimeCtrlTableViewCell.m in Sources */,
 				3C344CF11CBF7DDD00177B27 /* TPIntelligentPriorityTimeView.m in Sources */,

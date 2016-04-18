@@ -8,12 +8,12 @@
 
 #import "TPButtonListView.h"
 
-static CGFloat const closeButton_top_inset =            20.0f;
-static CGFloat const closeButton_left_inset =           10.0f;
+static CGFloat const closeButton_top_margin =            20.0f;
+static CGFloat const closeButton_left_margin =           10.0f;
 
-static CGFloat const buttonlist_top_inset =             20.0f;
+static CGFloat const buttonlist_top_margin =             20.0f;
 static CGFloat const buttonlist_width =                 100.0f;
-static CGFloat const button_between_inset =             10.0f;
+static CGFloat const button_between_margin =             10.0f;
 
 @implementation TPButtonListView
 
@@ -32,8 +32,8 @@ static CGFloat const button_between_inset =             10.0f;
         [closeButton addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
         [closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.top.equalTo(self).offset(closeButton_top_inset);
-            make.left.equalTo(self).offset(closeButton_left_inset);
+            make.top.equalTo(self).offset(closeButton_top_margin);
+            make.left.equalTo(self).offset(closeButton_left_margin);
             
         }];
         
@@ -67,7 +67,7 @@ static CGFloat const button_between_inset =             10.0f;
         [container addSubview:buttonListContainer];
         [buttonListContainer mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.top.equalTo(textLabel.mas_bottom).offset(buttonlist_top_inset);
+            make.top.equalTo(textLabel.mas_bottom).offset(buttonlist_top_margin);
             make.bottom.equalTo(container);
             make.centerX.equalTo(container);
             make.width.equalTo(@(buttonlist_width));
@@ -115,7 +115,7 @@ static CGFloat const button_between_inset =             10.0f;
         [btn1 addTarget:self action:@selector(btnOnClick:) forControlEvents:UIControlEventTouchUpInside];
         [btn1 mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.top.equalTo(btn0.mas_bottom).offset(button_between_inset);
+            make.top.equalTo(btn0.mas_bottom).offset(button_between_margin);
             make.left.equalTo(buttonListContainer);
             make.right.equalTo(buttonListContainer);
             
@@ -134,7 +134,7 @@ static CGFloat const button_between_inset =             10.0f;
         [btn2 addTarget:self action:@selector(btnOnClick:) forControlEvents:UIControlEventTouchUpInside];
         [btn2 mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.top.equalTo(btn1.mas_bottom).offset(button_between_inset);
+            make.top.equalTo(btn1.mas_bottom).offset(button_between_margin);
             make.left.equalTo(buttonListContainer);
             make.right.equalTo(buttonListContainer);
             
@@ -153,7 +153,7 @@ static CGFloat const button_between_inset =             10.0f;
         [btn3 addTarget:self action:@selector(btnOnClick:) forControlEvents:UIControlEventTouchUpInside];
         [btn3 mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.top.equalTo(btn2.mas_bottom).offset(button_between_inset);
+            make.top.equalTo(btn2.mas_bottom).offset(button_between_margin);
             make.left.equalTo(buttonListContainer);
             make.right.equalTo(buttonListContainer);
             
@@ -172,7 +172,7 @@ static CGFloat const button_between_inset =             10.0f;
         [btn4 addTarget:self action:@selector(btnOnClick:) forControlEvents:UIControlEventTouchUpInside];
         [btn4 mas_makeConstraints:^(MASConstraintMaker *make) {
             
-            make.top.equalTo(btn3.mas_bottom).offset(button_between_inset);
+            make.top.equalTo(btn3.mas_bottom).offset(button_between_margin);
             make.left.equalTo(buttonListContainer);
             make.right.equalTo(buttonListContainer);
             make.bottom.equalTo(buttonListContainer);

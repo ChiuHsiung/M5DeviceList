@@ -23,19 +23,19 @@
 #define bed_time_limit_switch_tag               (1002)
 
 
-static CGFloat const ownerHeaderImageBtn_top_inset =            15.0f;
+static CGFloat const ownerHeaderImageBtn_top_margin =           64.0f + 15.0f;
 static CGFloat const ownerHeaderImageBtn_width =                80.0f;
 static CGFloat const cross_line_length =                        20.0f;
 
-static CGFloat const tipsLabel_top_inset =                      5.0f;
+static CGFloat const tipsLabel_top_margin =                      5.0f;
 
-static CGFloat const staticLabel_top_inset =                    30.0f;
+static CGFloat const staticLabel_top_margin =                    30.0f;
 
-static CGFloat const ownerNameTextField_top_inset =             20.0f;
-static CGFloat const ownerNameTextField_left_inset =            30.0f;
+static CGFloat const ownerNameTextField_top_margin =             20.0f;
+static CGFloat const ownerNameTextField_left_margin =            30.0f;
 static CGFloat const ownerNameTextField_height =                30.0f;
 
-static CGFloat const tableview_top_inset =                      10.0f;
+static CGFloat const tableview_top_margin =                      10.0f;
 
 @interface AddNewOwnerViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UIPopoverPresentationControllerDelegate, TPBedTimePickerDelegate, TPDailyTimeLimitPickerDelegate>
 
@@ -67,12 +67,28 @@ static CGFloat const tableview_top_inset =                      10.0f;
     
     //extendedLayoutIncludesOpaqueBars其中这个属性指定了当Bar使用了不透明图片时，视图是否延伸至Bar所在区域，默认值时NO。
     //而edgesForExtendedLayout则是表示视图是否覆盖到四周的区域，默认是UIRectEdgeAll，即上下左右四个方向都会覆盖，那么为让顶部不进行延伸到导航栏覆盖的区域，我们可以把顶部区域延伸去掉。
-    self.extendedLayoutIncludesOpaqueBars = NO;
-    self.edgesForExtendedLayout = UIRectEdgeBottom | UIRectEdgeLeft | UIRectEdgeRight;
+//    self.extendedLayoutIncludesOpaqueBars = NO;
+//    self.edgesForExtendedLayout = UIRectEdgeBottom | UIRectEdgeLeft | UIRectEdgeRight;
     
     
     [self _initViews];
     [self _initData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    NSMutableDictionary *newUser = [[NSMutableDictionary alloc] initWithDictionary:@{
+                                                                                     @"userName" :           @"John",
+                                                                                     @"imageName"  :           @"user_image_default",
+                                                                                     @"isOwner"    :           @false
+                                                                                     }];
+    if ([self.delegate respondsToSelector:@selector(addNewOwner:)])
+    {
+        [self.delegate addNewOwner:newUser];
+    }
+    
 }
 
 - (void)_initViews
@@ -102,7 +118,7 @@ static CGFloat const tableview_top_inset =                      10.0f;
     [self.view addSubview:self.ownerHeaderImageBtn];
     [self.ownerHeaderImageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(self.ownerHeaderImageBtn.superview).offset(ownerHeaderImageBtn_top_inset);
+        make.top.equalTo(self.ownerHeaderImageBtn.superview).offset(ownerHeaderImageBtn_top_margin);
         make.centerX.equalTo(self.ownerHeaderImageBtn.superview);
         make.width.equalTo(@(ownerHeaderImageBtn_width));
         make.height.equalTo(self.ownerHeaderImageBtn.mas_width);
@@ -122,7 +138,7 @@ static CGFloat const tableview_top_inset =                      10.0f;
     [self.tipsLabel sizeToFit];
     [self.tipsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(self.ownerHeaderImageBtn.mas_bottom).offset(tipsLabel_top_inset);
+        make.top.equalTo(self.ownerHeaderImageBtn.mas_bottom).offset(tipsLabel_top_margin);
         make.left.equalTo(self.tipsLabel.superview);
         make.right.equalTo(self.tipsLabel.superview);
         make.height.equalTo(@(self.tipsLabel.bounds.size.height));
@@ -142,7 +158,7 @@ static CGFloat const tableview_top_inset =                      10.0f;
     [self.staticLabel sizeToFit];
     [self.staticLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(self.tipsLabel.mas_bottom).offset(staticLabel_top_inset);
+        make.top.equalTo(self.tipsLabel.mas_bottom).offset(staticLabel_top_margin);
         make.left.equalTo(self.staticLabel.superview);
         make.right.equalTo(self.staticLabel.superview);
         make.height.equalTo(@(self.staticLabel.bounds.size.height));
@@ -161,9 +177,9 @@ static CGFloat const tableview_top_inset =                      10.0f;
     self.ownerNameTextField.delegate = self;
     [self.ownerNameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(self.staticLabel.mas_bottom).offset(ownerNameTextField_top_inset);
-        make.left.equalTo(self.ownerNameTextField.superview).offset(ownerNameTextField_left_inset);
-        make.right.equalTo(self.ownerNameTextField.superview).offset(-ownerNameTextField_left_inset);
+        make.top.equalTo(self.staticLabel.mas_bottom).offset(ownerNameTextField_top_margin);
+        make.left.equalTo(self.ownerNameTextField.superview).offset(ownerNameTextField_left_margin);
+        make.right.equalTo(self.ownerNameTextField.superview).offset(-ownerNameTextField_left_margin);
         make.height.equalTo(@(ownerNameTextField_height));
         
     }];
@@ -177,7 +193,7 @@ static CGFloat const tableview_top_inset =                      10.0f;
     self.tableView.dataSource = self;
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(self.ownerNameTextField.mas_bottom).offset(tableview_top_inset);
+        make.top.equalTo(self.ownerNameTextField.mas_bottom).offset(tableview_top_margin);
         make.left.equalTo(self.tableView.superview);
         make.right.equalTo(self.tableView.superview);
         make.bottom.equalTo(self.tableView.superview);

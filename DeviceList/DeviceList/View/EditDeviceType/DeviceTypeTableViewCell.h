@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define DeviceTypeTableViewCell_Height (44)
+
 @interface DeviceTypeTableViewCell : UITableViewCell
 
 - (void)updateDeviceType:(NSString *)deviceType;

@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol AddNewOwnerViewControllerDelegate <NSObject>
+
+- (void)addNewOwner:(NSMutableDictionary *)newUser;
+
+@end
+
 @interface AddNewOwnerViewController : UIViewController
+
+@property(nonatomic, weak) id<AddNewOwnerViewControllerDelegate> delegate;
 
 @end

@@ -10,17 +10,27 @@
 #import "OwnerTableViewCell.h"
 #import "AddNewOwnerViewController.h"
 
+#import "UITableView+LoadAnimation.h"
+
 #define CELL_REUSE_INDENTIFIER          @"USER_ITEM_IDENTIFIER"
-#define CELL_HEIGHT                     (44)
+#define CELL_HEIGHT                     OwnerTableViewCell_Height
 
-static CGFloat const staticLabel_top_inset =            5.0f;
-static CGFloat const staticLabel_height =               20.0f;
+static CGFloat const tableview_top_margin =             5.0f;
+static CGFloat const tableview_separatorInset =         20.0f;
 
-@interface OwnerlistViewController ()
+static CGFloat const addNewOwnerBtn_top_margin =        10.0f;
+static CGFloat const addNewOwnerBtn_bottom_margin =     10.0f;
 
-@property (nonatomic, strong) UILabel *staticLabel;
+static CGFloat const addLabel_width =                   20.0f;
+static CGFloat const cross_line_length =                10.0f;
+static CGFloat const addLabel_left_margin =             userImage_left_margin;
+
+static CGFloat const staticAddTipsLabel_left_margin =   10.0f;
+
+@interface OwnerlistViewController ()<AddNewOwnerViewControllerDelegate>
+
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) UIButton *addNewUserBtn;
+@property (nonatomic, strong) UIButton *addNewOwnerBtn;
 
 @end
 
@@ -45,109 +55,219 @@ static CGFloat const staticLabel_height =               20.0f;
     
     NSMutableDictionary *user0 = [[NSMutableDictionary alloc] initWithDictionary:@{
                                                                                   @"userName" :           @"Stefan",
-                                                                                  @"imageName"  :           @"user_image",
+                                                                                  @"imageName"  :           @"user_image1",
                                                                                   @"isOwner"    :           @false
                                                                                   
                                                                                   }];
     NSMutableDictionary *user1 = [[NSMutableDictionary alloc] initWithDictionary:@{
                                                                                    @"userName" :           @"K K",
+                                                                                   @"imageName"  :           @"user_image2",
                                                                                    @"isOwner"    :           @false
                                                                                    }];
     NSMutableDictionary *user2 = [[NSMutableDictionary alloc] initWithDictionary:@{
                                                                                    @"userName" :           @"Kairy",
+                                                                                   @"imageName"  :           @"user_image3",
                                                                                    @"isOwner"    :           @true
                                                                                    }];
     NSMutableDictionary *user3 = [[NSMutableDictionary alloc] initWithDictionary:@{
                                                                                    @"userName" :           @"John",
+                                                                                   @"imageName"  :           @"user_image4",
                                                                                    @"isOwner"    :           @false
                                                                                    }];
     
     NSMutableDictionary *user4 = [[NSMutableDictionary alloc] initWithDictionary:@{
                                                                                    @"userName" :           @"庄秋雄",
+                                                                                   @"imageName"  :           @"user_image5",
                                                                                    @"isOwner"    :           @false
                                                                                    }];
     
-    self.ownerList = [[NSMutableArray alloc] initWithArray:@[userNone, user0, user1, user2, user3, user4]];
+    NSMutableDictionary *user5 = [[NSMutableDictionary alloc] initWithDictionary:@{
+                                                                                   @"userName" :           @"Stefan",
+                                                                                   @"imageName"  :           @"user_image6",
+                                                                                   @"isOwner"    :           @false
+                                                                                   
+                                                                                   }];
+    NSMutableDictionary *user6 = [[NSMutableDictionary alloc] initWithDictionary:@{
+                                                                                   @"userName" :           @"K K",
+                                                                                   @"imageName"  :           @"user_image7",
+                                                                                   @"isOwner"    :           @false
+                                                                                   }];
+    NSMutableDictionary *user7 = [[NSMutableDictionary alloc] initWithDictionary:@{
+                                                                                   @"userName" :           @"Kairy",
+                                                                                   @"imageName"  :           @"user_image8",
+                                                                                   @"isOwner"    :           @false
+                                                                                   }];
+//    NSMutableDictionary *user8 = [[NSMutableDictionary alloc] initWithDictionary:@{
+//                                                                                   @"userName" :           @"John",
+//                                                                                   @"isOwner"    :           @false
+//                                                                                   }];
+//    
+//    NSMutableDictionary *user9 = [[NSMutableDictionary alloc] initWithDictionary:@{
+//                                                                                   @"userName" :           @"庄秋雄",
+//                                                                                   @"isOwner"    :           @false
+//                                                                                   }];
+    
+    self.ownerList = [[NSMutableArray alloc] initWithArray:@[userNone, user0, user1, user2, user3, user4, user5, user6, user7]];
 
     
     [self _initViews];
+    
+    self.addNewOwnerBtn.hidden = true;
+    void (^doAddNewOwnerBtnAimation)(void) = ^{
+        
+        CGPoint originPoint = self.addNewOwnerBtn.center;
+        self.addNewOwnerBtn.center = CGPointMake(originPoint.x, originPoint.y + self.addNewOwnerBtn.frame.size.height);
+        [UIView animateWithDuration:0.1
+                              delay:0.0
+                            options:UIViewAnimationOptionCurveEaseIn
+                         animations:^{
+                             
+                             self.addNewOwnerBtn.center = CGPointMake(originPoint.x ,  originPoint.y);
+                             self.addNewOwnerBtn.hidden = false;
+                             
+                         }
+                         completion:^(BOOL finished) {
+                             
+                             
+                         }];
+        
+    };
+    
+    [self.tableView reloadDataWithAnimate:LiftUpFromBottum andAnimationTime:0.5 andInterval:0.1 andFinishAnimation:doAddNewOwnerBtnAimation];
     
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self updateSubviewFrame];
-    [self.tableView reloadData];
+    
 }
 
 - (void)_initViews
 {
     [self.view setBackgroundColor:[UIColor whiteColor]];
     
-    self.staticLabel = [[UILabel alloc] init];
-    [self.staticLabel setBackgroundColor:[UIColor whiteColor]];
-    [self.view addSubview:self.staticLabel];
-    [self.staticLabel setText:[NSString stringWithFormat:@"%@", @"归属人列表"]];
-    [self.staticLabel setFont:[UIFont systemFontOfSize:15.0]];
-    self.staticLabel.textColor = [UIColor blackColor];
-    self.staticLabel.numberOfLines = 1;
-    self.staticLabel.textAlignment = NSTextAlignmentCenter;
-    self.staticLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    [self.staticLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(self.staticLabel.superview).offset(staticLabel_top_inset);
-        make.left.equalTo(self.staticLabel.superview);
-        make.right.equalTo(self.staticLabel.superview);
-        make.height.equalTo(@(staticLabel_height));
-        
-    }];
-
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, tableview_separatorInset, 0, tableview_separatorInset);
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
+
     
-    self.addNewUserBtn = [[UIButton alloc] init];
-    [self.addNewUserBtn setBackgroundColor:[UIColor whiteColor]];
-    [self.view addSubview:self.addNewUserBtn];
-    NSMutableDictionary *attribDict = [[NSMutableDictionary alloc] init];
-    NSMutableParagraphStyle * paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-    paragraphStyle.alignment = NSTextAlignmentCenter;
-    [attribDict setValue:[UIFont systemFontOfSize:15.0] forKey:NSFontAttributeName];
-    [attribDict setValue:paragraphStyle forKey:NSParagraphStyleAttributeName];
-    [attribDict setValue:[UIColor colorWithRed:(25.0f / 255.0f) green:(192.0f / 255.0f) blue:(255.0f / 255.0f) alpha:1.0f] forKey:NSForegroundColorAttributeName];
-    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:@"＋添加新归属人" attributes:attribDict];
-    [self.addNewUserBtn setAttributedTitle:attributedString forState:UIControlStateNormal];
-    [attribDict setValue:[UIColor grayColor] forKey:NSForegroundColorAttributeName];
-    attributedString = [[NSAttributedString alloc] initWithString:@"＋添加新归属人" attributes:attribDict];
-    [self.addNewUserBtn setAttributedTitle:attributedString forState:UIControlStateHighlighted];
-    self.addNewUserBtn.titleLabel.numberOfLines = 1;
-    [self.addNewUserBtn sizeToFit];
-    [self.addNewUserBtn addTarget:self action:@selector(addNewUserBtnOnClick) forControlEvents:UIControlEventTouchUpInside];
+    self.addNewOwnerBtn = [[UIButton alloc] init];
+    [self.addNewOwnerBtn setBackgroundColor:[UIColor whiteColor]];
+    self.addNewOwnerBtn.layer.masksToBounds = YES;
+    [self.view addSubview:self.addNewOwnerBtn];
+    
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.view).offset(tableview_top_margin);
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        make.height.equalTo(@(self.ownerList.count * CELL_HEIGHT)).priorityMedium();
+        
+    }];
+    
+    [self.addNewOwnerBtn addTarget:self action:@selector(addNewOwnerBtnOnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.addNewOwnerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(self.tableView.mas_bottom).offset(addNewOwnerBtn_top_margin);
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        make.bottom.lessThanOrEqualTo(self.view).offset(-addNewOwnerBtn_bottom_margin).priorityHigh();
+    }];
+    
+    UILabel *addLabel = [[UILabel alloc] init];
+    [addLabel.layer setCornerRadius:addLabel_width / 2];
+    addLabel.layer.masksToBounds = YES;
+    addLabel.layer.borderWidth = 1;
+    addLabel.layer.borderColor = kDefault_Main_Color.CGColor;
+    CAShapeLayer *drawLayer = [CAShapeLayer layer];
+    [addLabel.layer addSublayer:drawLayer];
+    drawLayer.strokeColor = kDefault_Main_Color.CGColor;
+    drawLayer.lineWidth = 1;
+    UIBezierPath *path = [[UIBezierPath alloc] init];
+    CGFloat leftX = addLabel_width / 2 - cross_line_length / 2;
+    CGFloat leftY = addLabel_width / 2;
+    [path moveToPoint:CGPointMake(leftX, leftY)];
+    [path addLineToPoint:CGPointMake(leftX + cross_line_length, leftY)];
+    CGFloat topX = leftY;
+    CGFloat topY = leftX;
+    [path moveToPoint:CGPointMake(topX, topY)];
+    [path addLineToPoint:CGPointMake(topX, topY + cross_line_length)];
+    drawLayer.path = path.CGPath;
+    [self.addNewOwnerBtn addSubview:addLabel];
+    [addLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(self.addNewOwnerBtn).offset(addLabel_left_margin);
+        make.centerY.equalTo(self.addNewOwnerBtn);
+        make.width.equalTo(@(addLabel_width));
+        make.height.equalTo(@(addLabel_width));
+        
+    }];
+    
+    UILabel *staticAddTipsLabel = [[UILabel alloc] init];
+    [staticAddTipsLabel setTextAlignment:NSTextAlignmentLeft];
+    [staticAddTipsLabel setFont:[UIFont systemFontOfSize:15.0f]];
+    [staticAddTipsLabel setTextColor:kDefault_Main_Color];
+    [staticAddTipsLabel setText:@"Add new owner"];
+    staticAddTipsLabel.numberOfLines = 0;
+    staticAddTipsLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    [self.addNewOwnerBtn addSubview:staticAddTipsLabel];
+    [staticAddTipsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo(addLabel.mas_right).offset(staticAddTipsLabel_left_margin);
+        make.centerY.equalTo(self.addNewOwnerBtn);
+        make.right.equalTo(self.addNewOwnerBtn);
+        
+    }];
     
 }
 
-- (void)updateSubviewFrame
+- (void)updateViewConstraints
 {
-    unsigned long tableViewHeight = [self.ownerList count] * CELL_HEIGHT;
-    unsigned long maxHeight = self.view.bounds.size.height - staticLabel_height - self.addNewUserBtn.bounds.size.height - staticLabel_top_inset;
-    tableViewHeight = tableViewHeight < maxHeight ? tableViewHeight : maxHeight;
-    self.tableView.bounds = CGRectMake(0, 0, self.view.bounds.size.width, tableViewHeight);
-    self.tableView.center = CGPointMake(self.view.center.x, staticLabel_top_inset + staticLabel_height + tableViewHeight / 2);
+    [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.height.equalTo(@(self.ownerList.count * CELL_HEIGHT)).priorityMedium();
+        
+    }];
+    [super updateViewConstraints];
+}
+
+#pragma mark - AddNewOwnerViewControllerDelegate
+- (void)addNewOwner:(NSMutableDictionary *)newUser
+{
+    [self.ownerList addObject:newUser];
     
-    self.addNewUserBtn.bounds = CGRectMake(0, 0, self.view.bounds.size.width, self.addNewUserBtn.bounds.size.height);
-    self.addNewUserBtn.center = CGPointMake(self.view.center.x, staticLabel_top_inset + staticLabel_height + tableViewHeight + self.addNewUserBtn.bounds.size.height / 2);
-    if (tableViewHeight < maxHeight)
-    {
-        self.tableView.scrollEnabled = NO;
-    }
-    else
-    {
-        self.tableView.scrollEnabled = YES;
-    }
+    // update constraints now
+    [self updateViewConstraints];
+    
+    self.addNewOwnerBtn.hidden = true;
+    void (^doAddNewOwnerBtnAimation)(void) = ^{
+        
+        CGPoint originPoint = self.addNewOwnerBtn.center;
+        self.addNewOwnerBtn.center = CGPointMake(originPoint.x, originPoint.y + self.addNewOwnerBtn.frame.size.height);
+        [UIView animateWithDuration:0.1
+                              delay:0.0
+                            options:UIViewAnimationOptionCurveEaseIn
+                         animations:^{
+                             
+                             self.addNewOwnerBtn.center = CGPointMake(originPoint.x ,  originPoint.y);
+                             self.addNewOwnerBtn.hidden = false;
+                             
+                         }
+                         completion:^(BOOL finished) {
+                             
+                             
+                         }];
+        
+    };
+    
+    NSIndexPath *newPath = [NSIndexPath indexPathForRow:self.ownerList.count - 1 inSection:0];
+    [self.tableView insertRowsAtIndexPath:newPath andAnimationTime:0.5 andFinishAnimation:doAddNewOwnerBtnAimation];
+//    [self.tableView reloadDataWithAnimate:LiftUpFromBottum andAnimationTime:0.2 andInterval:0.1 andFinishAnimation:doAddNewOwnerBtnAimation];
 }
 
 #pragma mark - TableView delegate
@@ -185,6 +305,7 @@ static CGFloat const staticLabel_height =               20.0f;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryNone;
     
+    
     return cell;
 }
 
@@ -204,9 +325,10 @@ static CGFloat const staticLabel_height =               20.0f;
 }
 
 #pragma mark - 点击按钮事件
-- (void)addNewUserBtnOnClick
+- (void)addNewOwnerBtnOnClick
 {
     AddNewOwnerViewController *addNewOwnerVC = [[AddNewOwnerViewController alloc] init];
+    addNewOwnerVC.delegate = self;
     [self.navigationController pushViewController:addNewOwnerVC animated:YES];
 }
 

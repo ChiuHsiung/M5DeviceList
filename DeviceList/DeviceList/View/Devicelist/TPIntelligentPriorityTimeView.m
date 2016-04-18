@@ -8,7 +8,7 @@
 
 #import "TPIntelligentPriorityTimeView.h"
 
-static CGFloat const tagLogoImageView_right_inset =             5.0f;
+static CGFloat const tagLogoImageView_right_margin =             5.0f;
 
 @interface TPIntelligentPriorityTimeView()
 
@@ -52,7 +52,7 @@ static CGFloat const tagLogoImageView_right_inset =             5.0f;
     [self.tagLogoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(self);
-        make.right.equalTo(self.timeLabel.mas_left).offset(-tagLogoImageView_right_inset);
+        make.right.equalTo(self.timeLabel.mas_left).offset(-tagLogoImageView_right_margin);
         make.bottom.equalTo(self);
         make.width.equalTo(self.tagLogoImageView.mas_height).multipliedBy(widthHeightScale);
         

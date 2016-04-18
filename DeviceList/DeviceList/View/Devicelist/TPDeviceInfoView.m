@@ -8,7 +8,7 @@
 
 #import "TPDeviceInfoView.h"
 
-static CGFloat const device_type_imgae_inset = 4.0f;
+static CGFloat const device_type_imgae_margin = 4.0f;
 
 @interface TPDeviceInfoView()
 
@@ -66,7 +66,7 @@ static CGFloat const device_type_imgae_inset = 4.0f;
         
         [self.deviceTypeImgView sizeToFit];
         CGFloat widthHeightScale = self.deviceTypeImgView.bounds.size.width / self.deviceTypeImgView.bounds.size.height;
-        CGFloat height = [self qiuGenWithA:1 andB:widthHeightScale andC:-(0.5 * (self.bounds.size.height - device_type_imgae_inset) * (self.bounds.size.height - device_type_imgae_inset) - 0.5 * widthHeightScale * widthHeightScale)];
+        CGFloat height = [self qiuGenWithA:1 andB:widthHeightScale andC:-(0.5 * (self.bounds.size.height - device_type_imgae_margin) * (self.bounds.size.height - device_type_imgae_margin) - 0.5 * widthHeightScale * widthHeightScale)];
         self.deviceTypeImgView.bounds = CGRectMake(0, 0, height * widthHeightScale, height);
         self.deviceTypeImgView.center = CGPointMake(self.circle.center.x, self.circle.center.y);
     }
@@ -95,7 +95,7 @@ static CGFloat const device_type_imgae_inset = 4.0f;
     self.deviceTypeImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.deviceType]];
     [self.deviceTypeImgView sizeToFit];
     CGFloat widthHeightScale = self.deviceTypeImgView.bounds.size.width / self.deviceTypeImgView.bounds.size.height;
-    CGFloat height = [self qiuGenWithA:1 andB:widthHeightScale andC:-(0.5 * (self.bounds.size.height - device_type_imgae_inset) * (self.bounds.size.height - device_type_imgae_inset) - 0.5 * widthHeightScale * widthHeightScale)];
+    CGFloat height = [self qiuGenWithA:1 andB:widthHeightScale andC:-(0.5 * (self.bounds.size.height - device_type_imgae_margin) * (self.bounds.size.height - device_type_imgae_margin) - 0.5 * widthHeightScale * widthHeightScale)];
     self.deviceTypeImgView.bounds = CGRectMake(0, 0, height * widthHeightScale, height);
     self.deviceTypeImgView.center = CGPointMake(self.circle.center.x, self.circle.center.y);
     [self addSubview:self.deviceTypeImgView];

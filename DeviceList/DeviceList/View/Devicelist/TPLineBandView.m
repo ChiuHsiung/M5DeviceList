@@ -16,19 +16,19 @@
 #import <QuartzCore/QuartzCore.h>
 
 static CFTimeInterval const defaultDuration =                       0.2;
-static CGFloat const blockView_left_inset =                         40.0f;
+static CGFloat const blockView_left_margin =                         40.0f;
 static CGFloat const blockView_height =                             18.0f;
 
 static CGFloat const line_height =                                  30.0f;
 
 static CGFloat const intelligentPrioritylabel_height =              15.0f;
-static CGFloat const intelligentPrioritylabel_right_inset =         5.0f;
+static CGFloat const intelligentPrioritylabel_right_margin =         5.0f;
 
-static CGFloat const deviceNameLabel_top_inset =                    5.0f;
-static CGFloat const deviceNameLabel_left_inset =                   10.0f;
+static CGFloat const deviceNameLabel_top_margin =                    5.0f;
+static CGFloat const deviceNameLabel_left_margin =                   10.0f;
 
-static CGFloat const networkSpeedView_left_inset = deviceNameLabel_left_inset;
-static CGFloat const networkSpeedView_top_inset =                   5.0f;
+static CGFloat const networkSpeedView_left_margin = deviceNameLabel_left_margin;
+static CGFloat const networkSpeedView_top_margin =                   5.0f;
 static CGFloat const networkSpeedView_height =                      10.0f;
 
 //加速度
@@ -143,12 +143,12 @@ static float acceleration(float time,float space) {
         
     }
     
-    CGFloat maxWidth = self.bounds.size.width - self.circleCenterX - self.deviceInfoView.bounds.size.width / 2 - deviceNameLabel_left_inset;
+    CGFloat maxWidth = self.bounds.size.width - self.circleCenterX - self.deviceInfoView.bounds.size.width / 2 - deviceNameLabel_left_margin;
     
     [self.deviceNameLabel setText:[NSString stringWithFormat:@"%@", self.deviceName]];
     [self.deviceNameLabel sizeToFit];
     self.deviceNameLabel.frame = CGRectMake(self.bounds.size.width - maxWidth,
-                                            self.deviceInfoView.frame.origin.y + deviceNameLabel_top_inset,
+                                            self.deviceInfoView.frame.origin.y + deviceNameLabel_top_margin,
                                             (self.deviceNameLabel.bounds.size.width < maxWidth ? self.deviceNameLabel.bounds.size.width : maxWidth),
                                             self.deviceNameLabel.bounds.size.height);
     [self addSubview:self.deviceNameLabel];
@@ -161,7 +161,7 @@ static float acceleration(float time,float space) {
     {
         self.intelligentPriorityTimeView = [[TPIntelligentPriorityTimeView alloc] init];
         [self addSubview:self.intelligentPriorityTimeView];
-        CGFloat maxWidth = self.circleCenterX - self.deviceInfoView.bounds.size.width / 2 - intelligentPrioritylabel_right_inset;
+        CGFloat maxWidth = self.circleCenterX - self.deviceInfoView.bounds.size.width / 2 - intelligentPrioritylabel_right_margin;
         
         self.intelligentPriorityTimeView.frame = CGRectMake((self.intelligentPriorityTimeView.bounds.size.width < maxWidth ? maxWidth - self.intelligentPriorityTimeView.bounds.size.width : 0),
                                                             self.deviceInfoView.center.y - intelligentPrioritylabel_height / 2,
@@ -183,16 +183,16 @@ static float acceleration(float time,float space) {
         self.networkSpeedView = [[TPNetworkSpeed alloc] init];
         [self addSubview:self.networkSpeedView];
     }
-    CGFloat maxWidth = self.bounds.size.width - self.circleCenterX - self.deviceInfoView.bounds.size.width / 2 - networkSpeedView_left_inset;
+    CGFloat maxWidth = self.bounds.size.width - self.circleCenterX - self.deviceInfoView.bounds.size.width / 2 - networkSpeedView_left_margin;
     self.networkSpeedView.frame = CGRectMake(self.bounds.size.width - maxWidth,
-                                             self.deviceNameLabel.frame.origin.y + self.deviceNameLabel.bounds.size.height + networkSpeedView_top_inset,
+                                             self.deviceNameLabel.frame.origin.y + self.deviceNameLabel.bounds.size.height + networkSpeedView_top_margin,
                                              maxWidth,
                                              networkSpeedView_height);
 }
 
 - (void)_initBlockView
 {
-    CGFloat blockViewWidth = self.bounds.size.width - self.circleCenterX - self.deviceInfoView.bounds.size.width / 2 - blockView_left_inset;
+    CGFloat blockViewWidth = self.bounds.size.width - self.circleCenterX - self.deviceInfoView.bounds.size.width / 2 - blockView_left_margin;
     CGFloat blockViewHeight = blockView_height;
     self.blockView = [[TPBlockView alloc] initWithFrame:CGRectMake(self.bounds.size.width - blockViewWidth,
                                                                    self.deviceInfoView.center.y - blockViewHeight / 2,

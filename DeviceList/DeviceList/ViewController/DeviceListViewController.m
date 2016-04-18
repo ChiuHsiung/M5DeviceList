@@ -10,20 +10,20 @@
 
 #import "TPDeviceInfoView.h"
 
-static CGFloat const circle_width =                         120.0f;
-static CGFloat const circle_top_inset =                     64.0f + 20.0f;
-static CGFloat const circle_centerX_scale =                 0.8;
+static CGFloat const circle_width =                                 120.0f;
+static CGFloat const circle_top_margin =                            64.0f + 20.0f;
+static CGFloat const circle_centerX_scale =                         0.8;
 
-static CGFloat const numOfDevicesLabel_height =             40.0f;
-static CGFloat const numOfDevicesLabel_right_inset =        5.0f;
+static CGFloat const numOfDevicesLabel_height =                     40.0f;
+static CGFloat const numOfDevicesLabel_right_margin =               5.0f;
 
-static CGFloat const deciveLogoImgView_left_inset =         5.0f;
+static CGFloat const deciveLogoImgView_left_margin =                5.0f;
 
-static CGFloat const deviceLabel_top_inset =                5.0f;
+static CGFloat const deviceLabel_top_margin =                       5.0f;
 
-static CGFloat const bandView_height =                      90.0f;
+static CGFloat const bandView_height =                              90.0f;
 
-static CFTimeInterval const defaultDuration =               0.2;
+static CFTimeInterval const defaultDuration =                       0.2;
 
 @interface DeviceListViewController () <UIScrollViewDelegate>
 
@@ -68,7 +68,7 @@ static CFTimeInterval const defaultDuration =               0.2;
     
 #pragma mark - 测试模拟数据
     NSDictionary *device0 = @{
-                              @"deviceType" :                       @"phone",
+                              @"deviceType" :                       @"iPhone",
                               @"deviceName" :                       @"KK's iPhone",
                               @"intelligentPriorityTime":           @"02:30",
                               @"downloadSpeed":                     @252,
@@ -84,7 +84,7 @@ static CFTimeInterval const defaultDuration =               0.2;
                               
                               };
     NSDictionary *device2 = @{
-                              @"deviceType" :                       @"pad",
+                              @"deviceType" :                       @"iPad",
                               @"deviceName" :                       @"Rick's ipad",
                               @"intelligentPriorityTime":           @"",
                               @"downloadSpeed":                     @214,
@@ -137,7 +137,7 @@ static CFTimeInterval const defaultDuration =               0.2;
     [self.view addSubview:self.circle];
     [self.circle mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.top.equalTo(self.view).offset(circle_top_inset);
+        make.top.equalTo(self.view).offset(circle_top_margin);
         make.centerX.equalTo(self.view).multipliedBy(circle_centerX_scale);
         make.width.equalTo(@(circle_width));
         make.height.equalTo(@(circle_width));
@@ -147,7 +147,7 @@ static CFTimeInterval const defaultDuration =               0.2;
     [self.circle addSubview:self.deciveLogoImgView];
     [self.circle addSubview:self.deviceLabel];
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, circle_top_inset + circle_width, self.view.bounds.size.width, self.view.bounds.size.height - circle_top_inset - circle_width)];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, circle_top_margin + circle_width, self.view.bounds.size.width, self.view.bounds.size.height - circle_top_margin - circle_width)];
     self.scrollView.userInteractionEnabled = YES;//关闭scrollView的用户交互性,否则按钮点击事件不会生效
     self.scrollView.delegate = self;
     [self.view addSubview:self.scrollView];
@@ -231,7 +231,7 @@ static CFTimeInterval const defaultDuration =               0.2;
     _numOfDevicesLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[self.deviceList count]];
     
     CGSize labelSize = [_numOfDevicesLabel sizeThatFits:CGSizeZero];
-    _numOfDevicesLabel.frame = CGRectMake(maxWidth - labelSize.width - numOfDevicesLabel_right_inset,
+    _numOfDevicesLabel.frame = CGRectMake(maxWidth - labelSize.width - numOfDevicesLabel_right_margin,
                                           maxWidth - numOfDevicesLabel_height,
                                           labelSize.width,
                                           numOfDevicesLabel_height);
@@ -269,7 +269,7 @@ static CFTimeInterval const defaultDuration =               0.2;
         CGFloat imgViewHeight = self.numOfDevicesLabelHeight;
         CGFloat imgViewWidth = imgViewHeight * widthHeightScale;
         
-        _deciveLogoImgView.frame = CGRectMake(circle_width * 0.5 + deciveLogoImgView_left_inset,
+        _deciveLogoImgView.frame = CGRectMake(circle_width * 0.5 + deciveLogoImgView_left_margin,
                                               circle_width * 0.5 - imgViewHeight,
                                               imgViewWidth,
                                               imgViewHeight);
@@ -298,7 +298,7 @@ static CFTimeInterval const defaultDuration =               0.2;
         
         [_deviceLabel sizeToFit];
         
-        _deviceLabel.center = CGPointMake(maxWidth, maxWidth + _deviceLabel.bounds.size.height / 2.0 + deviceLabel_top_inset);
+        _deviceLabel.center = CGPointMake(maxWidth, maxWidth + _deviceLabel.bounds.size.height / 2.0 + deviceLabel_top_margin);
         
         
     }

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface OwnerlistViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSMutableArray *ownerList;
